@@ -26,7 +26,7 @@
 			</a>
 		{:else}
 			<button type="reset" class="btn btn-xs btn-secondary">{t.reset}</button>
-			<!-- NOTE Even if the button is hidden, the form can be submitted using keyboard. -->
+			<!-- Even if the button is hidden, the form can be submitted using the enter key. -->
 			<!-- Therefore, JavaScript is used to remove the button when no rows are checked. -->
 			<button
 				formaction="?/deactivate"

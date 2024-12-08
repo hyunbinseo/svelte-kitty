@@ -3,7 +3,7 @@ import { JWT_SECRET, SESSION_COOKIE_NAME } from '$env/static/private';
 import { base64ToUint8Array } from '$lib/utilities.ts';
 import { toReadonly } from '@hyunbinseo/tools';
 import { error, type RequestEvent } from '@sveltejs/kit';
-import { and, eq, gt, isNull, lt, ne, sql } from 'drizzle-orm';
+import { and, eq, gt, isNull, ne, sql } from 'drizzle-orm';
 import { union } from 'drizzle-orm/sqlite-core';
 import { jwtVerify, SignJWT, type JWTPayload } from 'jose';
 import { db } from './database/client.ts';
@@ -17,9 +17,9 @@ import {
 } from './database/schema.ts';
 import { pickTableColumns } from './database/utilities.ts';
 
-const jwtSecret = base64ToUint8Array(JWT_SECRET);
+export const jwtSecret = base64ToUint8Array(JWT_SECRET);
 
-type Payload = {
+export type Payload = {
 	profile?: null;
 	roles: Array<Role>;
 } & Required<Pick<JWTPayload, 'iat' | 'exp' | 'jti' | 'sub'>>;
@@ -74,7 +74,7 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 	e.locals.session = payloadToSession(payload);
 };
 
-const payloadToSession = (payload: Payload): NonNullable<App.Locals['session']> => {
+export const payloadToSession = (payload: Payload): NonNullable<App.Locals['session']> => {
 	const roles = toReadonly(new Set(payload.roles));
 	return {
 		id: payload.jti,
@@ -84,32 +84,6 @@ const payloadToSession = (payload: Payload): NonNullable<App.Locals['session']> 
 		isAdmin: roles.has('admin') || roles.has('superuser'),
 		profile: payload.profile !== null
 	};
-};
-
-export const validateSession = async (e: RequestEvent) => {
-	const jwt = e.cookies.get(SESSION_COOKIE_NAME);
-	if (!jwt) return;
-
-	try {
-		// Errors can be thrown. (e.g. JWTClaimValidationFailed, JWTExpired, JWTInvalid)
-		// Reference https://github.com/panva/jose/blob/main/docs/modules/util_errors.md
-		const { payload } = await jwtVerify<Payload>(jwt, jwtSecret);
-
-		const sessionBan = await db.query.sessionBanTable.findFirst({
-			columns: { sessionId: true },
-			where: and(
-				eq(sessionBanTable.sessionId, payload.jti),
-				lt(sessionBanTable.bannedAt, new Date())
-			)
-		});
-
-		if (sessionBan) throw new Error();
-
-		e.locals.session = payloadToSession(payload);
-	} catch {
-		e.cookies.delete(SESSION_COOKIE_NAME, { path: '/' });
-		e.locals.session = undefined;
-	}
 };
 
 type Session = NonNullable<App.Locals['session']>;
