@@ -1,8 +1,8 @@
 import forms from '@tailwindcss/forms';
+import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
-/** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
@@ -104,4 +104,4 @@ export default {
 		})
 	],
 	future: { hoverOnlyWhenSupported: true }
-};
+} satisfies Config;

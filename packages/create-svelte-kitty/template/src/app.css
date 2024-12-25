@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 /* Component class names should be added to the `tailwind.config.js` file. */
 /* - CSS file enables `@apply` syntax and class name sorting using Prettier. */

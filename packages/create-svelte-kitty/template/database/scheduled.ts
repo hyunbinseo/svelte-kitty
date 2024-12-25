@@ -5,10 +5,10 @@ import { exit } from 'node:process';
 import { object, parse, string } from 'valibot';
 import * as schema from '../src/lib/server/database/schema.ts';
 
-const env = parse(object({ SQLITE_PATH: string() }), process.env);
+const env = parse(object({ DATABASE_URL: string() }), process.env);
 
 const db = drizzle({
-	connection: { source: env.SQLITE_PATH, fileMustExist: true },
+	connection: { source: env.DATABASE_URL, fileMustExist: true },
 	casing: 'snake_case',
 	schema
 });

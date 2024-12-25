@@ -1,15 +1,15 @@
 import { dev } from '$app/environment';
-import { SQLITE_PATH } from '$env/static/private';
+import { DATABASE_URL } from '$env/static/private';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import * as schema from './schema.ts';
 
-// The `SQLITE_PATH` variable differs in `dev`, `build`, and `preview`,
+// The `DATABASE_URL` variable differs in `dev`, `build`, and `preview`,
 // because Vite imports different `.env` files according to the mode.
 // Reference https://vitejs.dev/guide/env-and-mode#env-files
 // Reference https://vitejs.dev/guide/env-and-mode#modes
 
 export const db = drizzle({
-	connection: { source: SQLITE_PATH, fileMustExist: true },
+	connection: { source: DATABASE_URL, fileMustExist: true },
 	casing: 'snake_case',
 	schema
 });
