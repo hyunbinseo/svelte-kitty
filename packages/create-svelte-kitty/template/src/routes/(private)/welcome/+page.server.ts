@@ -1,7 +1,7 @@
 import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
 import { authenticate, banCurrentSessions } from '$lib/server/authenticate.ts';
-import { db } from '$lib/server/database/client.ts';
-import { profileTable } from '$lib/server/database/schema.ts';
+import { db } from '$lib/server/db/index.ts';
+import { profileTable } from '$lib/server/db/schema.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { formDataToObject } from '@hyunbinseo/tools';
 import { error, redirect } from '@sveltejs/kit';

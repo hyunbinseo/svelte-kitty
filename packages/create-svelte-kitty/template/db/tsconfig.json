@@ -4,7 +4,7 @@
 	"include": [
 		"./**/*.js",
 		"./**/*.ts",
-		"../src/lib/server/database/**/*.js",
-		"../src/lib/server/database/**/*.ts"
+		"../src/lib/server/db/**/*.js",
+		"../src/lib/server/db/**/*.ts"
 	]
 }

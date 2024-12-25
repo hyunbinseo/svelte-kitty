@@ -1,5 +1,5 @@
-import { db } from '$lib/server/database/client.ts';
-import { sessionBanTable, sessionTable } from '$lib/server/database/schema.ts';
+import { db } from '$lib/server/db/index.ts';
+import { sessionBanTable, sessionTable } from '$lib/server/db/schema.ts';
 import { type RequestEvent } from '@sveltejs/kit';
 import { and, gt, inArray, sql } from 'drizzle-orm';
 

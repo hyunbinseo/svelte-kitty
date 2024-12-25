@@ -1,6 +1,6 @@
-import { db } from '$lib/server/database/client.ts';
-import { profileTable, userTable } from '$lib/server/database/schema.ts';
-import { pickTableColumns } from '$lib/server/database/utilities.ts';
+import { db } from '$lib/server/db/index.ts';
+import { profileTable, userTable } from '$lib/server/db/schema.ts';
+import { pickTableColumns } from '$lib/server/db/utilities.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { error } from '@sveltejs/kit';
 import { and, asc, desc, eq, inArray, isNotNull, isNull, ne, sql } from 'drizzle-orm';

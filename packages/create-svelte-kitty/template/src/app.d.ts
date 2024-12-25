@@ -1,4 +1,4 @@
-import type { Role } from '$lib/server/database/schema.ts';
+import type { Role } from '$lib/server/db/schema.ts';
 
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces

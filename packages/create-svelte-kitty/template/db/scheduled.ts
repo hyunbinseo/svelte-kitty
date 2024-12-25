@@ -3,7 +3,7 @@ import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { mkdirSync } from 'node:fs';
 import { exit } from 'node:process';
 import { object, parse, string } from 'valibot';
-import * as schema from '../src/lib/server/database/schema.ts';
+import * as schema from '../src/lib/server/db/schema.ts';
 
 const env = parse(object({ DATABASE_URL: string() }), process.env);
 

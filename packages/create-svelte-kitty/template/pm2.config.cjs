@@ -5,7 +5,7 @@ module.exports = {
 	apps: [
 		{
 			name: 'db:scheduled',
-			script: './database/scheduled.ts',
+			script: './db/scheduled.ts',
 			interpreter: 'node',
 			interpreter_args: [
 				'--no-warnings=ExperimentalWarning',

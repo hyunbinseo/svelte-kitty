@@ -1,12 +1,6 @@
-import { db } from '$lib/server/database/client.ts';
-import {
-	profileTable,
-	Roles,
-	roleTable,
-	userTable,
-	type Role
-} from '$lib/server/database/schema.ts';
-import { pickTableColumns } from '$lib/server/database/utilities.ts';
+import { db } from '$lib/server/db/index.ts';
+import { profileTable, Roles, roleTable, userTable, type Role } from '$lib/server/db/schema.ts';
+import { pickTableColumns } from '$lib/server/db/utilities.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { error } from '@sveltejs/kit';
 import { and, eq, isNull, ne, notExists, sql } from 'drizzle-orm';

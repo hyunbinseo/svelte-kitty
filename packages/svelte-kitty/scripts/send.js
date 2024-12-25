@@ -58,13 +58,13 @@ export const send = async ({ buildId, isDryRun }) => {
 - /build/${buildId}/client/*
 + /build/${buildId}/***
 + /build/start.js
-+ /database/
-+ /database/scheduled.ts
++ /db/
++ /db/scheduled.ts
 + /drizzle/***
 + /src/
 + /src/lib/
 + /src/lib/server/
-+ /src/lib/server/database/***
++ /src/lib/server/db/***
 + /static/***
 + /.env.production
 + /.node-version

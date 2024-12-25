@@ -7,16 +7,10 @@ import { and, eq, gt, isNull, lt, ne, sql } from 'drizzle-orm';
 import { union } from 'drizzle-orm/sqlite-core';
 import { decodeJwt, jwtVerify, SignJWT, type JWTPayload } from 'jose';
 import type { JOSEError } from 'jose/errors';
-import { db } from './database/client.ts';
-import { sessionBanDelay, sessionBanDelayInSeconds } from './database/config.ts';
-import {
-	roleTable,
-	sessionBanTable,
-	sessionTable,
-	userTable,
-	type Role
-} from './database/schema.ts';
-import { pickTableColumns } from './database/utilities.ts';
+import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config.ts';
+import { db } from './db/index.ts';
+import { roleTable, sessionBanTable, sessionTable, userTable, type Role } from './db/schema.ts';
+import { pickTableColumns } from './db/utilities.ts';
 
 const jwtSecret = base64ToUint8Array(JWT_SECRET_CURRENT);
 const jwtSecretExpired = base64ToUint8Array(JWT_SECRET_EXPIRED);

@@ -1,5 +1,5 @@
 import { PUBLIC_ONBOARD_PATH } from '$env/static/public';
-import { sessionRenewalThreshold } from '$lib/server/database/config.ts';
+import { sessionRenewalThreshold } from '$lib/server/db/config.ts';
 import { redirect } from '@sveltejs/kit';
 
 export const load = ({ depends, locals, url }) => {

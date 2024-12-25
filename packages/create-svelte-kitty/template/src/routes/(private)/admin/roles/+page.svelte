@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidate } from '$app/navigation';
-	import type { Role } from '$lib/server/database/schema.ts';
+	import type { Role } from '$lib/server/db/schema.ts';
 	import formStyles from '$lib/styles/form.module.css';
 	import { createFormHelper } from 'svelte-form-enhanced';
 	import { Modal } from 'svelte-html-modal';
