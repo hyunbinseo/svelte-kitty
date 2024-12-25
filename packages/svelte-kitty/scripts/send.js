@@ -53,13 +53,18 @@ export const send = async ({ buildId, isDryRun }) => {
 	writeFileSync(
 		'build/rsync.txt',
 		`
+- *.db
+- *.db-shm
+- *.db-wal
+- *.sqlite
+- *.sqlite-shm
+- *.sqlite-wal
 + /build/
 + /build/${buildId}/client/_app/***
 - /build/${buildId}/client/*
 + /build/${buildId}/***
 + /build/start.js
-+ /db/
-+ /db/scheduled.ts
++ /db/***
 + /drizzle/***
 + /src/
 + /src/lib/
