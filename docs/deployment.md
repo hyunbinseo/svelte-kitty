@@ -66,7 +66,7 @@ curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
 source ~/.bashrc
 
 fnm install --lts # Installing Node v22.x.y
-fnm default 22 # use the version logged above.
+fnm use 22 # use the version logged above.
 
 corepack install --global pnpm
 

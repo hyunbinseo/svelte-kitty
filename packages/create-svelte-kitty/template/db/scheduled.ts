@@ -13,8 +13,14 @@ const db = drizzle({
 	schema
 });
 
+// Consider uploading backups to services such as:
+// - Amazon S3 Glacier
+// - Azure Archive Storage
+// - Cloudflare R2 (Infrequent Access)
+// - Google Cloud Storage (Archive)
+
 const path = import.meta.dirname + '/backups';
 mkdirSync(path, { recursive: true });
-await db.$client.backup(path + `/${dateToSafeISOString()}.sqlite`);
+await db.$client.backup(path + `/${dateToSafeISOString()}.db`);
 
 exit();
