@@ -27,7 +27,7 @@ if (
 	typeof process !== 'undefined' && //
 	typeof process.on === 'function'
 ) {
-	// Reference https://svelte.dev/docs/kit/adapter-node#Graceful-shutdown
+	// Reference https://svelte.dev/docs/kit/adapter-node#graceful-shutdown
 	process.on('sveltekit:shutdown', async () => {
 		await db.$client.close();
 	});

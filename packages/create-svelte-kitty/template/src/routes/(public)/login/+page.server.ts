@@ -16,7 +16,7 @@ import type { PageServerLoad } from './$types.ts';
 import { t } from './i18n.ts';
 
 // Cannot prerender pages with actions. Magic link will result in a 500 server error.
-// Reference https://kit.svelte.dev/docs/page-options#prerender-when-not-to-prerender
+// Reference https://svelte.dev/docs/kit/page-options#prerender-when-not-to-prerender
 export const prerender = false;
 
 export const load = (async ({ locals, url }) => {
