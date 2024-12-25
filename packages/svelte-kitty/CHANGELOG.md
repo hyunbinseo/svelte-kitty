@@ -1,5 +1,12 @@
 # svelte-kitty
 
+## 0.0.5
+
+### Patch Changes
+
+- c2c0b7b: chore: sync db excluding sqlite files
+- bcfb6d9: chore: match sv default template
+
 ## 0.0.4
 
 ### Patch Changes
