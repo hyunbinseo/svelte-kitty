@@ -138,6 +138,8 @@ runcmd:
   - chown -R webadmin:webadmin /home/webadmin
   - chmod 700 /home/webadmin
 
+  - setfacl -m u:nginx:r-x /home/webadmin
+  - setfacl -m u:nginx:r-x /home/webadmin/server
   - setfacl -R -m u:nginx:r-x /home/webadmin/server/static
   - setfacl -d -m u:nginx:r-x /home/webadmin/server/static
 
