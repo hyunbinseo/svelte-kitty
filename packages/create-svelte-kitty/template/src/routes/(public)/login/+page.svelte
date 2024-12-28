@@ -18,7 +18,7 @@
 	{#if !data.magicLinkLogin || form?.error}
 		{#if !form?.loginId}
 			<h1 class="text-2xl font-bold">
-				{form?.error && form.error !== 'MAGIC_LINK_SEND_FAILED'
+				{form?.error && form.error !== 'SEND_FAILED'
 					? t.error[form.error]
 					: data.magicLinkLogin === null
 						? t['magic-link-is-invalid']
@@ -31,7 +31,7 @@
 				<!-- e.g. input type, placeholder, email validation -->
 				<input name="contact" type="email" placeholder="username@example.com" required />
 			</label>
-			{#if form?.error === 'MAGIC_LINK_SEND_FAILED' && f.state !== 'submitting'}
+			{#if form?.error === 'SEND_FAILED' && f.state !== 'submitting'}
 				<p transition:slide class="mt-2 text-red-800 text-smallish">{t.error[form.error]}</p>
 			{/if}
 			<button
@@ -46,10 +46,10 @@
 			<p class="mt-1">{t['this-page-can-be-safely-closed']}</p>
 			<label class="btn btn-xs btn-secondary mt-6 w-fit">
 				<input type="checkbox" name="use-otp" required />
-				<span>{t['login-using-otp']}</span>
+				<span>{t['use-verification-code']}</span>
 			</label>
 			<label class="mt-6">
-				<span>{t.otp}</span>
+				<span>{t.code}</span>
 				<input
 					name="otp"
 					type="text"

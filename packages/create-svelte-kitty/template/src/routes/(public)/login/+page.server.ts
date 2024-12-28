@@ -82,8 +82,7 @@ export const actions = {
 			}
 		});
 
-		if (existingUser?.logins.length && !dev)
-			return fail(400, { error: 'ACTIVE_MAGIC_LINK_EXISTS' as const });
+		if (existingUser?.logins.length && !dev) return fail(400, { error: 'LOGIN_PENDING' as const });
 
 		const user =
 			existingUser ||
@@ -138,7 +137,7 @@ export const actions = {
 					.set({ expiredAt: new Date() })
 					.where(eq(loginTable.id, login.id));
 
-				return fail(400, { error: 'MAGIC_LINK_SEND_FAILED' as const });
+				return fail(400, { error: 'SEND_FAILED' as const });
 			}
 		}
 
@@ -205,7 +204,7 @@ export const actions = {
 		).at(0);
 
 		if (!otpLogin) error(400);
-		if (otpLogin.otp !== form.otp) return fail(400, { error: 'INCORRECT_OTP' as const });
+		if (otpLogin.otp !== form.otp) return fail(400, { error: 'OTP_INVALID' as const });
 		if (otpLogin.expiresAt < new Date()) return fail(400, { error: 'LOGIN_EXPIRED' as const });
 
 		await authenticate(e, otpLogin.userId, otpLogin.id);
