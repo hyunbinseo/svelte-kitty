@@ -1,7 +1,7 @@
 {
 	"name": "create-svelte-kitty",
 	"description": "A DX-first, type-safe SvelteKit starter template built for self-hosting. Includes authentication and user management.",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"scripts": {
 		"prepack": "node prepack"
 	},
