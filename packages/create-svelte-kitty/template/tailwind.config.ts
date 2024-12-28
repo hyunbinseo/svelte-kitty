@@ -3,6 +3,11 @@ import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
+// Migrate to Tailwind CSS v4.
+// Blocked by https://github.com/sveltejs/svelte/issues/14847
+// Reference https://github.com/tailwindlabs/tailwindcss/discussions/15205
+// Reference https://tailwindcss.com/docs/v4-beta#using-apply-in-vue-svelte
+
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
@@ -33,11 +38,9 @@ export default {
 	},
 	plugins: [
 		forms,
-		// TODO In Tailwind CSS v4, check if custom components defined in a CSS file
-		// can be used in Svelte components' style tags using the `@apply` directive.
 		plugin(({ addComponents, addUtilities, addVariant, theme }) => {
-			// tailwindcss-forms@0.5.9
 			addComponents({
+				// tailwindcss-forms@0.5.9
 				'.tw-checkbox': {
 					'display': 'inline-block',
 					'width': theme('width.4'),
@@ -49,6 +52,7 @@ export default {
 					'vertical-align': 'middle',
 					'color': theme('colors.blue.600')
 				},
+				// tailwindcss-forms@0.5.9
 				'.tw-checkbox-checked': {
 					'border-color': 'transparent',
 					'background-color': 'currentColor',
@@ -92,7 +96,6 @@ export default {
 				}
 			});
 			addUtilities({
-				// Reference https://tailwindcss.com/docs/font-size
 				'.text-smallish': {
 					'font-size': '0.9375rem', // 15px
 					'line-height': '1.375rem' // 22px
