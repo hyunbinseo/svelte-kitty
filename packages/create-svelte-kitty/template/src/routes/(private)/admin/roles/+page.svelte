@@ -171,12 +171,13 @@
 	button[role='switch'] {
 		@apply m-auto;
 		&:not([aria-busy='true']) {
-			@apply tw-checkbox aria-checked:tw-checkbox-checked block;
+			/* FIXME @apply tw-checkbox aria-checked:tw-checkbox-checked; */
+			@apply block;
 		}
 		/* The `:global()` modifier is used to preserve the CSS. */
 		/* Reference https://github.com/sveltejs/svelte/issues/1594 */
 		&:global([aria-busy='true']) {
-			@apply btn-spinner;
+			/* FIXME @apply btn-spinner; */
 		}
 	}
 </style>

@@ -23,7 +23,7 @@
 		width: calc(theme(--spacing) * 4);
 		height: calc(theme(--spacing) * 4);
 		flex-shrink: 0;
-		/* border-width: theme('borderWidth.DEFAULT'); */
+		/* FIXME border-width: theme('borderWidth.DEFAULT'); */
 		border-color: theme(--color-gray-500);
 		background-color: theme(--color-white);
 		vertical-align: middle;
