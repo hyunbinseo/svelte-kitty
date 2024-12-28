@@ -1,5 +1,11 @@
 # create-svelte-kitty
 
+## 0.0.7
+
+### Patch Changes
+
+- f806662: chore: match sv default template
+
 ## 0.0.6
 
 ### Patch Changes
