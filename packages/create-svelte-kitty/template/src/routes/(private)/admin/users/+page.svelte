@@ -94,7 +94,9 @@
 	{/if}
 </form>
 
-<style lang="postcss">
+<style>
+	@import '$lib/theme.css' reference;
+
 	td {
 		@apply empty:after:content-['-'];
 		&:has(> input[type='checkbox']:first-child:last-child) {

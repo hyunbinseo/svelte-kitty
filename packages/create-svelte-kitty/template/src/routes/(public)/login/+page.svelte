@@ -32,12 +32,12 @@
 				<input name="contact" type="email" placeholder="username@example.com" required />
 			</label>
 			{#if form?.error === 'MAGIC_LINK_SEND_FAILED' && f.state !== 'submitting'}
-				<p transition:slide class="mt-2 text-red-800 text-smallish">{t.error[form.error]}</p>
+				<p transition:slide class="mt-2 text-smallish text-red-800">{t.error[form.error]}</p>
 			{/if}
 			<button
 				formaction="?/send"
 				disabled={f.state === 'submitting'}
-				class="btn btn-primary mt-4 disabled:btn-spinner"
+				class="btn btn-primary disabled:btn-spinner mt-4"
 			>
 				{t['send-magic-link']}
 			</button>
@@ -65,7 +65,7 @@
 			<button
 				formaction="?/otp"
 				disabled={f.state === 'submitting'}
-				class="btn btn-primary mt-4 disabled:btn-spinner"
+				class="btn btn-primary disabled:btn-spinner mt-4"
 			>
 				{t.login}
 			</button>
@@ -78,7 +78,7 @@
 		<button
 			formaction="?/magic"
 			disabled={f.state === 'submitting'}
-			class="btn btn-primary mt-4 disabled:btn-spinner"
+			class="btn btn-primary disabled:btn-spinner mt-4"
 		>
 			{t.continue}
 		</button>
@@ -86,7 +86,9 @@
 	{/if}
 </form>
 
-<style lang="postcss">
+<style>
+	@import '$lib/theme.css' reference;
+
 	label:has(input[name='use-otp']:not(:checked)) ~ * {
 		@apply hidden;
 	}

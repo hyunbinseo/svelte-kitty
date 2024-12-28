@@ -37,9 +37,9 @@
 
 {#snippet topNav()}
 	<nav class="top flex h-[--top-navbar-height] shadow-bottom">
-		<img src={logo} alt={t.logo} class="m-auto h-1/2 sm:ml-[--container-padding] sm:mr-0" />
+		<img src={logo} alt={t.logo} class="m-auto h-1/2 sm:mr-0 sm:ml-[--container-padding]" />
 		<div
-			class="ml-6 flex flex-1 gap-x-6 overflow-x-auto whitespace-nowrap pr-[--container-padding] last:*:ml-auto max-sm:hidden"
+			class="ml-6 flex flex-1 gap-x-6 overflow-x-auto pr-[--container-padding] whitespace-nowrap last:*:ml-auto max-sm:hidden"
 		>
 			{#each navLinks as [href, label] (href)}
 				{@const active = navLinkIsActive(href)}
@@ -58,7 +58,9 @@
 	</nav>
 {/snippet}
 
-<style lang="postcss">
+<style>
+	@import '$lib/theme.css' reference;
+
 	nav {
 		a {
 			@apply flex items-center justify-center border-transparent text-gray-500 hover:border-gray-400 hover:text-gray-700;
@@ -67,11 +69,13 @@
 			@apply border-blue-800 font-bold text-blue-800;
 		}
 	}
+
 	nav.top {
 		a {
 			@apply border-b-4 pt-1;
 		}
 	}
+
 	nav.bottom {
 		a {
 			@apply border-t-4 pb-1;

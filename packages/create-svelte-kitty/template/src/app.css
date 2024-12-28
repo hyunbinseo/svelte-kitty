@@ -1,17 +1,12 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwindcss';
+@import './lib/theme.css';
 
-/* Component class names should be added to the `tailwind.config.js` file. */
-/* - CSS file enables `@apply` syntax and class name sorting using Prettier. */
-/* - Plugin `addComponents()` enables VS Code Intellisense and autocomplete. */
-/* Reference https://github.com/tailwindlabs/tailwindcss/discussions/11012 */
-/* Reference https://github.com/tailwindlabs/tailwindcss-intellisense/issues/227 */
+@plugin "@tailwindcss/forms";
 
 @layer base {
 	th,
 	td {
-		@apply whitespace-nowrap px-5 text-smallish sm:px-6;
+		@apply px-5 text-smallish whitespace-nowrap sm:px-6;
 	}
 	th {
 		@apply py-3.5;
@@ -21,16 +16,71 @@
 	}
 }
 
-@layer utilities {
-	/* `dvh` has less browser support than `:has()`. */
-	/* Reference https://caniuse.com/mdn-api_css_dvh_static */
-	/* Reference https://github.com/tailwindlabs/tailwindcss/pull/11317#issuecomment-1821960839 */
-	.min-h-screen {
-		min-height: 100vh;
-		min-height: 100dvh;
+/* User-Agent */
+@layer components {
+	.tw-checkbox {
+		display: inline-block;
+		width: calc(theme(--spacing) * 4);
+		height: calc(theme(--spacing) * 4);
+		flex-shrink: 0;
+		/* border-width: theme('borderWidth.DEFAULT'); */
+		border-color: theme(--color-gray-500);
+		background-color: theme(--color-white);
+		vertical-align: middle;
+		color: theme(--color-blue-600);
 	}
-	.h-screen {
-		height: 100vh;
-		height: 100dvh;
+	.tw-checkbox-checked {
+		border-color: transparent;
+		background-color: currentColor;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+		background-size: 100% 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+	.ua-anchor {
+		@apply cursor-pointer text-blue-800 underline visited:text-violet-800 active:text-red-800;
+	}
+	.btn {
+		@apply rounded-md px-3 py-2 text-center text-smallish shadow-sm transition-colors;
+	}
+	.btn-xs {
+		@apply rounded px-2 py-1 text-sm;
+	}
+	.btn-sm {
+		@apply px-2.5 py-1.5;
+	}
+	.btn-lg {
+		@apply px-3.5 py-2.5;
+	}
+	.btn-primary {
+		@apply bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-400 disabled:text-gray-100 disabled:hover:bg-none;
+	}
+	.btn-secondary {
+		@apply bg-blue-100 text-blue-700 hover:bg-blue-200 disabled:bg-gray-200 disabled:text-gray-500 disabled:hover:bg-none;
+	}
+	.btn-danger {
+		@apply bg-red-600 text-white hover:bg-red-700 disabled:bg-gray-400 disabled:text-gray-100 disabled:hover:bg-none;
+	}
+	.btn-spinner {
+		@apply flex items-center justify-center gap-x-[0.3em];
+		@apply before:size-[1em] before:origin-center before:animate-spin before:rounded-full before:border-[0.2em] before:border-solid before:border-current before:border-t-transparent before:opacity-50;
 	}
 }
+
+/* `dvh` has less browser support than `:has()`. */
+/* Reference https://caniuse.com/mdn-api_css_dvh_static */
+/* Reference https://github.com/tailwindlabs/tailwindcss/pull/11317#issuecomment-1821960839 */
+
+@utility min-h-screen {
+	min-height: 100vh;
+	min-height: 100dvh;
+}
+
+@utility h-screen {
+	height: 100vh;
+	height: 100dvh;
+}
+
+@variant pointer-coarse (@media (pointer: coarse));
+@variant user-invalid (&:user-invalid);
+@variant user-valid (&:user-valid);

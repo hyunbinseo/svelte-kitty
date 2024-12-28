@@ -45,14 +45,14 @@
 					<input type="text" name="given-name" placeholder={t.john} pattern="\S.*" required />
 				</label>
 				{#if form?.users?.length === 0 && fModal.state !== 'submitting'}
-					<p transition:slide class="mt-2 text-red-800 text-smallish">
+					<p transition:slide class="mt-2 text-smallish text-red-800">
 						{t['no-search-results']}
 					</p>
 				{/if}
 				<button
 					formaction="?/search"
 					disabled={fModal.state === 'submitting'}
-					class="btn btn-primary mt-4 disabled:btn-spinner"
+					class="btn btn-primary disabled:btn-spinner mt-4"
 				>
 					{t.search}
 				</button>
@@ -84,7 +84,7 @@
 					<button
 						formaction="?/assign"
 						disabled={fModal.state === 'submitting'}
-						class="btn btn-primary flex-1 disabled:btn-spinner"
+						class="btn btn-primary disabled:btn-spinner flex-1"
 					>
 						{t['assign-role']}
 					</button>
@@ -161,14 +161,17 @@
 	</button>
 {/snippet}
 
-<style lang="postcss">
+<style>
+	@import '$lib/theme.css' reference;
+
 	.modal-wrapper > :global(dialog) {
 		@apply w-80 rounded-md p-4 backdrop:backdrop-blur backdrop:backdrop-brightness-50;
 	}
+
 	button[role='switch'] {
 		@apply m-auto;
 		&:not([aria-busy='true']) {
-			@apply tw-checkbox block aria-checked:tw-checkbox-checked;
+			@apply tw-checkbox aria-checked:tw-checkbox-checked block;
 		}
 		/* The `:global()` modifier is used to preserve the CSS. */
 		/* Reference https://github.com/sveltejs/svelte/issues/1594 */

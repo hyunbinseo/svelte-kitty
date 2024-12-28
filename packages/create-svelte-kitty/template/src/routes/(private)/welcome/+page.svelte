@@ -22,7 +22,7 @@
 		<span>{t.surname}</span>
 		<input type="text" name="surname" placeholder={t.doe} pattern="\S.*" required />
 	</label>
-	<button disabled={f.state === 'submitting'} class="btn btn-primary mt-10 disabled:btn-spinner">
+	<button disabled={f.state === 'submitting'} class="btn btn-primary disabled:btn-spinner mt-10">
 		{t['get-started']}
 	</button>
 </form>

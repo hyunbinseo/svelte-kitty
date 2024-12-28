@@ -40,7 +40,9 @@
 	</div>
 </div>
 
-<style lang="postcss">
+<style>
+	@import '$lib/theme.css' reference;
+
 	/* `*` selector can be used since the style is scoped. */
 	/* Reference https://stackoverflow.com/a/77054333 */
 	* {
@@ -48,10 +50,10 @@
 		/* which can be placed behind and under a sticky top nav. */
 		/* Set `.scroll-mt-[--top-navbar-height]` to avoid this. */
 		/* Reference https://tailwindcss.com/docs/scroll-margin */
-		--top-navbar-height: theme(size.14);
-		--container-padding: theme(size.5);
-		@media (min-width: theme(screens.sm)) {
-			--container-padding: theme(size.6);
+		--top-navbar-height: calc(theme(--spacing) * 14);
+		--container-padding: calc(theme(--spacing) * 5);
+		@media (min-width: theme(--breakpoint-sm)) {
+			--container-padding: calc(theme(--spacing) * 6);
 		}
 	}
 </style>
