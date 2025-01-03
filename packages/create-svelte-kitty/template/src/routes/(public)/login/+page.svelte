@@ -58,6 +58,7 @@
 					minlength={data.loginOtpLength}
 					maxlength={data.loginOtpLength}
 					placeholder={'123456789'.slice(0, data.loginOtpLength)}
+					autocomplete="one-time-code"
 					required
 				/>
 			</label>
