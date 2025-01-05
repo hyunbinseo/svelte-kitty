@@ -18,10 +18,12 @@
 	<!-- PageData values can be undefined despite being typed. -->
 	<!-- Blocked by https://github.com/sveltejs/kit/issues/11018 -->
 	<title>
-		{page.data.pageTitle && page.url.pathname !== '/' //
+		{page.data.pageTitle //
 			? `${page.data.pageTitle} - ${PUBLIC_SITE_NAME}`
 			: PUBLIC_SITE_NAME}
 	</title>
+	<meta property="og:title" content={page.data.pageTitle || PUBLIC_SITE_NAME} />
+	<meta property="og:site_name" content={PUBLIC_SITE_NAME} />
 	<link rel="icon" href={logo} />
 	<script>
 		if (window.location.pathname !== '/unsupported') {
