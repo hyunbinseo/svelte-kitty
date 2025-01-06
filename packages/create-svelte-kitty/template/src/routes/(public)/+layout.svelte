@@ -1,19 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
 	import Container from '$lib/components/Container.svelte';
 	import logo from '$lib/static/logo-horizontal.svg';
-	import { onMount } from 'svelte';
 	import { t } from './i18n.layout.ts';
 
 	let { children } = $props();
-
-	let session = $state(false);
-
-	onMount(async () => {
-		const response = await fetch('/session');
-		if (response.ok) session = true;
-	});
 
 	type NavHref = `/${string}`;
 
@@ -21,7 +12,9 @@
 		new Map<NavHref, string>([
 			['/', t.nav.home],
 			['/about', t.nav.about],
-			!session ? ['/login', t.nav.login] : [PUBLIC_PRIVATE_PATH as NavHref, t.nav.app]
+			page.url.pathname === '/login' //
+				? ['/login', t.nav.login]
+				: ['/session/redirect', t.nav.app]
 		])
 	);
 
