@@ -61,8 +61,8 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 	e.cookies.set(SESSION_COOKIE_NAME, jwt, {
 		path: '/',
 		expires: session.expiresAt,
-		// Enable `Set-Cookie` in Vite dev server environments. (e.g. --host, SSL)
-		// Blocked by https://github.com/sveltejs/kit/issues/10438#issue-1822614710
+		// Enable `Set-Cookie` in Vite dev server environments.
+		// Blocked by https://github.com/sveltejs/kit/issues/10438
 		secure: !dev || e.url.protocol === 'https:'
 	});
 

@@ -3,11 +3,6 @@ import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
-// Migrate to Tailwind CSS v4.
-// Blocked by https://github.com/sveltejs/svelte/issues/14847
-// Reference https://github.com/tailwindlabs/tailwindcss/discussions/15205
-// Reference https://tailwindcss.com/docs/v4-beta#using-apply-in-vue-svelte
-
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
