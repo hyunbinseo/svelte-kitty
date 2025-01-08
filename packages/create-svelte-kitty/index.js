@@ -3,7 +3,14 @@
 import * as p from '@clack/prompts';
 import { exec, spawnSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
-import { appendFileSync, cpSync, existsSync, readdirSync, writeFileSync } from 'node:fs';
+import {
+	appendFileSync,
+	cpSync,
+	existsSync,
+	readdirSync,
+	readFileSync,
+	writeFileSync
+} from 'node:fs';
 import path from 'node:path';
 import { chdir, cwd, exit } from 'node:process';
 import { setTimeout } from 'node:timers/promises';
@@ -106,6 +113,13 @@ await p.tasks([
 			appendFileSync('svelte.config.js', `\n// created with ${pkg.name}@${pkg.version}\n`);
 			writeFileSync('.env.development.local', envDev);
 			writeFileSync('.env.production.local', envProd);
+			if (project.packageManager === 'pnpm') {
+				const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
+				packageJson.pnpm = {
+					onlyBuiltDependencies: ['@sveltejs/kit', 'better-sqlite3', 'esbuild']
+				};
+				writeFileSync('package.json', JSON.stringify(packageJson, null, '\t') + '\n');
+			}
 			await timer;
 			return 'Successfully copied template';
 		}
