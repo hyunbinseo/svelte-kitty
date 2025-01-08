@@ -1,5 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import formStyles from '$lib/styles/form.module.css';
 	import { createFormHelper } from 'svelte-form-enhanced';
 	import { slide } from 'svelte/transition';
@@ -7,7 +9,12 @@
 
 	let { data, form } = $props();
 
-	const f = createFormHelper({ updateOptions: { reset: false } });
+	const f = createFormHelper({
+		onAfterSubmit: ({ result, update }) =>
+			result.type === 'redirect'
+				? goto(page.url.searchParams.get('redirect') || result.location)
+				: update({ reset: false })
+	});
 </script>
 
 <form

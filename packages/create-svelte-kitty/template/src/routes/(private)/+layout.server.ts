@@ -4,9 +4,13 @@ import { redirect } from '@sveltejs/kit';
 
 export const load = ({ depends, locals, url }) => {
 	depends('private:session');
-	if (!locals.session) redirect(302, '/login');
+
+	if (!locals.session)
+		redirect(302, `/login?redirect=${encodeURIComponent(url.pathname + url.search)}`);
+
 	if (!locals.session.profile && url.pathname !== PUBLIC_ONBOARD_PATH)
 		redirect(302, PUBLIC_ONBOARD_PATH);
+
 	return {
 		session: {
 			renewalThreshold: sessionRenewalThreshold,
