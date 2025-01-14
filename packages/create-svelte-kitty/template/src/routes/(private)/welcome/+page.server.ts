@@ -17,7 +17,7 @@ export const load = (({ locals }) => {
 
 export const actions = {
 	default: async (e) => {
-		if (!e.locals.session) error(400);
+		if (!e.locals.session) error(401);
 		if (e.locals.session.profile) redirect(302, PUBLIC_PRIVATE_PATH);
 
 		const formData = await e.request.formData();
