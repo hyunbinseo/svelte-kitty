@@ -1,9 +1,6 @@
 import adapter from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import { digits, object, optional, parse, pipe, string } from 'valibot';
-
-// The BUILD_ID environment variable is set by the svelte-kitty build scripts.
-const env = parse(object({ BUILD_ID: optional(pipe(string(), digits())) }), process.env);
+import { env } from 'node:process';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
