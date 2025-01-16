@@ -5,12 +5,12 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@changesets/cli": "^2.27.10",
+		"@changesets/cli": "^2.27.11",
 		"@types/eslint-config-prettier": "^6.11.3",
-		"globals": "^15.13.0",
-		"prettier-plugin-svelte": "^3.3.2",
-		"prettier-plugin-tailwindcss": "^0.6.9",
-		"typescript": "^5.7.2"
+		"globals": "^15.14.0",
+		"prettier-plugin-svelte": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.10",
+		"typescript": "^5.7.3"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [

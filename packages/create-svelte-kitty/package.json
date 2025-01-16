@@ -8,11 +8,11 @@
 	"bin": "index.js",
 	"type": "module",
 	"dependencies": {
-		"@clack/prompts": "^0.8.2",
-		"valibot": "1.0.0-beta.9"
+		"@clack/prompts": "^0.9.1",
+		"valibot": "1.0.0-beta.12"
 	},
 	"devDependencies": {
-		"@types/node": "^22.10.2"
+		"@types/node": "^22.10.7"
 	},
 	"engines": {
 		"node": ">=22.12.0"
