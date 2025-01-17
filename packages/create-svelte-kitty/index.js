@@ -83,11 +83,11 @@ const generateEnv = () =>
 
 ROOT_ADMIN_CONTACT="${project.rootAdminContact}"
 
+JWT_SECRET_CURRENT="${randomBytes(32).toString('base64')}"
+JWT_SECRET_EXPIRED=""
+
 EMAIL_SENDER=""
 EMAIL_API_KEY=""
-
-JWT_SECRET_CURRENT="${randomBytes(32).toString('base64')}"
-JWT_SECRET_EXPIRED="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
 `;
 
 const envDev = generateEnv();

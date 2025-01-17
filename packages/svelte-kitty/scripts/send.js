@@ -19,14 +19,6 @@ export const send = async ({ buildId, isDryRun }) => {
 		exit(1);
 	}
 
-	const productionLocalEnv = parseEnv(readFileSync('.env.production.local', 'utf8'));
-	const envHasEmptyValues = Object.values(productionLocalEnv).some((value) => value === '');
-
-	if (envHasEmptyValues) {
-		console.error('.env.production.local should not contain empty values.');
-		exit(1);
-	}
-
 	const parsedServer = safeParse(
 		pipe(
 			object({
@@ -40,7 +32,7 @@ export const send = async ({ buildId, isDryRun }) => {
 				directory: v.SERVER_DIRECTORY
 			}))
 		),
-		productionLocalEnv
+		parseEnv(readFileSync('.env.production.local', 'utf8'))
 	);
 
 	if (!parsedServer.success) {

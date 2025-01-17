@@ -13,7 +13,7 @@ import { roleTable, sessionBanTable, sessionTable, userTable, type Role } from '
 import { pickTableColumns } from './db/utilities.ts';
 
 const jwtSecret = base64ToUint8Array(JWT_SECRET_CURRENT);
-const jwtSecretExpired = base64ToUint8Array(JWT_SECRET_EXPIRED);
+const jwtSecretExpired = JWT_SECRET_EXPIRED ? base64ToUint8Array(JWT_SECRET_EXPIRED) : null;
 
 type Payload = {
 	profile?: null;
@@ -83,10 +83,11 @@ export const payloadToSession = (payload: Payload): NonNullable<App.Locals['sess
 };
 
 export const verifyJwt = async (jwt: string) => {
-	let result = await jwtVerify<Payload>(jwt, jwtSecret).catch((e) => e as JOSEError);
-	if (result instanceof Error)
-		// Retry using the previous JWT secret.
-		result = await jwtVerify<Payload>(jwt, jwtSecretExpired);
+	const result = await jwtVerify<Payload>(jwt, jwtSecret) //
+		.catch((e: JOSEError) => {
+			if (!jwtSecretExpired) throw e;
+			return jwtVerify<Payload>(jwt, jwtSecretExpired);
+		});
 
 	const sessionBan = await db.query.sessionBanTable.findFirst({
 		columns: { sessionId: true },
