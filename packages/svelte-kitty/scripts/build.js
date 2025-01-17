@@ -12,7 +12,9 @@ export const build = async () => {
 		'build/start.js',
 		`// THIS FILE IS GENERATED ON BUILD
 
-process.loadEnvFile('.env.production');
+import { loadEnvFile } from 'node:process';
+
+loadEnvFile('.env.production');
 
 await import('./${buildId}/index.js');
 `
