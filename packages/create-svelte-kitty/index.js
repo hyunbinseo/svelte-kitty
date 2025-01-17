@@ -78,8 +78,15 @@ const project = await p.group(
 	}
 );
 
-const generateEnv = () =>
+/** @param {'dev' | 'preview'} command  */
+const generateEnv = (command) =>
 	`# DO NOT COMMIT THIS FILE TO SOURCE CONTROL
+
+# Loaded in \`vite ${command}\`
+# Reference https://vite.dev/guide/env-and-mode
+
+# Import secrets using the \`$env/dynamic/private\` module.
+# Reference https://svelte.dev/docs/kit/$env-dynamic-private
 
 ROOT_ADMIN_CONTACT="${project.rootAdminContact}"
 
@@ -88,15 +95,6 @@ JWT_SECRET_EXPIRED=""
 
 EMAIL_SENDER=""
 EMAIL_API_KEY=""
-`;
-
-const envDev = generateEnv();
-const envProd =
-	generateEnv() +
-	`
-SERVER_ADDRESS=""
-SERVER_USERNAME="webadmin"
-SERVER_DIRECTORY="server"
 `;
 
 // Reference https://github.com/bombshell-dev/clack/issues/172
@@ -111,8 +109,15 @@ await p.tasks([
 			cpSync(import.meta.dirname + '/template', resolvedPath, { recursive: true });
 			chdir(resolvedPath); // NOTE CWD is now the project directory.
 			appendFileSync('svelte.config.js', `\n// created with ${pkg.name}@${pkg.version}\n`);
-			writeFileSync('.env.development.local', envDev);
-			writeFileSync('.env.production.local', envProd);
+			writeFileSync('.env.development.local', generateEnv('dev'));
+			writeFileSync('.env.production.local', generateEnv('preview'));
+			writeFileSync(
+				'.env.local',
+				`SERVER_ADDRESS=""
+SERVER_USERNAME="webadmin"
+SERVER_DIRECTORY="server"
+`
+			);
 			if (project.packageManager === 'pnpm') {
 				const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
 				packageJson.pnpm = {

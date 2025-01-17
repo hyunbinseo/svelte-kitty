@@ -14,8 +14,8 @@ export const send = async ({ buildId, isDryRun }) => {
 		exit(1);
 	}
 
-	if (!existsSync('.env.production.local')) {
-		console.error('.env.production.local not found in this directory.');
+	if (!existsSync('.env.local')) {
+		console.error('.env.local not found in this directory.');
 		exit(1);
 	}
 
@@ -32,11 +32,11 @@ export const send = async ({ buildId, isDryRun }) => {
 				directory: v.SERVER_DIRECTORY
 			}))
 		),
-		parseEnv(readFileSync('.env.production.local', 'utf8'))
+		parseEnv(readFileSync('.env.local', 'utf8'))
 	);
 
 	if (!parsedServer.success) {
-		console.error('.env.production.local has invalid server configuration.');
+		console.error('.env.local has invalid server configuration.');
 		exit(1);
 	}
 

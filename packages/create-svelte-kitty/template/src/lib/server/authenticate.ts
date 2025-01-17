@@ -1,5 +1,6 @@
 import { dev } from '$app/environment';
-import { JWT_SECRET_CURRENT, JWT_SECRET_EXPIRED, SESSION_COOKIE_NAME } from '$env/static/private';
+import { env } from '$env/dynamic/private';
+import { SESSION_COOKIE_NAME } from '$env/static/private';
 import { base64ToUint8Array } from '$lib/utilities.ts';
 import { toReadonly } from '@hyunbinseo/tools';
 import { error, type RequestEvent } from '@sveltejs/kit';
@@ -11,9 +12,6 @@ import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config.ts';
 import { db } from './db/index.ts';
 import { roleTable, sessionBanTable, sessionTable, userTable, type Role } from './db/schema.ts';
 import { pickTableColumns } from './db/utilities.ts';
-
-const jwtSecret = base64ToUint8Array(JWT_SECRET_CURRENT);
-const jwtSecretExpired = JWT_SECRET_EXPIRED ? base64ToUint8Array(JWT_SECRET_EXPIRED) : null;
 
 type Payload = {
 	profile?: null;
@@ -56,7 +54,7 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 		.setProtectedHeader({ alg: 'HS256' })
 		.setIssuedAt(session.issuedAt)
 		.setExpirationTime(session.expiresAt)
-		.sign(jwtSecret);
+		.sign(base64ToUint8Array(env.JWT_SECRET_CURRENT));
 
 	e.cookies.set(SESSION_COOKIE_NAME, jwt, {
 		path: '/',
@@ -83,10 +81,10 @@ export const payloadToSession = (payload: Payload): NonNullable<App.Locals['sess
 };
 
 export const verifyJwt = async (jwt: string) => {
-	const result = await jwtVerify<Payload>(jwt, jwtSecret) //
+	const result = await jwtVerify<Payload>(jwt, base64ToUint8Array(env.JWT_SECRET_CURRENT)) //
 		.catch((e: JOSEError) => {
-			if (!jwtSecretExpired) throw e;
-			return jwtVerify<Payload>(jwt, jwtSecretExpired);
+			if (!env.JWT_SECRET_EXPIRED) throw e;
+			return jwtVerify<Payload>(jwt, base64ToUint8Array(env.JWT_SECRET_EXPIRED));
 		});
 
 	const sessionBan = await db.query.sessionBanTable.findFirst({

@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import { EMAIL_API_KEY, EMAIL_SENDER, ROOT_ADMIN_CONTACT } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
 import { authenticate } from '$lib/server/authenticate.ts';
 import { loginOtpLength } from '$lib/server/db/config.ts';
@@ -93,7 +93,7 @@ export const actions = {
 					.returning(pickTableColumns(userTable, ['id']))
 			)[0];
 
-		if (!existingUser && contact === ROOT_ADMIN_CONTACT)
+		if (!existingUser && contact === env.ROOT_ADMIN_CONTACT)
 			await db.insert(roleTable).values({
 				userId: user.id,
 				role: 'superuser',
@@ -125,8 +125,8 @@ export const actions = {
 					To: contact
 				},
 				{
-					from: EMAIL_SENDER,
-					serverToken: EMAIL_API_KEY,
+					from: env.EMAIL_SENDER,
+					serverToken: env.EMAIL_API_KEY,
 					fetch
 				}
 			);

@@ -30,12 +30,9 @@ Websites
 
 [deploy a new instance]: ./vultr.md
 
-5. Update the `.env.production.local` file.
+5. Update the `.env.local` file.
 
 ```shell
-EMAIL_API_KEY="" # required
-EMAIL_SENDER="" # required
-
 SERVER_ADDRESS="<vultr-instance-ip-address>" # required
 SERVER_USERNAME="webadmin" # keep the default value
 SERVER_DIRECTORY="server" # keep the default value
