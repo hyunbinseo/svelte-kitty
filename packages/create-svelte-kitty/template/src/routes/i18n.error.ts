@@ -1,3 +1,5 @@
+import { PUBLIC_LOCALE } from '$env/static/public';
+
 const en = {
 	'http': {
 		400: 'Bad Request',
@@ -25,4 +27,4 @@ const ko: typeof en = {
 // Vite env variables are statically replaced at build time.
 // Unused translations are tree-shaken and not bundled.
 // Reference https://vitejs.dev/guide/env-and-mode
-export const t = import.meta.env.VITE_LOCALE === 'ko' ? ko : en;
+export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

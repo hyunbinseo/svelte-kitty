@@ -1,3 +1,5 @@
+import { PUBLIC_LOCALE } from '$env/static/public';
+
 const en = {
 	'noscript': 'JavaScript is not available. Enable it or switch to a supported browser.',
 	'skip-to-content': 'Skip to content'
@@ -9,4 +11,4 @@ const ko: typeof en = {
 	'skip-to-content': '본문 바로가기'
 };
 
-export const t = import.meta.env.VITE_LOCALE === 'ko' ? ko : en;
+export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

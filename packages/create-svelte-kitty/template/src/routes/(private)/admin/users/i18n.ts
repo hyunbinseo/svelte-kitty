@@ -1,3 +1,5 @@
+import { PUBLIC_LOCALE } from '$env/static/public';
+
 const en = {
 	'pageTitle': 'Manage Users',
 	'active-users': 'Active Users',
@@ -20,4 +22,4 @@ const ko: typeof en = {
 	'reset': '선택 해제'
 };
 
-export const t = import.meta.env.VITE_LOCALE === 'ko' ? ko : en;
+export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

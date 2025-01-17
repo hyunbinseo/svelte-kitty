@@ -1,4 +1,5 @@
-import { SESSION_COOKIE_NAME, VITE_LOCALE } from '$env/static/private';
+import { SESSION_COOKIE_NAME } from '$env/static/private';
+import { PUBLIC_LOCALE } from '$env/static/public';
 import { payloadToSession, verifyJwt } from '$lib/server/authenticate.ts';
 import type { Handle } from '@sveltejs/kit';
 import { JWSSignatureVerificationFailed } from 'jose/errors';
@@ -23,7 +24,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		// This only works in SSR, when the HTML is sent to the client.
 		// If the language can be changed using client-side navigation,
 		// `<html lang>` should be updated using client-side JavaScript.
-		transformPageChunk: ({ html }) => html.replace('%lang%', VITE_LOCALE)
+		transformPageChunk: ({ html }) => html.replace('%lang%', PUBLIC_LOCALE)
 	});
 
 	try {

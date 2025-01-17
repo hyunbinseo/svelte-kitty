@@ -1,3 +1,5 @@
+import { PUBLIC_LOCALE } from '$env/static/public';
+
 const en = {
 	pageTitle: 'Unsupported Browser',
 	heading: 'Browser is not supported.',
@@ -10,4 +12,4 @@ const ko: typeof en = {
 	message: '보안 업데이트가 제공되는 최신 브라우저로 접속해 주세요.'
 };
 
-export const t = import.meta.env.VITE_LOCALE === 'ko' ? ko : en;
+export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

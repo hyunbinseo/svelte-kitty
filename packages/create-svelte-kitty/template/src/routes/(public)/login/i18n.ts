@@ -1,4 +1,4 @@
-import { PUBLIC_SITE_NAME } from '$env/static/public';
+import { PUBLIC_LOCALE, PUBLIC_SITE_NAME } from '$env/static/public';
 
 const en = {
 	'pageTitle': 'Login',
@@ -50,4 +50,4 @@ const ko: typeof en = {
 	}
 };
 
-export const t = import.meta.env.VITE_LOCALE === 'ko' ? ko : en;
+export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

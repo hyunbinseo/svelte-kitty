@@ -1,3 +1,5 @@
+import { PUBLIC_LOCALE } from '$env/static/public';
+
 const en = {
 	'pageTitle': 'Welcome',
 	'doe': 'Doe',
@@ -20,4 +22,4 @@ const ko: typeof en = {
 	'welcome': '반갑습니다!'
 };
 
-export const t = import.meta.env.VITE_LOCALE === 'ko' ? ko : en;
+export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

@@ -1,3 +1,5 @@
+import { PUBLIC_LOCALE } from '$env/static/public';
+
 const en = {
 	'pageTitle': 'Manage Roles',
 	'admin': 'Admin',
@@ -44,4 +46,4 @@ const ko: typeof en = {
 	'user': '사용자'
 };
 
-export const t = import.meta.env.VITE_LOCALE === 'ko' ? ko : en;
+export const t = PUBLIC_LOCALE === 'ko' ? ko : en;
