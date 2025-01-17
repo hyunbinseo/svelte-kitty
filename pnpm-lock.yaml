@@ -39,6 +39,9 @@ importers:
       '@types/node':
         specifier: ^22.10.7
         version: 22.10.7
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
 
   packages/create-svelte-kitty/template:
     dependencies:
@@ -164,6 +167,9 @@ importers:
       '@types/node':
         specifier: ^22.10.7
         version: 22.10.7
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
 
 packages:
 
