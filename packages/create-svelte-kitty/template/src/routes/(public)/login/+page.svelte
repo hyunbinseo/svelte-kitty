@@ -17,6 +17,10 @@
 	});
 </script>
 
+<svelte:head>
+	<meta name="robots" content="noindex" />
+</svelte:head>
+
 <form
 	method="post"
 	use:enhance={f.submitFunction}

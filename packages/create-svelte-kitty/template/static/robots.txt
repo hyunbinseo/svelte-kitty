@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /admin
-Disallow: /home
-Disallow: /welcome
+Disallow: /login
+Disallow: /unsupported
