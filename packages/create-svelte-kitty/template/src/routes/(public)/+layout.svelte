@@ -8,15 +8,13 @@
 
 	type NavHref = `/${string}`;
 
-	const navLinks = $derived(
-		new Map<NavHref, string>([
-			['/', t.nav.home],
-			['/about', t.nav.about],
-			page.url.pathname === '/login' //
-				? ['/login', t.nav.login]
-				: ['/session/redirect', t.nav.app]
-		])
-	);
+	const navLinks = $derived<Array<[NavHref, string]>>([
+		['/', t.nav.home],
+		['/about', t.nav.about],
+		page.url.pathname === '/login'
+			? ['/login', t.nav.login] //
+			: ['/session/redirect', t.nav.app]
+	]);
 
 	const navLinkIsActive = (href: NavHref) =>
 		href === '/'

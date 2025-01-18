@@ -47,30 +47,31 @@
 		};
 	});
 
-	const isAdminPage = $derived(page.url.pathname.startsWith('/admin'));
 	const isOnboarding = $derived(page.url.pathname === PUBLIC_ONBOARD_PATH);
+	const isAdminPage = $derived(page.url.pathname.startsWith('/admin'));
 
 	type NavHref = `/${string}`;
 
-	const navLinks = $derived(
-		new Map<NavHref, string>(
-			isOnboarding
-				? []
-				: !isAdminPage
-					? [
-							[PUBLIC_PRIVATE_PATH as NavHref, t.nav.home],
-							['/lorem', 'Lorem'],
-							['/ipsum', 'Ipsum']
-						]
-					: !data.session.isSuperuser
-						? []
-						: [
-								['/admin/', t.nav.dashboard],
-								['/admin/users', t.nav.users],
-								['/admin/roles', t.nav.roles]
-							]
-		)
-	);
+	const generateNavLinks = (): Array<[NavHref, string]> => {
+		if (isOnboarding) return [];
+
+		if (isAdminPage)
+			return !data.session.isSuperuser
+				? [['/admin/', t.nav.dashboard]]
+				: [
+						['/admin/', t.nav.dashboard],
+						['/admin/users', t.nav.users],
+						['/admin/roles', t.nav.roles]
+					];
+
+		return [
+			[PUBLIC_PRIVATE_PATH as NavHref, t.nav.home],
+			['/lorem', 'Lorem'],
+			['/ipsum', 'Ipsum']
+		];
+	};
+
+	const navLinks = $derived(generateNavLinks());
 
 	const navLinkIsActive = (href: NavHref) =>
 		href.endsWith('/')
@@ -111,7 +112,7 @@
 {/snippet}
 
 {#snippet bottomNav()}
-	{#if navLinks.size}
+	{#if navLinks.length}
 		<nav class="bottom flex h-14 shadow-top *:flex-1">
 			{#each navLinks as [href, label] (href)}
 				{@const active = navLinkIsActive(href)}
