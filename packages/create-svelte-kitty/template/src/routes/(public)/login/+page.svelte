@@ -20,7 +20,11 @@
 <form
 	method="post"
 	use:enhance={f.submitFunction}
-	class="{formStyles.stacked} {formStyles.underline} mx-auto my-8 flex w-full max-w-80 flex-col md:my-16"
+	class={[
+		formStyles.stacked,
+		formStyles.underline,
+		'mx-auto my-8 flex w-full max-w-80 flex-col md:my-16'
+	]}
 >
 	{#if !data.magicLinkLogin || form?.error}
 		{#if !form?.loginId}

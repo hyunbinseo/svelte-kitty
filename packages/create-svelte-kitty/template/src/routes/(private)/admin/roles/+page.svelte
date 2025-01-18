@@ -36,7 +36,7 @@
 		<form
 			method="post"
 			use:enhance={fModal.submitFunction}
-			class="{formStyles.stacked} {formStyles.underline} flex flex-col"
+			class={[formStyles.stacked, formStyles.underline, 'flex flex-col']}
 		>
 			{#if !form || form.users?.length === 0}
 				<h1 class="text-xl font-bold">{t['search-user']}</h1>

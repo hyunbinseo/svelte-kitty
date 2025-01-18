@@ -10,7 +10,11 @@
 <form
 	method="post"
 	use:enhance={f.submitFunction}
-	class="{formStyles.stacked} {formStyles.underline} mx-auto my-8 flex w-full max-w-80 flex-col md:my-16"
+	class={[
+		formStyles.stacked,
+		formStyles.underline,
+		'mx-auto my-8 flex w-full max-w-80 flex-col md:my-16'
+	]}
 >
 	<h1 class="text-2xl font-bold">{t.welcome}</h1>
 	<p class="mt-1">{t['tell-us-about-yourself']}</p>
