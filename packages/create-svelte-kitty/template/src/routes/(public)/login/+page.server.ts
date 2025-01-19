@@ -9,7 +9,7 @@ import { pickTableColumns } from '$lib/server/db/utilities.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { formDataToObject } from '@hyunbinseo/tools';
 import { error, fail, redirect } from '@sveltejs/kit';
-import { and, desc, eq, gt, isNull } from 'drizzle-orm';
+import { and, desc, eq, gt } from 'drizzle-orm';
 import { PostmarkSendEmail as sendEmail } from 'new-request';
 import { digits, email, length, object, pipe, string, trim, ulid, uuid } from 'valibot';
 import type { PageServerLoad } from './$types.ts';
@@ -41,7 +41,7 @@ export const load = (async ({ locals, url }) => {
 			eq(loginTable.id, searchParams.id),
 			eq(loginTable.code, searchParams.code),
 			gt(loginTable.expiresAt, new Date()),
-			isNull(loginTable.expiredAt)
+			eq(loginTable.isExpired, false)
 		),
 		with: { user: { columns: { contact: true } } }
 	});
@@ -69,14 +69,14 @@ export const actions = {
 			orderBy: desc(userTable.id),
 			where: and(
 				eq(userTable.contact, contact), //
-				isNull(userTable.deactivatedAt)
+				eq(userTable.isDeactivated, false)
 			),
 			with: {
 				logins: {
 					columns: { id: true },
 					where: and(
 						gt(loginTable.expiresAt, new Date()), //
-						isNull(loginTable.expiredAt)
+						eq(loginTable.isExpired, false)
 					)
 				}
 			}
@@ -163,7 +163,7 @@ export const actions = {
 				.where(
 					and(
 						eq(loginTable.id, form.id), //
-						isNull(loginTable.expiredAt)
+						eq(loginTable.isExpired, false)
 					)
 				)
 				.returning(pickTableColumns(loginTable, ['id', 'userId', 'code', 'expiresAt']))
@@ -197,7 +197,7 @@ export const actions = {
 				.where(
 					and(
 						eq(loginTable.id, form.id), //
-						isNull(loginTable.expiredAt)
+						eq(loginTable.isExpired, false)
 					)
 				)
 				.returning(pickTableColumns(loginTable, ['id', 'userId', 'otp', 'expiresAt']))

@@ -3,7 +3,7 @@ import { profileTable, userTable } from '$lib/server/db/schema.ts';
 import { pickTableColumns } from '$lib/server/db/utilities.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { error } from '@sveltejs/kit';
-import { and, asc, desc, eq, inArray, isNotNull, isNull, ne, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray, ne, sql } from 'drizzle-orm';
 import { array, excludes, minLength, pipe, string, ulid } from 'valibot';
 import { banUserSessions } from '../index.server.ts';
 import type { PageServerLoad } from './$types.js';
@@ -24,7 +24,7 @@ export const load = (async ({ locals, url }) => {
 		.leftJoin(profileTable, eq(profileTable.userId, userTable.id))
 		.where(
 			and(
-				(!showDeactivated ? isNull : isNotNull)(userTable.deactivatedAt),
+				eq(userTable.isDeactivated, showDeactivated), //
 				ne(userTable.id, locals.session.userId)
 			)
 		)
@@ -62,7 +62,7 @@ export const actions = {
 			.where(
 				and(
 					inArray(userTable.id, userIds), //
-					isNull(userTable.deactivatedAt)
+					eq(userTable.isDeactivated, false)
 				)
 			);
 

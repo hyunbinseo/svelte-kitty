@@ -1,6 +1,6 @@
 import { generatePINString } from '@hyunbinseo/tools';
 import { randomUUID } from 'crypto';
-import { relations } from 'drizzle-orm';
+import { relations, sql, type SQL } from 'drizzle-orm';
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { ulid } from 'ulid';
 import { ip } from '../columns.ts';
@@ -21,6 +21,8 @@ export const loginTable = sqliteTable(
 		expiresAt: integer({ mode: 'timestamp' })
 			.notNull()
 			.$default(() => new Date(Date.now() + loginExpiresIn)),
+		isExpired: integer({ mode: 'boolean' }) //
+			.generatedAlwaysAs((): SQL => sql`${loginTable.expiredAt} IS NOT NULL`),
 		expiredAt: integer({ mode: 'timestamp' }),
 		ip
 	},

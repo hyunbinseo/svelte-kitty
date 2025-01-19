@@ -4,7 +4,7 @@ import { SESSION_COOKIE_NAME } from '$env/static/private';
 import { base64ToUint8Array } from '$lib/utilities.ts';
 import { toReadonly } from '@hyunbinseo/tools';
 import { error, type RequestEvent } from '@sveltejs/kit';
-import { and, eq, gt, isNull, lt, ne, sql } from 'drizzle-orm';
+import { and, eq, gt, lt, ne, sql } from 'drizzle-orm';
 import { union } from 'drizzle-orm/sqlite-core';
 import { decodeJwt, jwtVerify, SignJWT, type JWTPayload } from 'jose';
 import type { JOSEError } from 'jose/errors';
@@ -28,7 +28,7 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 			profile: { columns: { userId: true } },
 			roles: {
 				columns: { role: true },
-				where: isNull(roleTable.revokedAt)
+				where: eq(roleTable.isRevoked, false)
 			}
 		}
 	});
