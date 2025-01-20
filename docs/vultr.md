@@ -111,11 +111,10 @@ write_files:
     content: |
 
       # fnm
-      export FNM_COREPACK_ENABLED="true"
       FNM_PATH="/home/webadmin/.local/share/fnm"
       if [ -d "$FNM_PATH" ]; then
         export PATH="$FNM_PATH:$PATH"
-        eval "$(fnm env --use-on-cd)"
+        eval "$(fnm env --use-on-cd --corepack-enabled)"
       fi
 
 bootcmd:
