@@ -3,7 +3,7 @@ import { profileTable, Roles, roleTable, userTable, type Role } from '$lib/serve
 import { pickTableColumns } from '$lib/server/db/utilities.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { error } from '@sveltejs/kit';
-import { and, eq, isNull, ne, notExists, sql } from 'drizzle-orm';
+import { and, eq, ne, notExists, sql } from 'drizzle-orm';
 import { minLength, notValue, picklist, pipe, string, trim, ulid } from 'valibot';
 import { banUserSessions } from '../index.server.ts';
 import type { PageServerLoad } from './$types.js';
@@ -28,13 +28,13 @@ export const load = (async ({ depends, locals }) => {
 			roleTable,
 			and(
 				eq(roleTable.userId, userTable.id), //
-				isNull(roleTable.revokedAt)
+				eq(roleTable.isRevoked, false)
 			)
 		)
 		.groupBy(userTable.id)
 		.where(
 			and(
-				isNull(userTable.deactivatedAt), //
+				eq(userTable.isDeactivated, false), //
 				ne(userTable.id, locals.session.userId)
 			)
 		);
@@ -71,13 +71,13 @@ export const actions = {
 							.where(
 								and(
 									eq(roleTable.userId, userTable.id), //
-									isNull(roleTable.revokedAt)
+									eq(roleTable.isRevoked, false)
 								)
 							)
 					),
 					// Blocked by https://github.com/drizzle-team/drizzle-orm/issues/638
 					sql`${profileTable.givenName} LIKE ${`%${givenNameKeyword}%`} COLLATE NOCASE`,
-					isNull(userTable.deactivatedAt),
+					eq(userTable.isDeactivated, false),
 					ne(userTable.id, locals.session.userId)
 				)
 			);
@@ -132,7 +132,7 @@ export const actions = {
 				and(
 					eq(roleTable.userId, userId), //
 					eq(roleTable.role, role),
-					isNull(roleTable.revokedAt)
+					eq(roleTable.isRevoked, false)
 				)
 			);
 
