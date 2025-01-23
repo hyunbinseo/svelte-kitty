@@ -27,12 +27,12 @@ export const load = (async ({ locals, url }) => {
 	const searchParams = parseOrErrorPage(
 		object({
 			id: pipe(string(), ulid()),
-			code: pipe(string(), uuid())
+			code: pipe(string(), uuid()),
 		}),
 		{
 			id: url.searchParams.get('id'),
-			code: url.searchParams.get('code')
-		}
+			code: url.searchParams.get('code'),
+		},
 	);
 
 	const magicLinkLogin = await db.query.loginTable.findFirst({
@@ -41,15 +41,15 @@ export const load = (async ({ locals, url }) => {
 			eq(loginTable.id, searchParams.id),
 			eq(loginTable.code, searchParams.code),
 			gt(loginTable.expiresAt, new Date()),
-			isNull(loginTable.expiredAt)
+			isNull(loginTable.expiredAt),
 		),
-		with: { user: { columns: { contact: true } } }
+		with: { user: { columns: { contact: true } } },
 	});
 
 	return {
 		pageTitle: t.pageTitle,
 		loginOtpLength,
-		magicLinkLogin: magicLinkLogin || null
+		magicLinkLogin: magicLinkLogin || null,
 	};
 }) satisfies PageServerLoad;
 
@@ -61,7 +61,7 @@ export const actions = {
 
 		const contact = parseOrErrorPage(
 			pipe(string(), trim(), email()), //
-			formData.get('contact')
+			formData.get('contact'),
 		);
 
 		const existingUser = await db.query.userTable.findFirst({
@@ -69,17 +69,17 @@ export const actions = {
 			orderBy: desc(userTable.id),
 			where: and(
 				eq(userTable.contact, contact), //
-				isNull(userTable.deactivatedAt)
+				isNull(userTable.deactivatedAt),
 			),
 			with: {
 				logins: {
 					columns: { id: true },
 					where: and(
 						gt(loginTable.expiresAt, new Date()), //
-						isNull(loginTable.expiredAt)
-					)
-				}
-			}
+						isNull(loginTable.expiredAt),
+					),
+				},
+			},
 		});
 
 		if (existingUser?.logins.length && !dev) return fail(400, { error: 'LOGIN_PENDING' as const });
@@ -97,7 +97,7 @@ export const actions = {
 			await db.insert(roleTable).values({
 				userId: user.id,
 				role: 'superuser',
-				assignedBy: user.id
+				assignedBy: user.id,
 			});
 
 		const [login] = await db
@@ -115,20 +115,20 @@ export const actions = {
 			console.table({
 				Contact: contact,
 				MagicLink: magicLink.toString(),
-				OTP: login.otp
+				OTP: login.otp,
 			});
 
 		if (!dev) {
 			const response = await sendEmail(
 				{
 					...t.template(magicLink, login.otp),
-					To: contact
+					To: contact,
 				},
 				{
 					from: env.EMAIL_SENDER,
 					serverToken: env.EMAIL_API_KEY,
-					fetch
-				}
+					fetch,
+				},
 			);
 
 			if (response instanceof Error || !response.ok) {
@@ -151,9 +151,9 @@ export const actions = {
 		const form = parseOrErrorPage(
 			object({
 				id: pipe(string(), ulid()),
-				code: pipe(string(), uuid())
+				code: pipe(string(), uuid()),
 			}),
-			formDataToObject(formData, { get: ['id', 'code'] })
+			formDataToObject(formData, { get: ['id', 'code'] }),
 		);
 
 		const magicLinkLogin = (
@@ -163,8 +163,8 @@ export const actions = {
 				.where(
 					and(
 						eq(loginTable.id, form.id), //
-						isNull(loginTable.expiredAt)
-					)
+						isNull(loginTable.expiredAt),
+					),
 				)
 				.returning(pickTableColumns(loginTable, ['id', 'userId', 'code', 'expiresAt']))
 		).at(0);
@@ -185,9 +185,9 @@ export const actions = {
 		const form = parseOrErrorPage(
 			object({
 				id: pipe(string(), ulid()),
-				otp: pipe(string(), digits(), length(loginOtpLength))
+				otp: pipe(string(), digits(), length(loginOtpLength)),
 			}),
-			formDataToObject(formData, { get: ['id', 'otp'] })
+			formDataToObject(formData, { get: ['id', 'otp'] }),
 		);
 
 		const otpLogin = (
@@ -197,8 +197,8 @@ export const actions = {
 				.where(
 					and(
 						eq(loginTable.id, form.id), //
-						isNull(loginTable.expiredAt)
-					)
+						isNull(loginTable.expiredAt),
+					),
 				)
 				.returning(pickTableColumns(loginTable, ['id', 'userId', 'otp', 'expiresAt']))
 		).at(0);
@@ -209,5 +209,5 @@ export const actions = {
 
 		await authenticate(e, otpLogin.userId, otpLogin.id);
 		redirect(302, PUBLIC_PRIVATE_PATH);
-	}
+	},
 };

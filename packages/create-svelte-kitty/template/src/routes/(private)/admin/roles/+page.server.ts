@@ -19,8 +19,8 @@ export const load = (async ({ depends, locals }) => {
 			...pickTableColumns(userTable, ['id', 'contact']),
 			profile: pickTableColumns(profileTable, ['surname', 'givenName']),
 			roles: sql`GROUP_CONCAT(DISTINCT ${roleTable.role})`.mapWith(
-				(v: string) => new Set(v.split(',')) as ReadonlySet<Role>
-			)
+				(v: string) => new Set(v.split(',')) as ReadonlySet<Role>,
+			),
 		})
 		.from(userTable)
 		.innerJoin(profileTable, eq(profileTable.userId, userTable.id))
@@ -28,15 +28,15 @@ export const load = (async ({ depends, locals }) => {
 			roleTable,
 			and(
 				eq(roleTable.userId, userTable.id), //
-				isNull(roleTable.revokedAt)
-			)
+				isNull(roleTable.revokedAt),
+			),
 		)
 		.groupBy(userTable.id)
 		.where(
 			and(
 				isNull(userTable.deactivatedAt), //
-				ne(userTable.id, locals.session.userId)
-			)
+				ne(userTable.id, locals.session.userId),
+			),
 		);
 
 	return { pageTitle: t.pageTitle, users };
@@ -50,13 +50,13 @@ export const actions = {
 
 		const givenNameKeyword = parseOrErrorPage(
 			pipe(string(), trim(), minLength(1)),
-			formData.get('given-name')
+			formData.get('given-name'),
 		);
 
 		const users = await db
 			.select({
 				...pickTableColumns(userTable, ['id', 'contact']),
-				profile: pickTableColumns(profileTable, ['surname', 'givenName'])
+				profile: pickTableColumns(profileTable, ['surname', 'givenName']),
 			})
 			.from(userTable)
 			.innerJoin(profileTable, eq(profileTable.userId, userTable.id))
@@ -71,15 +71,15 @@ export const actions = {
 							.where(
 								and(
 									eq(roleTable.userId, userTable.id), //
-									isNull(roleTable.revokedAt)
-								)
-							)
+									isNull(roleTable.revokedAt),
+								),
+							),
 					),
 					// Blocked by https://github.com/drizzle-team/drizzle-orm/issues/638
 					sql`${profileTable.givenName} LIKE ${`%${givenNameKeyword}%`} COLLATE NOCASE`,
 					isNull(userTable.deactivatedAt),
-					ne(userTable.id, locals.session.userId)
-				)
+					ne(userTable.id, locals.session.userId),
+				),
 			);
 
 		return { users };
@@ -91,12 +91,12 @@ export const actions = {
 
 		const userId = parseOrErrorPage(
 			pipe(string(), ulid(), notValue(e.locals.session.userId)),
-			formData.get('user-id')
+			formData.get('user-id'),
 		);
 
 		const role = parseOrErrorPage(
 			picklist(Roles),
-			formData.get('role') || e.url.searchParams.get('role')
+			formData.get('role') || e.url.searchParams.get('role'),
 		);
 
 		await db //
@@ -114,28 +114,28 @@ export const actions = {
 
 		const userId = parseOrErrorPage(
 			pipe(string(), ulid(), notValue(e.locals.session.userId)),
-			formData.get('user-id')
+			formData.get('user-id'),
 		);
 
 		const role = parseOrErrorPage(
 			picklist(Roles), //
-			e.url.searchParams.get('role')
+			e.url.searchParams.get('role'),
 		);
 
 		await db
 			.update(roleTable)
 			.set({
 				revokedAt: new Date(),
-				revokedBy: e.locals.session.userId
+				revokedBy: e.locals.session.userId,
 			})
 			.where(
 				and(
 					eq(roleTable.userId, userId), //
 					eq(roleTable.role, role),
-					isNull(roleTable.revokedAt)
-				)
+					isNull(roleTable.revokedAt),
+				),
 			);
 
 		await banUserSessions(e, e.locals.session, [userId]);
-	}
+	},
 };

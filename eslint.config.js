@@ -1,6 +1,6 @@
 import eslint from '@eslint/js';
 import prettier from 'eslint-config-prettier';
-import globals from "globals";
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -11,14 +11,14 @@ export default tseslint.config(
 		languageOptions: {
 			globals: {
 				...globals.browser,
-				...globals.node
-			}
-		}
+				...globals.node,
+			},
+		},
 	},
 	{
 		rules: {
 			'no-console': ['error', { allow: ['warn', 'error'] }],
-			'no-restricted-imports': ['error', 'assert', 'node:assert']
-		}
-	}
+			'no-restricted-imports': ['error', 'assert', 'node:assert'],
+		},
+	},
 );

@@ -5,7 +5,7 @@
 	let {
 		topNav,
 		children,
-		bottomNav
+		bottomNav,
 	}: {
 		topNav?: Snippet;
 		children?: Snippet;

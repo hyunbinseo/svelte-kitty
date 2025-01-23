@@ -17,7 +17,7 @@ import { loadEnvFile } from 'node:process';
 loadEnvFile('.env.production');
 
 await import('./${buildId}/index.js');
-`
+`,
 	);
 
 	return { buildId };

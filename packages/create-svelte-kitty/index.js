@@ -9,7 +9,7 @@ import {
 	existsSync,
 	readdirSync,
 	readFileSync,
-	writeFileSync
+	writeFileSync,
 } from 'node:fs';
 import path from 'node:path';
 import { chdir, cwd, exit } from 'node:process';
@@ -42,7 +42,7 @@ const project = await p.group(
 						readdirSync(resolvedPath).length;
 					if (directoryIsNotEmpty) return 'Provided directory is not empty.';
 					return;
-				}
+				},
 			}),
 		rootAdminContact: () =>
 			p.text({
@@ -52,12 +52,12 @@ const project = await p.group(
 					const parsedEmail = safeParse(pipe(string(), email()), value);
 					if (!parsedEmail.success) return 'Please enter a valid email.';
 					return;
-				}
+				},
 			}),
 		emailProvider: () =>
 			p.select({
 				message: 'Which email provider would you like to use?',
-				options: [{ value: 'postmark', label: 'Postmark' }]
+				options: [{ value: 'postmark', label: 'Postmark' }],
 				// TODO Implement other email providers.
 			}),
 		packageManager: () =>
@@ -66,16 +66,16 @@ const project = await p.group(
 				options: [
 					{ value: 'npm' }, //
 					{ value: 'pnpm' },
-					{ value: 'bun' }
-				]
-			})
+					{ value: 'bun' },
+				],
+			}),
 	},
 	{
 		onCancel: () => {
 			p.cancel('Operation cancelled.');
 			exit(0);
-		}
-	}
+		},
+	},
 );
 
 /** @param {'dev' | 'preview'} command  */
@@ -116,25 +116,25 @@ await p.tasks([
 				`SERVER_ADDRESS=""
 SERVER_USERNAME="webadmin"
 SERVER_DIRECTORY="server"
-`
+`,
 			);
 			if (project.packageManager === 'pnpm') {
 				const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
 				packageJson.pnpm = {
-					onlyBuiltDependencies: ['@sveltejs/kit', 'better-sqlite3', 'esbuild']
+					onlyBuiltDependencies: ['@sveltejs/kit', 'better-sqlite3', 'esbuild'],
 				};
 				writeFileSync('package.json', JSON.stringify(packageJson, null, '\t') + '\n');
 			}
 			await timer;
 			return 'Successfully copied template';
-		}
+		},
 	},
 	{
 		title: 'Installing dependencies',
 		task: async () => {
 			await execAsync(`${project.packageManager} install`);
 			return 'Successfully installed dependencies';
-		}
+		},
 	},
 	{
 		title: 'Initializing project',
@@ -154,8 +154,8 @@ SERVER_DIRECTORY="server"
 
 			await timer;
 			return 'Successfully initialized project';
-		}
-	}
+		},
+	},
 ]);
 
 const nextSteps = `

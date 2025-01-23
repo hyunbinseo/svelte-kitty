@@ -6,7 +6,7 @@ import { minLength, object, parse, pipe, string } from 'valibot';
 import * as schema from '../src/lib/server/db/schema.ts';
 
 const EnvSchema = object({
-	DATABASE_URL: pipe(string(), minLength(1))
+	DATABASE_URL: pipe(string(), minLength(1)),
 });
 
 const { DATABASE_URL } = parse(EnvSchema, env);
@@ -14,7 +14,7 @@ const { DATABASE_URL } = parse(EnvSchema, env);
 const db = drizzle({
 	connection: { source: DATABASE_URL, fileMustExist: true },
 	casing: 'snake_case',
-	schema
+	schema,
 });
 
 // Consider uploading backups to services such as:

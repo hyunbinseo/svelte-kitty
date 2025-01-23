@@ -5,9 +5,9 @@ const en = {
 		home: 'Home',
 		about: 'About',
 		login: 'Login',
-		app: 'App'
+		app: 'App',
 	},
-	logo: 'Logo'
+	logo: 'Logo',
 };
 
 const ko: typeof en = {
@@ -15,9 +15,9 @@ const ko: typeof en = {
 		home: '홈',
 		about: '소개',
 		login: '로그인',
-		app: '앱'
+		app: '앱',
 	},
-	logo: '로고'
+	logo: '로고',
 };
 
 export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

@@ -11,9 +11,9 @@ export const profileTable = sqliteTable('profile', {
 	createdAt: integer({ mode: 'timestamp' })
 		.notNull()
 		.$default(() => new Date()),
-	updatedAt: integer({ mode: 'timestamp' }).$onUpdate(() => new Date())
+	updatedAt: integer({ mode: 'timestamp' }).$onUpdate(() => new Date()),
 });
 
 export const profileRelations = relations(profileTable, ({ one }) => ({
-	user: one(userTable, { fields: [profileTable.userId], references: [userTable.id] })
+	user: one(userTable, { fields: [profileTable.userId], references: [userTable.id] }),
 }));

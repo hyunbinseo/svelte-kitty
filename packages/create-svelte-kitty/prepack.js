@@ -7,6 +7,6 @@ writeFileSync(
 	file,
 	readFileSync(file, 'utf8').replace(
 		'"svelte-kitty": "workspace:^"', //
-		`"svelte-kitty": "^${pkg.version}"`
-	)
+		`"svelte-kitty": "^${pkg.version}"`,
+	),
 );

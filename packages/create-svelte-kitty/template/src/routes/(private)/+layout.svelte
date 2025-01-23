@@ -19,7 +19,7 @@
 		const renewalIntervalId = window.setInterval(async () => {
 			const parsedExpiresAt = safeParse(
 				pipe(string(), digits(), transform(Number), literal(data.session.expiresAt)),
-				localStorage.getItem('sessionExpiresAt')
+				localStorage.getItem('sessionExpiresAt'),
 			);
 
 			if (!parsedExpiresAt.success) return invalidate('private:session');
@@ -27,7 +27,7 @@
 
 			const parsedRenewalStart = safeParse(
 				nullable(pipe(string(), digits(), transform(Number), minValue(Date.now() - 60 * 1000))),
-				localStorage.getItem('sessionRenewalStart')
+				localStorage.getItem('sessionRenewalStart'),
 			);
 
 			if (!parsedRenewalStart.success) return localStorage.removeItem('sessionRenewalStart');
@@ -61,13 +61,13 @@
 				: [
 						['/admin/', t.nav.dashboard],
 						['/admin/users', t.nav.users],
-						['/admin/roles', t.nav.roles]
+						['/admin/roles', t.nav.roles],
 					];
 
 		return [
 			[PUBLIC_PRIVATE_PATH as NavHref, t.nav.home],
 			['/lorem', 'Lorem'],
-			['/ipsum', 'Ipsum']
+			['/ipsum', 'Ipsum'],
 		];
 	};
 

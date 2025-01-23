@@ -7,9 +7,9 @@ const en = {
 		home: 'Home',
 		logout: 'Logout',
 		roles: 'Roles',
-		users: 'Users'
+		users: 'Users',
 	},
-	logo: 'Logo'
+	logo: 'Logo',
 };
 
 const ko: typeof en = {
@@ -19,9 +19,9 @@ const ko: typeof en = {
 		home: '홈',
 		logout: '로그아웃',
 		roles: '역할',
-		users: '사용자'
+		users: '사용자',
 	},
-	logo: '로고'
+	logo: '로고',
 };
 
 export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

@@ -27,7 +27,7 @@
 			await update({ invalidateAll: false });
 			await invalidate('admin:roles');
 			if (submitter) submitter.ariaBusy = 'false';
-		}
+		},
 	});
 </script>
 

@@ -11,10 +11,10 @@ const config = {
 	kit: {
 		adapter: adapter({
 			out: env.BUILD_ID ? `build/${env.BUILD_ID}` : undefined,
-			envPrefix: '' // do not change
+			envPrefix: '', // do not change
 		}),
-		appDir: '_app' // do not change
-	}
+		appDir: '_app', // do not change
+	},
 };
 
 export default config;

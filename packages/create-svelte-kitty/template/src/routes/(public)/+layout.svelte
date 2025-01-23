@@ -13,7 +13,7 @@
 		['/about', t.nav.about],
 		page.url.pathname === '/login'
 			? ['/login', t.nav.login] //
-			: ['/session/redirect', t.nav.app]
+			: ['/session/redirect', t.nav.app],
 	]);
 
 	const navLinkIsActive = (href: NavHref) =>

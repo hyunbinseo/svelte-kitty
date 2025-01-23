@@ -25,9 +25,9 @@ export const actions = {
 		const form = parseOrErrorPage(
 			object({
 				surname: pipe(string(), trim(), minLength(1)),
-				givenName: pipe(string(), trim(), minLength(1))
+				givenName: pipe(string(), trim(), minLength(1)),
 			}),
-			formDataToObject(formData, { get: ['surname', 'given-name'] })
+			formDataToObject(formData, { get: ['surname', 'given-name'] }),
 		);
 
 		const { userId } = e.locals.session;
@@ -40,5 +40,5 @@ export const actions = {
 		await banCurrentSessions(e, e.locals.session, { delay: true });
 		await authenticate(e, userId, null);
 		redirect(302, PUBLIC_PRIVATE_PATH);
-	}
+	},
 };

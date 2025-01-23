@@ -18,14 +18,14 @@ export const banUserSessions = (e: RequestEvent, session: Session, userIds: stri
 					sessionId: sessionTable.id,
 					bannedAt: sql`${Math.floor(Date.now() / 1000)}`.as('banned_at'),
 					bannedBy: sql`${session.userId}`.as('banned_by'),
-					ip: sql`${e.getClientAddress()}`.as('ip')
+					ip: sql`${e.getClientAddress()}`.as('ip'),
 				})
 				.from(sessionTable)
 				.where(
 					and(
 						inArray(sessionTable.userId, userIds), //
-						gt(sessionTable.expiresAt, new Date())
-					)
-				)
+						gt(sessionTable.expiresAt, new Date()),
+					),
+				),
 		)
 		.onConflictDoNothing();

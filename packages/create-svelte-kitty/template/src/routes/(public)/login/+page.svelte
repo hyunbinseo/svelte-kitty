@@ -13,7 +13,7 @@
 		onAfterSubmit: ({ result, update }) =>
 			result.type === 'redirect'
 				? goto(page.url.searchParams.get('redirect') || result.location)
-				: update({ reset: false })
+				: update({ reset: false }),
 	});
 </script>
 
@@ -27,7 +27,7 @@
 	class={[
 		formStyles.stacked,
 		formStyles.underline,
-		'mx-auto my-8 flex w-full max-w-80 flex-col md:my-16'
+		'mx-auto my-8 flex w-full max-w-80 flex-col md:my-16',
 	]}
 >
 	{#if !data.magicLinkLogin || form?.error}

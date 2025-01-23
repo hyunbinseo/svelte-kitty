@@ -16,23 +16,23 @@ export default tseslint.config(
 		languageOptions: {
 			globals: {
 				...globals.browser,
-				...globals.node
-			}
-		}
+				...globals.node,
+			},
+		},
 	},
 	{
 		files: ['**/*.svelte'],
 		languageOptions: {
 			parserOptions: {
-				parser: tseslint.parser
-			}
-		}
+				parser: tseslint.parser,
+			},
+		},
 	},
 	{ ignores: ['.svelte-kit/', 'build/', 'dist/', 'drizzle/'] },
 	{
 		rules: {
 			'no-console': ['error', { allow: ['warn', 'error'] }],
-			'no-restricted-imports': ['error', 'assert', 'node:assert']
-		}
-	}
+			'no-restricted-imports': ['error', 'assert', 'node:assert'],
+		},
+	},
 );

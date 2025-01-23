@@ -22,11 +22,11 @@ export const loginTable = sqliteTable(
 			.notNull()
 			.$default(() => new Date(Date.now() + loginExpiresIn)),
 		expiredAt: integer({ mode: 'timestamp' }),
-		ip
+		ip,
 	},
-	(t) => [index('idx_login_user_id').on(t.userId)]
+	(t) => [index('idx_login_user_id').on(t.userId)],
 );
 
 export const loginRelations = relations(loginTable, ({ one }) => ({
-	user: one(userTable, { fields: [loginTable.userId], references: [userTable.id] })
+	user: one(userTable, { fields: [loginTable.userId], references: [userTable.id] }),
 }));

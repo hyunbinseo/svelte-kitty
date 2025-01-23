@@ -11,11 +11,11 @@ export const userTable = sqliteTable('user', {
 	id: text().primaryKey().$default(ulid), // sub
 	contact: text().notNull(),
 	deactivatedAt: integer({ mode: 'timestamp' }),
-	deactivatedBy: text().references(userId)
+	deactivatedBy: text().references(userId),
 });
 
 export const userRelations = relations(userTable, ({ many, one }) => ({
 	logins: many(loginTable),
 	profile: one(profileTable),
-	roles: many(roleTable)
+	roles: many(roleTable),
 }));

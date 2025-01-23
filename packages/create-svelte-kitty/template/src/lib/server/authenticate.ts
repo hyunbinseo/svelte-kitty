@@ -28,9 +28,9 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 			profile: { columns: { userId: true } },
 			roles: {
 				columns: { role: true },
-				where: isNull(roleTable.revokedAt)
-			}
-		}
+				where: isNull(roleTable.revokedAt),
+			},
+		},
 	});
 
 	if (!user) error(500);
@@ -49,7 +49,7 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 		jti: session.id,
 		sub: userId,
 		profile: !user.profile ? null : undefined,
-		roles: [...new Set(user.roles.map(({ role }) => role))]
+		roles: [...new Set(user.roles.map(({ role }) => role))],
 	} satisfies Omit<Payload, 'iat' | 'exp'>)
 		.setProtectedHeader({ alg: 'HS256' })
 		.setIssuedAt(session.issuedAt)
@@ -61,7 +61,7 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 		expires: session.expiresAt,
 		// Enable `Set-Cookie` in Vite dev server environments.
 		// Blocked by https://github.com/sveltejs/kit/issues/10438
-		secure: !dev || e.url.protocol === 'https:'
+		secure: !dev || e.url.protocol === 'https:',
 	});
 
 	const payload = await decodeJwt<Payload>(jwt);
@@ -76,7 +76,7 @@ export const payloadToSession = (payload: Payload): NonNullable<App.Locals['sess
 		expiresAt: new Date(payload.exp * 1000),
 		roles,
 		isAdmin: roles.has('admin') || roles.has('superuser'),
-		profile: payload.profile !== null
+		profile: payload.profile !== null,
 	};
 };
 
@@ -91,8 +91,8 @@ export const verifyJwt = async (jwt: string) => {
 		columns: { sessionId: true },
 		where: and(
 			eq(sessionBanTable.sessionId, result.payload.jti), //
-			lt(sessionBanTable.bannedAt, new Date())
-		)
+			lt(sessionBanTable.bannedAt, new Date()),
+		),
 	});
 
 	if (sessionBan) throw new Error();
@@ -105,7 +105,7 @@ type Session = NonNullable<App.Locals['session']>;
 export const banCurrentSession = async (
 	e: RequestEvent,
 	session: Session,
-	options?: { delay: true }
+	options?: { delay: true },
 ) => {
 	await db
 		.insert(sessionBanTable)
@@ -113,7 +113,7 @@ export const banCurrentSession = async (
 			sessionId: session.id,
 			bannedAt: options?.delay ? new Date(Date.now() + sessionBanDelay) : undefined,
 			bannedBy: session.userId,
-			ip: e.getClientAddress()
+			ip: e.getClientAddress(),
 		})
 		.onConflictDoNothing();
 
@@ -128,7 +128,7 @@ export const banCurrentSession = async (
 export const banCurrentSessions = async (
 	e: RequestEvent,
 	session: Session,
-	options?: { delay: true }
+	options?: { delay: true },
 ) => {
 	const unixTimestamp = Math.floor(Date.now() / 1000);
 	const bannedAtDelayed = sql`${unixTimestamp + sessionBanDelayInSeconds}`.as('banned_at');
@@ -145,7 +145,7 @@ export const banCurrentSessions = async (
 						sessionId: sql`${session.id}`.as('session_id'),
 						bannedAt: options?.delay ? bannedAtDelayed : bannedAtNow,
 						bannedBy,
-						ip
+						ip,
 					})
 					.from(sessionTable),
 				db
@@ -153,17 +153,17 @@ export const banCurrentSessions = async (
 						sessionId: sessionTable.id,
 						bannedAt: bannedAtNow,
 						bannedBy,
-						ip
+						ip,
 					})
 					.from(sessionTable)
 					.where(
 						and(
 							ne(sessionTable.id, session.id),
 							eq(sessionTable.userId, session.userId),
-							gt(sessionTable.expiresAt, new Date())
-						)
-					)
-			)
+							gt(sessionTable.expiresAt, new Date()),
+						),
+					),
+			),
 		)
 		.onConflictDoNothing();
 

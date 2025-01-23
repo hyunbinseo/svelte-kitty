@@ -11,7 +11,7 @@ import * as schema from './schema.ts';
 export const db = drizzle({
 	connection: { source: DATABASE_URL },
 	casing: 'snake_case',
-	schema
+	schema,
 });
 
 // It's recommended to turn on WAL mode to greatly increase overall performance.

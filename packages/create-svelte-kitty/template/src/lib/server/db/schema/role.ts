@@ -20,11 +20,11 @@ export const roleTable = sqliteTable(
 			.notNull()
 			.references(() => userTable.id),
 		revokedAt: integer({ mode: 'timestamp' }),
-		revokedBy: text().references(() => userTable.id)
+		revokedBy: text().references(() => userTable.id),
 	},
-	(t) => [index('idx_role_user_id').on(t.userId)]
+	(t) => [index('idx_role_user_id').on(t.userId)],
 );
 
 export const roleRelations = relations(roleTable, ({ one }) => ({
-	user: one(userTable, { fields: [roleTable.userId], references: [userTable.id] })
+	user: one(userTable, { fields: [roleTable.userId], references: [userTable.id] }),
 }));

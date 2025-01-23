@@ -8,7 +8,7 @@ const en = {
 	'deactivated-at': 'Deactivated At',
 	'joined-at': 'Joined At',
 	'name': 'Name',
-	'reset': 'Reset'
+	'reset': 'Reset',
 };
 
 const ko: typeof en = {
@@ -19,7 +19,7 @@ const ko: typeof en = {
 	'deactivated-at': '비활성화 일자',
 	'joined-at': '가입일자',
 	'name': '이름',
-	'reset': '선택 해제'
+	'reset': '선택 해제',
 };
 
 export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

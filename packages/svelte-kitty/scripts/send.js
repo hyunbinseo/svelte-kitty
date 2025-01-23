@@ -24,15 +24,15 @@ export const send = async ({ buildId, isDryRun }) => {
 			object({
 				SERVER_ADDRESS: pipe(string(), ip()),
 				SERVER_USERNAME: string(),
-				SERVER_DIRECTORY: string()
+				SERVER_DIRECTORY: string(),
 			}),
 			transform((v) => ({
 				address: v.SERVER_ADDRESS,
 				username: v.SERVER_USERNAME,
-				directory: v.SERVER_DIRECTORY
-			}))
+				directory: v.SERVER_DIRECTORY,
+			})),
 		),
-		parseEnv(readFileSync('.env.local', 'utf8'))
+		parseEnv(readFileSync('.env.local', 'utf8')),
 	);
 
 	if (!parsedServer.success) {
@@ -69,7 +69,7 @@ export const send = async ({ buildId, isDryRun }) => {
 + /package.json
 + /pm2.config.cjs
 - *
-`
+`,
 	);
 
 	/* eslint-disable no-console */
@@ -79,8 +79,8 @@ export const send = async ({ buildId, isDryRun }) => {
 			'cyan',
 			'\n' +
 				(isDryRun ? '[DRY-RUN]\n' : '') + //
-				'Transferring files using rsync over SSH:'
-		)
+				'Transferring files using rsync over SSH:',
+		),
 	);
 	console.log('Tap the security key if 2FA is required.');
 
@@ -88,7 +88,7 @@ export const send = async ({ buildId, isDryRun }) => {
 
 	execSync(
 		`rsync ${flags} --include-from=build/rsync.txt ./ ${server.username}@${server.address}:${server.directory}`,
-		{ stdio: 'inherit' }
+		{ stdio: 'inherit' },
 	);
 
 	if (isDryRun) return;

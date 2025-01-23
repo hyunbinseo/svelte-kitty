@@ -10,11 +10,11 @@ module.exports = {
 			interpreter_args: [
 				'--no-warnings=ExperimentalWarning',
 				'--experimental-strip-types',
-				'--env-file=.env.production'
+				'--env-file=.env.production',
 			],
 			time: true, // auto prefix logs with date
 			autorestart: false,
-			cron: '0 0 * * *'
+			cron: '0 0 * * *',
 		},
 		{
 			name: 'server',
@@ -23,7 +23,7 @@ module.exports = {
 			instances: -1,
 			exec_mode: 'cluster',
 			time: true, // auto prefix logs with date
-			autorestart: true
-		}
-	]
+			autorestart: true,
+		},
+	],
 };

@@ -20,7 +20,7 @@ const en = {
 	'search': 'Search',
 	'start-over': 'Start Over',
 	'superuser': 'Superuser',
-	'user': 'User'
+	'user': 'User',
 };
 
 const ko: typeof en = {
@@ -43,7 +43,7 @@ const ko: typeof en = {
 	'search': '검색',
 	'start-over': '처음으로',
 	'superuser': '슈퍼 관리자',
-	'user': '사용자'
+	'user': '사용자',
 };
 
 export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

@@ -6,5 +6,5 @@ export const actions = {
 		if (!e.locals.session) return redirect(302, '/');
 		await banCurrentSession(e, e.locals.session);
 		redirect(302, '/');
-	}
+	},
 };

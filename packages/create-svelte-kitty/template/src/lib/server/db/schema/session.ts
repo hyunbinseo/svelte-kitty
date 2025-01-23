@@ -19,7 +19,7 @@ export const sessionTable = sqliteTable(
 		expiresAt: integer({ mode: 'timestamp' })
 			.notNull()
 			.$default(() => new Date(Date.now() + sessionExpiresIn)),
-		ip
+		ip,
 	},
-	(t) => [index('idx_session_user_id').on(t.userId)]
+	(t) => [index('idx_session_user_id').on(t.userId)],
 );

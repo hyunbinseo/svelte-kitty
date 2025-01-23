@@ -18,10 +18,10 @@ const FlagSchema = pipe(
 			string(),
 			startsWith('--'),
 			transform((v) => v.substring(2)),
-			picklist(validFlags)
-		)
+			picklist(validFlags),
+		),
 	),
-	transform((arr) => new Set(arr))
+	transform((arr) => new Set(arr)),
 );
 
 const parsedCommand = safeParse(picklist(validCommands), argv[2]);

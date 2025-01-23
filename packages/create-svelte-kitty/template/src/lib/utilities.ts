@@ -5,7 +5,7 @@ import { safeParse, type GenericSchema } from 'valibot';
 export const parseOrErrorPage = <Schema extends GenericSchema<Input, unknown>, Input>(
 	schema: Schema,
 	input: Input,
-	status = 400
+	status = 400,
 ) => {
 	const result = safeParse(schema, input);
 	if (!result.success) {

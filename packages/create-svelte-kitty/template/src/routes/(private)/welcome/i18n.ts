@@ -8,7 +8,7 @@ const en = {
 	'john': 'John',
 	'surname': 'Surname',
 	'tell-us-about-yourself': 'Tell us about yourself',
-	'welcome': 'Welcome!'
+	'welcome': 'Welcome!',
 };
 
 const ko: typeof en = {
@@ -19,7 +19,7 @@ const ko: typeof en = {
 	'john': '길동',
 	'surname': '성',
 	'tell-us-about-yourself': '회원정보를 입력해 주세요.',
-	'welcome': '반갑습니다!'
+	'welcome': '반갑습니다!',
 };
 
 export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

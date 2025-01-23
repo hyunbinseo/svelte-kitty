@@ -13,5 +13,5 @@ export const sessionBanTable = sqliteTable('session_ban', {
 	bannedBy: text()
 		.references(() => userTable.id)
 		.notNull(),
-	ip
+	ip,
 });

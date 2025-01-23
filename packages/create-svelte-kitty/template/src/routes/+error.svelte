@@ -11,7 +11,7 @@
 			const message = page?.error?.message;
 			if (message && !isGenericErrorMessage(message)) return message;
 			return isDefinedReasonPhrase(page.status) ? t.http[page.status] : t['unknown-error'];
-		})()
+		})(),
 	);
 </script>
 

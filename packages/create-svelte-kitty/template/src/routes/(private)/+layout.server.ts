@@ -16,7 +16,7 @@ export const load = ({ depends, locals, url }) => {
 			renewalThreshold: sessionRenewalThreshold,
 			expiresAt: locals.session.expiresAt.valueOf(),
 			isAdmin: locals.session.isAdmin,
-			isSuperuser: locals.session.roles.has('superuser')
-		}
+			isSuperuser: locals.session.roles.has('superuser'),
+		},
 	};
 };

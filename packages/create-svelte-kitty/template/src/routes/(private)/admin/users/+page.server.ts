@@ -18,21 +18,21 @@ export const load = (async ({ locals, url }) => {
 		.select({
 			...pickTableColumns(userTable, ['id', 'contact']),
 			...(showDeactivated ? { deactivatedAt: userTable.deactivatedAt } : {}),
-			profile: pickTableColumns(profileTable, ['givenName', 'surname'])
+			profile: pickTableColumns(profileTable, ['givenName', 'surname']),
 		})
 		.from(userTable)
 		.leftJoin(profileTable, eq(profileTable.userId, userTable.id))
 		.where(
 			and(
 				(!showDeactivated ? isNull : isNotNull)(userTable.deactivatedAt),
-				ne(userTable.id, locals.session.userId)
-			)
+				ne(userTable.id, locals.session.userId),
+			),
 		)
 		.orderBy(
 			desc(userTable.deactivatedAt),
 			// Blocked by https://github.com/drizzle-team/drizzle-orm/issues/1699
 			sql`${profileTable.givenName} ASC NULLS LAST`,
-			asc(profileTable.surname)
+			asc(profileTable.surname),
 		);
 
 	return { pageTitle: t.pageTitle, showDeactivated, users };
@@ -48,24 +48,24 @@ export const actions = {
 			pipe(
 				array(pipe(string(), ulid())), //
 				excludes(e.locals.session.userId),
-				minLength(1)
+				minLength(1),
 			),
-			formData.getAll('user-id')
+			formData.getAll('user-id'),
 		);
 
 		await db
 			.update(userTable)
 			.set({
 				deactivatedAt: new Date(),
-				deactivatedBy: e.locals.session.userId
+				deactivatedBy: e.locals.session.userId,
 			})
 			.where(
 				and(
 					inArray(userTable.id, userIds), //
-					isNull(userTable.deactivatedAt)
-				)
+					isNull(userTable.deactivatedAt),
+				),
 			);
 
 		await banUserSessions(e, e.locals.session, userIds);
-	}
+	},
 };
