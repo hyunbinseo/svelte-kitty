@@ -120,9 +120,7 @@ SERVER_DIRECTORY="server"
 			);
 			if (project.packageManager === 'pnpm') {
 				const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
-				packageJson.pnpm = {
-					onlyBuiltDependencies: ['@sveltejs/kit', 'better-sqlite3', 'esbuild'],
-				};
+				packageJson.pnpm = { onlyBuiltDependencies: ['esbuild', 'better-sqlite3'] };
 				writeFileSync('package.json', JSON.stringify(packageJson, null, '\t') + '\n');
 			}
 			await timer;
