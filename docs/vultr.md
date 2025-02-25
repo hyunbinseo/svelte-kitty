@@ -83,6 +83,7 @@ write_files:
       server {
         listen 8000;
         client_max_body_size 1m;
+        server_tokens off;
 
         location / {
           root /home/webadmin/server/static;
