@@ -1,4 +1,5 @@
 <script>
+	import { dev } from '$app/environment';
 	import { page } from '$app/state';
 	import { PUBLIC_SITE_NAME } from '$env/static/public';
 	import logo from '$lib/static/logo.svg?no-inline';
@@ -24,7 +25,10 @@
 	</title>
 	<meta property="og:title" content={page.data.pageTitle || PUBLIC_SITE_NAME} />
 	<meta property="og:site_name" content={PUBLIC_SITE_NAME} />
-	<link rel="icon" href={logo} />
+	<!-- Blocked by https://github.com/sveltejs/svelte/issues/15337 -->
+	{#if !dev}
+		<link rel="icon" href={logo} />
+	{/if}
 	<script>
 		if (window.location.pathname !== '/unsupported') {
 			var isSupported =
