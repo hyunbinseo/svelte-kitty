@@ -1,5 +1,11 @@
 # svelte-kitty
 
+## 0.0.6
+
+### Patch Changes
+
+- 7e224eb: chore: use unified .env.local file
+
 ## 0.0.5
 
 ### Patch Changes
