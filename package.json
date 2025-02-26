@@ -1,18 +1,19 @@
 {
 	"scripts": {
 		"ci:release": "changeset publish",
-		"check": "tsc --noEmit",
-		"format": "prettier --write ."
+		"check": "tsc --noEmit"
 	},
 	"type": "module",
 	"devDependencies": {
-		"@changesets/cli": "^2.27.11",
+		"@changesets/cli": "^2.28.1",
+		"@eslint/js": "^9.21.0",
 		"@types/eslint-config-prettier": "^6.11.3",
-		"globals": "^15.14.0",
-		"prettier": "^3.4.2",
+		"globals": "^16.0.0",
+		"prettier": "^3.5.2",
 		"prettier-plugin-svelte": "^3.3.3",
-		"prettier-plugin-tailwindcss": "^0.6.10",
-		"typescript": "^5.7.3"
+		"prettier-plugin-tailwindcss": "^0.6.11",
+		"typescript": "^5.7.3",
+		"typescript-eslint": "^8.25.0"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
@@ -20,5 +21,5 @@
 			"better-sqlite3"
 		]
 	},
-	"packageManager": "pnpm@10.2.1+sha512.398035c7bd696d0ba0b10a688ed558285329d27ea994804a52bad9167d8e3a72bcb993f9699585d3ca25779ac64949ef422757a6c31102c12ab932e5cbe5cc92"
+	"packageManager": "pnpm@10.5.1+sha512.c424c076bd25c1a5b188c37bb1ca56cc1e136fbf530d98bcb3289982a08fd25527b8c9c4ec113be5e3393c39af04521dd647bcf1d0801eaf8ac6a7b14da313af"
 }

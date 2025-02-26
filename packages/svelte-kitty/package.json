@@ -9,11 +9,11 @@
 		"vite": "^6.0.3"
 	},
 	"dependencies": {
-		"valibot": "1.0.0-beta.13"
+		"valibot": "1.0.0-rc.2"
 	},
 	"devDependencies": {
-		"@types/node": "^22.10.7",
-		"prettier": "^3.4.2"
+		"@types/node": "^22.13.5",
+		"prettier": "^3.5.2"
 	},
 	"engines": {
 		"node": ">=22.12.0"
