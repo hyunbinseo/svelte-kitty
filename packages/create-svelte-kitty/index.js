@@ -120,7 +120,7 @@ SERVER_DIRECTORY="server"
 			);
 			if (project.packageManager === 'pnpm') {
 				const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
-				packageJson.pnpm = { onlyBuiltDependencies: ['esbuild', 'better-sqlite3'] };
+				packageJson.pnpm = { onlyBuiltDependencies: ['better-sqlite3', 'esbuild'] };
 				writeFileSync('package.json', JSON.stringify(packageJson, null, '\t') + '\n');
 			}
 			await timer;
