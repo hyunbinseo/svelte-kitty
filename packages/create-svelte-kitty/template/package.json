@@ -40,7 +40,7 @@
 		"autoprefixer": "^10.4.20",
 		"eslint": "^9.21.0",
 		"eslint-config-prettier": "^10.0.2",
-		"eslint-plugin-svelte": "^2.46.1",
+		"eslint-plugin-svelte": "^3.0.2",
 		"globals": "^16.0.0",
 		"jose": "^6.0.7",
 		"new-request": "^0.0.21",
