@@ -10,7 +10,7 @@ import { parseOrErrorPage } from '$lib/utilities.ts';
 import { formDataToObject } from '@hyunbinseo/tools';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { and, desc, eq, gt, isNull } from 'drizzle-orm';
-import { PostmarkSendEmail as sendEmail } from 'new-request';
+import { sendEmail } from 'new-request/email/postmark/POST';
 import { digits, email, length, object, pipe, string, trim, ulid, uuid } from 'valibot';
 import type { PageServerLoad } from './$types.ts';
 import { t } from './i18n.ts';

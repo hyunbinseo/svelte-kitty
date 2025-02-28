@@ -66,6 +66,9 @@ importers:
       drizzle-orm:
         specifier: ^0.40.0
         version: 0.40.0(@types/better-sqlite3@7.6.12)(better-sqlite3@11.8.1)(gel@2.0.0)
+      new-request:
+        specifier: ^0.0.31
+        version: 0.0.31
       ulid:
         specifier: ^2.3.0
         version: 2.3.0
@@ -115,9 +118,6 @@ importers:
       jose:
         specifier: ^6.0.7
         version: 6.0.7
-      new-request:
-        specifier: ^0.0.21
-        version: 0.0.21
       pm2-ecosystem:
         specifier: ^5.4.3
         version: 5.4.3
@@ -1842,8 +1842,8 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  new-request@0.0.21:
-    resolution: {integrity: sha512-kk6CfAgYAjpgeWIHpWHNSxMCbW6f315f7wpxK0A/3WzZ28biN+TMrW8hOu3Yd2CiDvXGB+51iRJFoggGzbtx5A==}
+  new-request@0.0.31:
+    resolution: {integrity: sha512-L/+owGzLp5GPaiCdTDPu16+EnoZSTg1Ux/Gp7k0+NCjSON4sMpP9s3Vjkx430iGxG6Sm1ZE+rGtKOXRRcLE8Cg==}
     engines: {node: '>=18'}
 
   node-abi@3.74.0:
@@ -4003,7 +4003,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  new-request@0.0.21: {}
+  new-request@0.0.31: {}
 
   node-abi@3.74.0:
     dependencies:

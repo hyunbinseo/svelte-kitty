@@ -25,6 +25,7 @@
 		"better-sqlite3": "^11.8.1",
 		"drizzle-kit": "^0.30.5",
 		"drizzle-orm": "^0.40.0",
+		"new-request": "^0.0.31",
 		"ulid": "^2.3.0",
 		"valibot": "1.0.0-rc.2"
 	},
@@ -43,7 +44,6 @@
 		"eslint-plugin-svelte": "^3.0.2",
 		"globals": "^16.0.0",
 		"jose": "^6.0.7",
-		"new-request": "^0.0.21",
 		"pm2-ecosystem": "^5.4.3",
 		"postcss": "^8.5.3",
 		"prettier": "^3.5.2",
