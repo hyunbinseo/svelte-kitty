@@ -85,16 +85,17 @@ const generateEnv = (command) =>
 # Loaded in \`vite ${command}\`
 # Reference https://vite.dev/guide/env-and-mode
 
-# Import secrets using the \`$env/dynamic/private\` module.
+# By importing these secrets using the \`$env/dynamic/private\` module,
+# the environment variable can be updated without rebuilding the app.
 # Reference https://svelte.dev/docs/kit/$env-dynamic-private
 
 ROOT_ADMIN_CONTACT="${project.rootAdminContact}"
 
-JWT_SECRET_CURRENT="${randomBytes(32).toString('base64')}"
-JWT_SECRET_EXPIRED=""
-
 EMAIL_SENDER=""
 EMAIL_API_KEY=""
+
+JWT_SECRET_CURRENT="${randomBytes(32).toString('base64')}"
+JWT_SECRET_EXPIRED=""
 `;
 
 // Reference https://github.com/bombshell-dev/clack/issues/172
@@ -113,7 +114,9 @@ await p.tasks([
 			writeFileSync('.env.production.local', generateEnv('preview'));
 			writeFileSync(
 				'.env.local',
-				`SERVER_ADDRESS=""
+				`# DO NOT COMMIT THIS FILE TO SOURCE CONTROL
+
+SERVER_ADDRESS=""
 SERVER_USERNAME="webadmin"
 SERVER_DIRECTORY="server"
 `,
