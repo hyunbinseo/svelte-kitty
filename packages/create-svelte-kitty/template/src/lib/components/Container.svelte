@@ -23,7 +23,7 @@
 		<a
 			href="#main-content"
 			onclick={() => (window.location.hash = 'main-content')}
-			class="btn btn-primary rounded-none [&:not(:focus)]:sr-only"
+			class="btn btn-primary rounded-none"
 		>
 			{t['skip-to-content']}
 		</a>
@@ -53,5 +53,10 @@
 		@media (min-width: theme(screens.sm)) {
 			--container-padding: theme(size.6);
 		}
+	}
+	/* TODO Use .not-focus-visible:sr-only after upgrading to Tailwind v4. */
+	/* The .[&:not(:focus-visible)]:sr-only does not work in Tailwind v3. */
+	a[href='#main-content']:not(:focus-visible) {
+		@apply sr-only;
 	}
 </style>
