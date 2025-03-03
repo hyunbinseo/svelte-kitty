@@ -116,7 +116,7 @@ await p.tasks([
 				'.env.local',
 				`# DO NOT COMMIT THIS FILE TO SOURCE CONTROL
 
-SERVER_ADDRESS=""
+SERVER_ADDRESS="" # IP address or Tailscale machine name
 SERVER_USERNAME="webadmin"
 SERVER_DIRECTORY="server"
 `,

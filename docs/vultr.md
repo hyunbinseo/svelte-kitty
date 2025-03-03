@@ -20,7 +20,6 @@
 | Additional Features | ✅ Public IPv4<br />✅ Cloud-Init User-Data |
 
 - Add the following content into the Cloud-Init user data text field.
-- Add your SSH public key(s) to the `ssh_authorized_keys` array.
 
 ```yaml
 #cloud-config
@@ -38,8 +37,6 @@ users:
       - 'ALL=(ALL) NOPASSWD:/bin/systemctl * cloudflared'
       - 'ALL=(ALL) NOPASSWD:/bin/systemctl * nginx'
       - 'ALL=(ALL) NOPASSWD:/usr/sbin/nginx'
-    ssh_authorized_keys:
-      - ssh-rsa AAAAB3... # add actual key(s)
 
 yum_repos:
   cloudflared-stable:
@@ -60,6 +57,16 @@ yum_repos:
     gpgkey: https://nginx.org/keys/nginx_signing.key
     module_hotfixes: true
 
+  tailscale-stable:
+    # Reference https://tailscale.com/kb/1198/install-rhel-9
+    name: Tailscale stable
+    baseurl: https://pkgs.tailscale.com/stable/rhel/9/$basearch
+    enabled: true
+    type: rpm
+    repo_gpgcheck: true
+    gpgcheck: true
+    gpgkey: https://pkgs.tailscale.com/stable/rhel/9/repo.gpg
+
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
@@ -67,6 +74,7 @@ package_reboot_if_required: true
 packages:
   - cloudflared
   - nginx
+  - tailscale
   - yum-utils
 
 write_files:
@@ -148,6 +156,6 @@ runcmd:
   - semanage fcontext -a -t httpd_sys_content_t "/home/webadmin/server/static(/.*)?"
   - restorecon -Rv /home/webadmin/server/static
 
-  - systemctl enable nginx
-  - systemctl start nginx
+  - systemctl enable --now nginx
+  - systemctl enable --now tailscaled
 ```

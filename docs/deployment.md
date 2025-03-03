@@ -1,8 +1,9 @@
 # Deployment
 
-In this guide, [Cloudflare] and [Vultr] (Paid) will be used.
+In this guide, [Cloudflare], [Tailscale], and [Vultr] (Paid) will be used.
 
 [Cloudflare]: https://www.cloudflare.com/
+[Tailscale]: https://tailscale.com/
 [Vultr]: https://www.vultr.com/
 
 1. Generate an [SSH key] and add it to the ssh-agent.
@@ -26,16 +27,32 @@ Websites
             └── ✅ Always Use HTTPS
 ```
 
-4. In Vultr, [deploy a new instance]. ($5/month~)
+4. In Vultr, [deploy a new instance]. ($3.50/month~)
 
 [deploy a new instance]: ./vultr.md
 
-5. Update the `.env.local` file.
+5. Enable Tailscale SSH in the Vultr instance.
 
 ```shell
-SERVER_ADDRESS="<vultr-instance-ip-address>" # required
-SERVER_USERNAME="webadmin" # keep the default value
-SERVER_DIRECTORY="server" # keep the default value
+# Login after the initial boot and setup are complete.
+# Use the web console and the generated root account.
+# Reference https://docs.vultr.com/vultr-web-console-faq
+
+root
+Password:
+
+tailscale up --ssh # Reference https://tailscale.com/kb/1080/cli#ssh
+```
+
+5. Update the `.env.local` file.
+
+<!-- TODO Check if svelte-kitty and rsync support Tailscale machine names. -->
+
+```shell
+# IP address or Tailscale machine name
+SERVER_ADDRESS="<vultr-instance-identifier>"
+SERVER_USERNAME="webadmin" # Keep the default value
+SERVER_DIRECTORY="server" # Keep the default value
 ```
 
 6. Build and send files to the server.
@@ -47,7 +64,7 @@ node --run build:send
 7. SSH into the server.
 
 ```shell
-ssh webadmin@<vultr-instance-ip-address>
+ssh webadmin@<vultr-instance-identifier>
 ```
 
 8. Setup [fnm], Node.js, [PM2], and [cloudflared].
