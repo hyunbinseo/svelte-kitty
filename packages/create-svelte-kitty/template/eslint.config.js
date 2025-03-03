@@ -36,8 +36,11 @@ export default tseslint.config(
 	{ ignores: ['.svelte-kit/', 'build/', 'dist/', 'drizzle/'] },
 	{
 		rules: {
+			'@typescript-eslint/no-restricted-imports': ['error', 'assert', 'node:assert'],
+			'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 			'no-console': ['error', { allow: ['warn', 'error'] }],
-			'no-restricted-imports': ['error', 'assert', 'node:assert'],
+			'no-restricted-imports': 'off',
+			'no-unused-vars': 'off',
 		},
 	},
 );
