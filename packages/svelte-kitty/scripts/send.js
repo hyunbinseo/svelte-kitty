@@ -64,6 +64,7 @@ export const send = async ({ buildId, isDryRun }) => {
 + /src/lib/server/db/***
 + /static/***
 + /.env.production
++ /.env.production.local
 + /.node-version
 + /drizzle.production.ts
 + /package.json
