@@ -1,28 +1,3 @@
-# Deploy a new instance in Vultr
-
-- Create a new [firewall group](https://my.vultr.com/firewall/) with a 'SSH Only' description.
-- Add the default rule to create the following inbound rules:
-
-| Action | Protocol | Port (or range) | Source (IPv4) |
-| ------ | -------- | --------------- | ------------- |
-| accept | SSH      | 22              | 0.0.0.0/0     |
-
-- Deploy a [new instance](https://my.vultr.com/deploy/) with the following options:
-
-| Item                | Value                                       |
-| ------------------- | ------------------------------------------- |
-| Location            | Any                                         |
-| Type                | Shared CPU                                  |
-| Plan                | `vc2-1c-1gb` ($5/month)                     |
-| Operating System    | Rocky Linux 9 x64                           |
-| SSH Keys            | None                                        |
-| Firewall Group      | SSH Only                                    |
-| Additional Features | ✅ Public IPv4<br />✅ Cloud-Init User-Data |
-
-- Add the following content into the Cloud-Init user data text field.
-- Add your SSH public key(s) to the `ssh_authorized_keys` array.
-
-```yaml
 #cloud-config
 
 disable_root: true
@@ -38,8 +13,6 @@ users:
       - 'ALL=(ALL) NOPASSWD:/bin/systemctl * cloudflared'
       - 'ALL=(ALL) NOPASSWD:/bin/systemctl * nginx'
       - 'ALL=(ALL) NOPASSWD:/usr/sbin/nginx'
-    ssh_authorized_keys:
-      - ssh-rsa AAAAB3... # add actual key(s)
 
 yum_repos:
   cloudflared-stable:
@@ -60,6 +33,16 @@ yum_repos:
     gpgkey: https://nginx.org/keys/nginx_signing.key
     module_hotfixes: true
 
+  tailscale-stable:
+    # Reference https://tailscale.com/kb/1198/install-rhel-9
+    name: Tailscale stable
+    baseurl: https://pkgs.tailscale.com/stable/rhel/9/$basearch
+    enabled: true
+    type: rpm
+    repo_gpgcheck: true
+    gpgcheck: true
+    gpgkey: https://pkgs.tailscale.com/stable/rhel/9/repo.gpg
+
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
@@ -67,6 +50,7 @@ package_reboot_if_required: true
 packages:
   - cloudflared
   - nginx
+  - tailscale
   - yum-utils
 
 write_files:
@@ -140,6 +124,7 @@ runcmd:
 
   - setfacl -m u:nginx:r-x /home/webadmin
   - setfacl -m u:nginx:r-x /home/webadmin/server
+
   - setfacl -R -m u:nginx:r-x /home/webadmin/server/static
   - setfacl -d -m u:nginx:r-x /home/webadmin/server/static
 
@@ -148,6 +133,5 @@ runcmd:
   - semanage fcontext -a -t httpd_sys_content_t "/home/webadmin/server/static(/.*)?"
   - restorecon -Rv /home/webadmin/server/static
 
-  - systemctl enable nginx
-  - systemctl start nginx
-```
+  - systemctl enable --now nginx
+  - systemctl enable --now tailscaled

@@ -2,7 +2,7 @@ import { execSync, spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { exit } from 'node:process';
 import { parseEnv, styleText } from 'node:util';
-import { ip, object, pipe, safeParse, string, transform } from 'valibot';
+import { object, pipe, safeParse, string, transform } from 'valibot';
 import pkg from '../package.json' with { type: 'json' };
 
 /** @param {{ buildId: string; isDryRun: boolean }} param0 */
@@ -22,7 +22,7 @@ export const send = async ({ buildId, isDryRun }) => {
 	const parsedServer = safeParse(
 		pipe(
 			object({
-				SERVER_ADDRESS: pipe(string(), ip()),
+				SERVER_ADDRESS: string(),
 				SERVER_USERNAME: string(),
 				SERVER_DIRECTORY: string(),
 			}),
