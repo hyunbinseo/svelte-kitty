@@ -45,6 +45,8 @@ export const send = async ({ buildId, isDryRun }) => {
 	writeFileSync(
 		'build/rsync.txt',
 		`
+- .DS_Store
+- Thumbs.db
 - *.db
 - *.db-shm
 - *.db-wal
