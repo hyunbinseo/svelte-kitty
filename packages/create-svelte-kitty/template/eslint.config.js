@@ -12,7 +12,7 @@ export default tseslint.config(
 	...tseslint.configs.recommended,
 	...svelte.configs.recommended,
 	prettier,
-	...svelte.configs['flat/prettier'],
+	...svelte.configs.prettier,
 	{
 		languageOptions: {
 			globals: {
