@@ -73,27 +73,21 @@ export const send = async ({ buildId, isDryRun }) => {
 `,
 	);
 
-	/* eslint-disable no-console */
-
+	// eslint-disable-next-line no-console
 	console.log(
-		styleText(
-			'cyan',
-			'\n' +
-				(isDryRun ? '[DRY-RUN]\n' : '') + //
-				'Transferring files using rsync over SSH:',
-		),
+		'\n' + styleText('cyan', (isDryRun ? '[DRY-RUN] ' : '') + 'Transferring files using rsync:'),
 	);
-	console.log('Tap the security key if 2FA is required.');
-
-	const flags = isDryRun ? '-auvn' : '-au';
 
 	execSync(
-		`rsync ${flags} --include-from=build/rsync.txt ./ ${server.username}@${server.address}:${server.directory}`,
+		// To give new files the destination-default permissions (while leaving existing files unchanged),
+		// make sure that the --perms option is off and use --chmod=ugo=rwX (which ensures that all non-masked bits get enabled).
+		`rsync ${isDryRun ? '-rtvn' : '-rtv'} --chmod=ugo=rwX --include-from=build/rsync.txt ./ ${server.username}@${server.address}:${server.directory}`,
 		{ stdio: 'inherit' },
 	);
 
 	if (isDryRun) return;
 
+	// eslint-disable-next-line no-console
 	console.log(`
 ${styleText('cyan', 'Next steps:')}
 ssh ${server.username}@${server.address}
