@@ -15,6 +15,7 @@ export const build = async () => {
 import { loadEnvFile } from 'node:process';
 
 loadEnvFile('.env.production');
+loadEnvFile('.env.production.local');
 
 await import('./${buildId}/index.js');
 `,

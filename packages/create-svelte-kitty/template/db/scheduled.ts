@@ -1,9 +1,11 @@
 import { dateToSafeISOString } from '@hyunbinseo/tools';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { mkdirSync } from 'node:fs';
-import { env, exit } from 'node:process';
+import { env, exit, loadEnvFile } from 'node:process';
 import { minLength, object, parse, pipe, string } from 'valibot';
 import * as schema from '../src/lib/server/db/schema.ts';
+
+loadEnvFile('.env.production');
 
 const EnvSchema = object({
 	DATABASE_URL: pipe(string(), minLength(1)),

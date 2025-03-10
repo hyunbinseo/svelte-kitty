@@ -8,10 +8,8 @@ module.exports = {
 			script: './db/scheduled.ts',
 			interpreter: 'node',
 			interpreter_args: [
-				'--no-warnings=ExperimentalWarning',
+				'--no-warnings=ExperimentalWarning', //
 				'--experimental-strip-types',
-				'--env-file=.env.production',
-				'--env-file=.env.production.local',
 			],
 			time: true, // auto prefix logs with date
 			autorestart: false,

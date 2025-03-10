@@ -78,11 +78,15 @@ const project = await p.group(
 	},
 );
 
-/** @param {'dev' | 'preview'} command  */
-const generateEnv = (command) =>
+/** @param {'development' | 'production'} filename  */
+const generateEnv = (filename) =>
 	`# DO NOT COMMIT THIS FILE TO SOURCE CONTROL
 
-# Loaded in \`vite ${command}\`
+${
+	filename === 'development'
+		? '# Loaded in `vite dev`' //
+		: '# Loaded in `vite preview`\n# Also loaded in the `build/start.js` file.'
+}
 # Reference https://vite.dev/guide/env-and-mode
 
 # By importing these secrets using the \`$env/dynamic/private\` module,
@@ -110,8 +114,8 @@ await p.tasks([
 			cpSync(import.meta.dirname + '/template', resolvedPath, { recursive: true });
 			chdir(resolvedPath); // NOTE CWD is now the project directory.
 			appendFileSync('svelte.config.js', `\n// created with ${pkg.name}@${pkg.version}\n`);
-			writeFileSync('.env.development.local', generateEnv('dev'));
-			writeFileSync('.env.production.local', generateEnv('preview'));
+			writeFileSync('.env.development.local', generateEnv('development'));
+			writeFileSync('.env.production.local', generateEnv('production'));
 			writeFileSync(
 				'.env.local',
 				`# DO NOT COMMIT THIS FILE TO SOURCE CONTROL
