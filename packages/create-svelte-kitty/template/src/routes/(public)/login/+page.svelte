@@ -19,6 +19,7 @@
 
 <svelte:head>
 	<meta name="robots" content="noindex" />
+	<link rel="canonical" href="/login" />
 </svelte:head>
 
 <form
