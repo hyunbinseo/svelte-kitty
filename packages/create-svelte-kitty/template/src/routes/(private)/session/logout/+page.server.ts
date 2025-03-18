@@ -3,8 +3,8 @@ import { redirect } from '@sveltejs/kit';
 
 export const actions = {
 	default: async (e) => {
-		if (!e.locals.session) return redirect(302, '/');
+		if (!e.locals.session) return redirect(303, '/');
 		await banCurrentSession(e, e.locals.session);
-		redirect(302, '/');
+		redirect(303, '/');
 	},
 };

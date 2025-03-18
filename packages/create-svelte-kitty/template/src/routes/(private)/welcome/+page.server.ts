@@ -11,14 +11,14 @@ import { t } from './i18n.ts';
 
 export const load = (({ locals }) => {
 	if (!locals.session) error(401);
-	if (locals.session.profile) redirect(302, PUBLIC_PRIVATE_PATH);
+	if (locals.session.profile) redirect(307, PUBLIC_PRIVATE_PATH);
 	return { pageTitle: t.pageTitle };
 }) satisfies PageServerLoad;
 
 export const actions = {
 	default: async (e) => {
 		if (!e.locals.session) error(401);
-		if (e.locals.session.profile) redirect(302, PUBLIC_PRIVATE_PATH);
+		if (e.locals.session.profile) redirect(303, PUBLIC_PRIVATE_PATH);
 
 		const formData = await e.request.formData();
 
@@ -39,6 +39,6 @@ export const actions = {
 
 		await banCurrentSessions(e, e.locals.session, { delay: true });
 		await authenticate(e, userId, null);
-		redirect(302, PUBLIC_PRIVATE_PATH);
+		redirect(303, PUBLIC_PRIVATE_PATH);
 	},
 };

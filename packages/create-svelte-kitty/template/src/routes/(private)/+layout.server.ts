@@ -6,10 +6,10 @@ export const load = ({ depends, locals, url }) => {
 	depends('private:session');
 
 	if (!locals.session)
-		redirect(302, `/login?redirect=${encodeURIComponent(url.pathname + url.search)}`);
+		redirect(307, `/login?redirect=${encodeURIComponent(url.pathname + url.search)}`);
 
 	if (!locals.session.profile && url.pathname !== PUBLIC_ONBOARD_PATH)
-		redirect(302, PUBLIC_ONBOARD_PATH);
+		redirect(307, PUBLIC_ONBOARD_PATH);
 
 	return {
 		session: {

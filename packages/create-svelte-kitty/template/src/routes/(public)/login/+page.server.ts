@@ -20,7 +20,7 @@ import { t } from './i18n.ts';
 export const prerender = false;
 
 export const load = (async ({ locals, url }) => {
-	if (locals.session) redirect(302, PUBLIC_PRIVATE_PATH);
+	if (locals.session) redirect(307, PUBLIC_PRIVATE_PATH);
 
 	if (!url.searchParams.has('code')) return { pageTitle: t.pageTitle, loginOtpLength };
 
@@ -55,7 +55,7 @@ export const load = (async ({ locals, url }) => {
 
 export const actions = {
 	send: async ({ fetch, getClientAddress, locals, request, url }) => {
-		if (locals.session) redirect(302, PUBLIC_PRIVATE_PATH);
+		if (locals.session) redirect(303, PUBLIC_PRIVATE_PATH);
 
 		const formData = await request.formData();
 
@@ -144,7 +144,7 @@ export const actions = {
 		return { loginId: login.id };
 	},
 	magic: async (e) => {
-		if (e.locals.session) redirect(302, PUBLIC_PRIVATE_PATH);
+		if (e.locals.session) redirect(303, PUBLIC_PRIVATE_PATH);
 
 		const formData = await e.request.formData();
 
@@ -175,10 +175,10 @@ export const actions = {
 			return fail(400, { error: 'LOGIN_EXPIRED' as const });
 
 		await authenticate(e, magicLinkLogin.userId, magicLinkLogin.id);
-		redirect(302, PUBLIC_PRIVATE_PATH);
+		redirect(303, PUBLIC_PRIVATE_PATH);
 	},
 	otp: async (e) => {
-		if (e.locals.session) redirect(302, PUBLIC_PRIVATE_PATH);
+		if (e.locals.session) redirect(303, PUBLIC_PRIVATE_PATH);
 
 		const formData = await e.request.formData();
 
@@ -208,6 +208,6 @@ export const actions = {
 		if (otpLogin.expiresAt < new Date()) return fail(400, { error: 'LOGIN_EXPIRED' as const });
 
 		await authenticate(e, otpLogin.userId, otpLogin.id);
-		redirect(302, PUBLIC_PRIVATE_PATH);
+		redirect(303, PUBLIC_PRIVATE_PATH);
 	},
 };
