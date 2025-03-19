@@ -9,7 +9,7 @@
 		"vite": "^6.0.3"
 	},
 	"dependencies": {
-		"valibot": "1.0.0-rc.2"
+		"valibot": "^1.0.0"
 	},
 	"devDependencies": {
 		"@types/node": "^22.13.5",
