@@ -11,7 +11,7 @@ import {
 	readFileSync,
 	writeFileSync,
 } from 'node:fs';
-import path from 'node:path';
+import { join, resolve } from 'node:path';
 import { chdir, cwd, exit } from 'node:process';
 import { setTimeout } from 'node:timers/promises';
 import { promisify, styleText } from 'node:util';
@@ -36,7 +36,7 @@ const project = await p.group(
 				validate: (value) => {
 					if (!value) return 'Please enter a path.';
 					if (!value.startsWith('./')) return 'Please enter a relative path.';
-					const resolvedPath = path.resolve(cwd(), value);
+					const resolvedPath = resolve(cwd(), value);
 					const directoryIsNotEmpty =
 						existsSync(resolvedPath) && //
 						readdirSync(resolvedPath).length;
@@ -110,8 +110,8 @@ await p.tasks([
 		title: 'Copying template',
 		task: async () => {
 			const timer = setTimeout(1000);
-			const resolvedPath = path.resolve(cwd(), project.relativePath);
-			cpSync(import.meta.dirname + '/template', resolvedPath, { recursive: true });
+			const resolvedPath = resolve(cwd(), project.relativePath);
+			cpSync(join(import.meta.dirname, 'template'), resolvedPath, { recursive: true });
 			chdir(resolvedPath); // NOTE CWD is now the project directory.
 			appendFileSync('svelte.config.js', `\n// created with ${pkg.name}@${pkg.version}\n`);
 			writeFileSync('.env.development.local', generateEnv('development'));
