@@ -1,11 +1,11 @@
 import { defineConfig } from 'drizzle-kit';
 import { env, loadEnvFile } from 'node:process';
-import { minLength, object, parse, pipe, string } from 'valibot';
+import { nonEmpty, object, parse, pipe, string } from 'valibot';
 
 loadEnvFile('.env.production');
 
 const EnvSchema = object({
-	DATABASE_URL: pipe(string(), minLength(1)),
+	DATABASE_URL: pipe(string(), nonEmpty()),
 });
 
 const { DATABASE_URL } = parse(EnvSchema, env);

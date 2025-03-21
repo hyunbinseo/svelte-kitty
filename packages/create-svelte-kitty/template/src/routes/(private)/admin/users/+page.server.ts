@@ -4,7 +4,7 @@ import { pickTableColumns } from '$lib/server/db/utilities.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { error } from '@sveltejs/kit';
 import { and, asc, desc, eq, inArray, isNotNull, isNull, ne, sql } from 'drizzle-orm';
-import { array, excludes, minLength, pipe, string, ulid } from 'valibot';
+import { array, excludes, nonEmpty, pipe, string, ulid } from 'valibot';
 import { banUserSessions } from '../index.server.ts';
 import type { PageServerLoad } from './$types.js';
 import { t } from './i18n.ts';
@@ -48,7 +48,7 @@ export const actions = {
 			pipe(
 				array(pipe(string(), ulid())), //
 				excludes(e.locals.session.userId),
-				minLength(1),
+				nonEmpty(),
 			),
 			formData.getAll('user-id'),
 		);

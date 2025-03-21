@@ -5,7 +5,7 @@ import { profileTable } from '$lib/server/db/schema.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { formDataToObject } from '@hyunbinseo/tools';
 import { error, redirect } from '@sveltejs/kit';
-import { minLength, object, pipe, string, trim } from 'valibot';
+import { nonEmpty, object, pipe, string, trim } from 'valibot';
 import type { PageServerLoad } from './$types.js';
 import { t } from './i18n.ts';
 
@@ -24,8 +24,8 @@ export const actions = {
 
 		const form = parseOrErrorPage(
 			object({
-				surname: pipe(string(), trim(), minLength(1)),
-				givenName: pipe(string(), trim(), minLength(1)),
+				surname: pipe(string(), trim(), nonEmpty()),
+				givenName: pipe(string(), trim(), nonEmpty()),
 			}),
 			formDataToObject(formData, { get: ['surname', 'given-name'] }),
 		);
