@@ -4,7 +4,7 @@ import { pickTableColumns } from '$lib/server/db/utilities.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
 import { error } from '@sveltejs/kit';
 import { and, eq, isNull, ne, notExists, sql } from 'drizzle-orm';
-import { minLength, notValue, picklist, pipe, string, trim, ulid } from 'valibot';
+import { nonEmpty, notValue, picklist, pipe, string, trim, ulid } from 'valibot';
 import { banUserSessions } from '../index.server.ts';
 import type { PageServerLoad } from './$types.js';
 import { t } from './i18n.ts';
@@ -49,7 +49,7 @@ export const actions = {
 		const formData = await request.formData();
 
 		const givenNameKeyword = parseOrErrorPage(
-			pipe(string(), trim(), minLength(1)),
+			pipe(string(), trim(), nonEmpty()),
 			formData.get('given-name'),
 		);
 
