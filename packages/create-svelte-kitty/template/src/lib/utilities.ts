@@ -1,8 +1,8 @@
 import { dev } from '$app/environment';
 import { error } from '@sveltejs/kit';
-import { safeParse, type GenericSchema } from 'valibot';
+import { safeParse, type GenericSchema, type InferInput } from 'valibot';
 
-export const parseOrErrorPage = <Schema extends GenericSchema<Input, unknown>, Input>(
+export const parseOrErrorPage = <Schema extends GenericSchema, Input extends InferInput<Schema>>(
 	schema: Schema,
 	input: Input,
 	status = 400,
