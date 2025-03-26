@@ -7,17 +7,17 @@
 	"devDependencies": {
 		"@changesets/cli": "^2.28.1",
 		"@eslint/compat": "^1.2.7",
-		"@eslint/js": "^9.21.0",
+		"@eslint/js": "^9.23.0",
 		"@types/eslint-config-prettier": "^6.11.3",
-		"@types/node": "^22.13.10",
-		"eslint": "^9.21.0",
-		"eslint-config-prettier": "^10.0.2",
+		"@types/node": "^22.13.13",
+		"eslint": "^9.23.0",
+		"eslint-config-prettier": "^10.1.1",
 		"globals": "^16.0.0",
-		"prettier": "^3.5.2",
+		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
-		"typescript": "^5.7.3",
-		"typescript-eslint": "^8.25.0"
+		"typescript": "^5.8.2",
+		"typescript-eslint": "^8.28.0"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
@@ -25,5 +25,5 @@
 			"better-sqlite3"
 		]
 	},
-	"packageManager": "pnpm@10.6.4+sha512.da3d715bfd22a9a105e6e8088cfc7826699332ded60c423b14ec613a185f1602206702ff0fe4c438cb15c979081ce4cb02568e364b15174503a63c7a8e2a5f6c"
+	"packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af"
 }
