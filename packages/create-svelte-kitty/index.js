@@ -3,14 +3,7 @@
 import * as p from '@clack/prompts';
 import { exec, spawnSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
-import {
-	appendFileSync,
-	cpSync,
-	existsSync,
-	readdirSync,
-	readFileSync,
-	writeFileSync,
-} from 'node:fs';
+import { appendFileSync, cpSync, existsSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { chdir, cwd, exit } from 'node:process';
 import { setTimeout } from 'node:timers/promises';
@@ -126,9 +119,14 @@ SERVER_DIRECTORY="server"
 `,
 			);
 			if (project.packageManager === 'pnpm') {
-				const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
-				packageJson.pnpm = { onlyBuiltDependencies: ['better-sqlite3', 'esbuild'] };
-				writeFileSync('package.json', JSON.stringify(packageJson, null, '\t') + '\n');
+				// Requires `pnpm@10.5+` but the pnpm version is not checked.
+				// Reference https://github.com/pnpm/pnpm/releases/tag/v10.5.0
+				writeFileSync(
+					'pnpm-workspace.yaml',
+					`onlyBuiltDependencies:
+  - better-sqlite3
+  - esbuild\n`,
+				);
 			}
 			await timer;
 			return 'Successfully copied template';

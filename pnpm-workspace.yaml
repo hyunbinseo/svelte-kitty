@@ -1,3 +1,6 @@
 packages:
-  - 'packages/*'
-  - 'packages/create-svelte-kitty/template'
+  - packages/*
+  - packages/create-svelte-kitty/template
+onlyBuiltDependencies:
+  - better-sqlite3
+  - esbuild
