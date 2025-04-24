@@ -13,7 +13,7 @@ form.stacked {
 			}
 		}
 		&:has(> input:is([type='checkbox'], [type='radio']):first-child + span) {
-			@apply flex items-center gap-x-2;
+			@apply flex select-none items-center gap-x-2;
 			> [type='checkbox']:required + span {
 				@apply after:text-red-800 after:content-['*'];
 			}
