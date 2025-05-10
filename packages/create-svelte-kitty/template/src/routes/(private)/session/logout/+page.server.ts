@@ -1,4 +1,4 @@
-import { banCurrentSession } from '$lib/server/authenticate.ts';
+import { banCurrentSession } from '$lib/server/authentication.ts';
 import { redirect } from '@sveltejs/kit';
 
 export const actions = {

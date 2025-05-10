@@ -1,6 +1,6 @@
 import { SESSION_COOKIE_NAME } from '$env/static/private';
 import { PUBLIC_LOCALE } from '$env/static/public';
-import { payloadToSession, verifyJwt } from '$lib/server/authenticate.ts';
+import { payloadToSession, verifyJwt } from '$lib/server/authentication.ts';
 import type { Handle } from '@sveltejs/kit';
 import { JWSSignatureVerificationFailed } from 'jose/errors';
 

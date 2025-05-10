@@ -1,7 +1,7 @@
 import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
-import { authenticate } from '$lib/server/authenticate.ts';
+import { authenticate } from '$lib/server/authentication.ts';
 import { loginOtpLength } from '$lib/server/db/config.ts';
 import { db } from '$lib/server/db/index.ts';
 import { loginTable, roleTable, userTable } from '$lib/server/db/schema.ts';

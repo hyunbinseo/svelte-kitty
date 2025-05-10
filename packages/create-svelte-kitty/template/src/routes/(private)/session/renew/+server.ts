@@ -1,4 +1,4 @@
-import { authenticate, banCurrentSession } from '$lib/server/authenticate.ts';
+import { authenticate, banCurrentSession } from '$lib/server/authentication.ts';
 import { sessionRenewalThreshold } from '$lib/server/db/config.ts';
 
 export const POST = async (e) => {

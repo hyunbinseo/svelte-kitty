@@ -1,5 +1,5 @@
 import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
-import { authenticate, banCurrentSessions } from '$lib/server/authenticate.ts';
+import { authenticate, banCurrentSessions } from '$lib/server/authentication.ts';
 import { db } from '$lib/server/db/index.ts';
 import { profileTable } from '$lib/server/db/schema.ts';
 import { parseOrErrorPage } from '$lib/utilities.ts';
