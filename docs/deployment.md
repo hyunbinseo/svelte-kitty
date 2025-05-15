@@ -138,3 +138,23 @@ EDITOR=nano crontab -e
 # Add this line to start the PM2 applications on system startup:
 # @reboot source ~/.bashrc && cd ~/server && node --run start:pm2
 ```
+
+## Maintenance
+
+Update PM2 Processes to Latest Node.js LTS
+
+```shell
+pm2 info server
+# node.js version │ 22.14.0
+
+fnm install --lts
+# Installing Node v22.15.1 (x64)
+
+fnm default 22
+fnm use 22 # Using Node v22.15.1
+
+pm2 update
+
+pm2 info server
+# node.js version │ 22.15.1
+```
