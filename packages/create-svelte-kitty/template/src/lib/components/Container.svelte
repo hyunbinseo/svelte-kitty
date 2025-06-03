@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { t } from './container.i18n.ts';
+	import { t } from './container.i18n';
 
 	let {
 		topNav,

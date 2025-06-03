@@ -1,19 +1,19 @@
 import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
-import { authenticate } from '$lib/server/authentication.ts';
-import { loginOtpLength } from '$lib/server/db/config.ts';
-import { db } from '$lib/server/db/index.ts';
-import { loginTable, roleTable, userTable } from '$lib/server/db/schema.ts';
-import { pickTableColumns } from '$lib/server/db/utilities.ts';
-import { parseOrErrorPage } from '$lib/utilities.ts';
+import { authenticate } from '$lib/server/authentication';
+import { loginOtpLength } from '$lib/server/db/config';
+import { db } from '$lib/server/db';
+import { loginTable, roleTable, userTable } from '$lib/server/db/schema';
+import { pickTableColumns } from '$lib/server/db/utilities';
+import { parseOrErrorPage } from '$lib/utilities';
 import { formDataToObject } from '@hyunbinseo/tools';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { and, desc, eq, gt, isNull } from 'drizzle-orm';
 import { sendEmail } from 'new-request/email/postmark/POST';
 import { digits, email, length, object, pipe, string, trim, ulid, uuid } from 'valibot';
-import type { PageServerLoad } from './$types.ts';
-import { t } from './i18n.ts';
+import type { PageServerLoad } from './$types';
+import { t } from './i18n';
 
 // Cannot prerender pages with actions. Magic link will result in a 500 server error.
 // Reference https://svelte.dev/docs/kit/page-options#prerender-when-not-to-prerender

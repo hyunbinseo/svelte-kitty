@@ -1,5 +1,5 @@
-import type { PageLoad } from './$types.js';
-import { t } from './i18n.ts';
+import type { PageLoad } from './$types';
+import { t } from './i18n';
 
 export const prerender = true;
 

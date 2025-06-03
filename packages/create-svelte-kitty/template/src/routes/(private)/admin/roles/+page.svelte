@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidate } from '$app/navigation';
-	import type { Role } from '$lib/server/db/schema.ts';
+	import type { Role } from '$lib/server/db/schema';
 	import formStyles from '$lib/styles/form.module.css';
 	import { createFormHelper } from 'svelte-form-enhanced';
 	import { Modal } from 'svelte-html-modal';
 	import { slide } from 'svelte/transition';
-	import { t } from './i18n.ts';
+	import { t } from './i18n';
 
 	let { data, form } = $props();
 

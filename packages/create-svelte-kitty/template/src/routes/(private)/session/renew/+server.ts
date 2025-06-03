@@ -1,5 +1,5 @@
-import { authenticate, banCurrentSession } from '$lib/server/authentication.ts';
-import { sessionRenewalThreshold } from '$lib/server/db/config.ts';
+import { authenticate, banCurrentSession } from '$lib/server/authentication';
+import { sessionRenewalThreshold } from '$lib/server/db/config';
 
 export const POST = async (e) => {
 	if (!e.locals.session) return new Response(null, { status: 401 });

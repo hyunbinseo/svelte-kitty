@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import Container from '$lib/components/Container.svelte';
 	import logo from '$lib/static/logo-horizontal.svg';
-	import { t } from './i18n.layout.ts';
+	import { t } from './i18n.layout';
 
 	let { children } = $props();
 

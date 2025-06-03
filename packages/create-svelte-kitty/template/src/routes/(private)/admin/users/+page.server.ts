@@ -1,13 +1,13 @@
-import { db } from '$lib/server/db/index.ts';
-import { profileTable, userTable } from '$lib/server/db/schema.ts';
-import { pickTableColumns } from '$lib/server/db/utilities.ts';
-import { parseOrErrorPage } from '$lib/utilities.ts';
+import { db } from '$lib/server/db';
+import { profileTable, userTable } from '$lib/server/db/schema';
+import { pickTableColumns } from '$lib/server/db/utilities';
+import { parseOrErrorPage } from '$lib/utilities';
 import { error } from '@sveltejs/kit';
 import { and, asc, desc, eq, inArray, isNotNull, isNull, ne, sql } from 'drizzle-orm';
 import { array, excludes, nonEmpty, pipe, string, ulid } from 'valibot';
-import { banUserSessions } from '../index.server.ts';
-import type { PageServerLoad } from './$types.js';
-import { t } from './i18n.ts';
+import { banUserSessions } from '../index.server';
+import type { PageServerLoad } from './$types';
+import { t } from './i18n';
 
 export const load = (async ({ locals, url }) => {
 	if (!locals.session?.roles.has('superuser')) error(403);

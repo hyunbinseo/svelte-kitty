@@ -2,7 +2,7 @@ import { toReadonly } from '@hyunbinseo/tools';
 import { relations } from 'drizzle-orm';
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { ulid } from 'ulid';
-import { userTable } from './user.ts';
+import { userTable } from './user';
 
 export type Role = (typeof Roles)[number];
 export const Roles = ['admin', 'superuser'] as const;

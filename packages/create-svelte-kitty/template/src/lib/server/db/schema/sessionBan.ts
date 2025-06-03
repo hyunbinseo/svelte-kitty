@@ -1,7 +1,7 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { ip } from '../columns.ts';
-import { sessionTable } from './session.ts';
-import { userTable } from './user.ts';
+import { ip } from '../columns';
+import { sessionTable } from './session';
+import { userTable } from './user';
 
 export const sessionBanTable = sqliteTable('session_ban', {
 	sessionId: text()

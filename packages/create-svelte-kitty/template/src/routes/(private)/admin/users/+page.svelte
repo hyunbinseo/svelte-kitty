@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { createFormHelper } from 'svelte-form-enhanced';
 	import { decodeTime } from 'ulid';
-	import { t } from './i18n.ts';
+	import { t } from './i18n';
 
 	let { data } = $props();
 

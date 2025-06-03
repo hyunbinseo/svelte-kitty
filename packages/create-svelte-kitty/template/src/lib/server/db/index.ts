@@ -1,7 +1,7 @@
 import { dev } from '$app/environment';
 import { DATABASE_URL } from '$env/static/private';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
-import * as schema from './schema.ts';
+import * as schema from './schema';
 
 // The `DATABASE_URL` variable differs in `dev`, `build`, and `preview`,
 // because Vite imports different `.env` files according to the mode.

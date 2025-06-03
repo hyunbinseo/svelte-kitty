@@ -7,7 +7,7 @@
 	import logo from '$lib/static/logo-horizontal.svg';
 	import { onMount } from 'svelte';
 	import { digits, literal, minValue, nullable, pipe, safeParse, string, transform } from 'valibot';
-	import { t } from './i18n.layout.ts';
+	import { t } from './i18n.layout';
 
 	let { data, children } = $props();
 

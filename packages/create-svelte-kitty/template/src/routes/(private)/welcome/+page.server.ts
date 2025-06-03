@@ -1,13 +1,13 @@
 import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
-import { authenticate, banCurrentSessions } from '$lib/server/authentication.ts';
-import { db } from '$lib/server/db/index.ts';
-import { profileTable } from '$lib/server/db/schema.ts';
-import { parseOrErrorPage } from '$lib/utilities.ts';
+import { authenticate, banCurrentSessions } from '$lib/server/authentication';
+import { db } from '$lib/server/db';
+import { profileTable } from '$lib/server/db/schema';
+import { parseOrErrorPage } from '$lib/utilities';
 import { formDataToObject } from '@hyunbinseo/tools';
 import { error, redirect } from '@sveltejs/kit';
 import { nonEmpty, object, pipe, string, trim } from 'valibot';
-import type { PageServerLoad } from './$types.js';
-import { t } from './i18n.ts';
+import type { PageServerLoad } from './$types';
+import { t } from './i18n';
 
 export const load = (({ locals }) => {
 	if (!locals.session) error(401);

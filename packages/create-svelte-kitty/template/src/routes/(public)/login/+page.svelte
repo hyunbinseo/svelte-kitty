@@ -5,7 +5,7 @@
 	import formStyles from '$lib/styles/form.module.css';
 	import { createFormHelper } from 'svelte-form-enhanced';
 	import { slide } from 'svelte/transition';
-	import { t } from './i18n.ts';
+	import { t } from './i18n';
 
 	let { data, form } = $props();
 

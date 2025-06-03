@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types.js';
-import { t } from './i18n.ts';
+import type { PageServerLoad } from './$types';
+import { t } from './i18n';
 
 export const load = (({ locals }) => {
 	if (!locals.session?.isAdmin) error(403);

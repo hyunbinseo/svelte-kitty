@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import formStyles from '$lib/styles/form.module.css';
 	import { createFormHelper } from 'svelte-form-enhanced';
-	import { t } from './i18n.ts';
+	import { t } from './i18n';
 
 	const f = createFormHelper();
 </script>

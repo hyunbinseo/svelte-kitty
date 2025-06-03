@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { t } from './i18n.error.ts';
+	import { t } from './i18n.error';
 
 	// Blocked by https://github.com/sveltejs/kit/issues/11633
 	const isGenericErrorMessage = (message: string) => /^Error: [45]\d{2}$/.test(message);

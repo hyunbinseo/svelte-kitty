@@ -1,5 +1,5 @@
 <script>
-	import { t } from './i18n.ts';
+	import { t } from './i18n';
 </script>
 
 <svelte:head>

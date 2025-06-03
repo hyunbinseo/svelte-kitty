@@ -1,17 +1,17 @@
 import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 import { SESSION_COOKIE_NAME } from '$env/static/private';
-import { base64ToUint8Array } from '$lib/utilities.ts';
+import { base64ToUint8Array } from '$lib/utilities';
 import { toReadonly } from '@hyunbinseo/tools';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { and, eq, gt, isNull, lt, ne, sql } from 'drizzle-orm';
 import { union } from 'drizzle-orm/sqlite-core';
 import { decodeJwt, jwtVerify, SignJWT, type JWTPayload } from 'jose';
 import type { JOSEError } from 'jose/errors';
-import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config.ts';
-import { db } from './db/index.ts';
-import { roleTable, sessionBanTable, sessionTable, userTable, type Role } from './db/schema.ts';
-import { pickTableColumns } from './db/utilities.ts';
+import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config';
+import { db } from './db';
+import { roleTable, sessionBanTable, sessionTable, userTable, type Role } from './db/schema';
+import { pickTableColumns } from './db/utilities';
 
 type Payload = {
 	profile?: null;
