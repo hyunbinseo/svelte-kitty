@@ -7,10 +7,6 @@ module.exports = {
 			name: 'db:scheduled',
 			script: './db/scheduled.ts',
 			interpreter: 'node',
-			interpreter_args: [
-				'--no-warnings=ExperimentalWarning', //
-				'--experimental-strip-types',
-			],
 			time: true, // auto prefix logs with date
 			autorestart: false,
 			cron: '0 0 * * *',
