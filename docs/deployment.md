@@ -32,12 +32,18 @@ Websites
 | ------------------- | ------------------------- |
 | Type                | Shared CPU                |
 | Location            | Any                       |
-| Plan                | `vc2-1c-1gb` ($5/month)   |
-| Operating System    | Rocky Linux 9 x64         |
+| Plan                | `vhf-1c-1gb` ($6/mo)      |
+| Operating System    | Rocky Linux x64 (latest)  |
 | SSH Keys            | None                      |
 | Firewall Group      | SSH Only                  |
 | Additional Features | ✅ Public IPv4            |
 | Additional Features | ✅ [Cloud-Init User-Data] |
+
+| Plan         | Price | Type             | Storage    | Bandwidth |
+| ------------ | ----- | ---------------- | ---------- | --------- |
+| `vhf-1c-1gb` | $6/mo | High Frequency   | 32 GB NVMe | 1 TB/mo   |
+| `vhp-1c-1gb` | $6/mo | High Performance | 25 GB NVMe | 2 TB/mo   |
+| `vc2-1c-1gb` | $5/mo | Cloud Compute    | 25 GB SSD  | 1 TB/mo   |
 
 [Cloud-Init User-Data]: ./cloud-init.yml
 
