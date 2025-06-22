@@ -92,20 +92,12 @@ ssh webadmin@<vultr-instance-identifier>
 [PM2]: https://pm2.keymetrics.io/
 [cloudflared]: https://github.com/cloudflare/cloudflared#readme
 
+<!-- Cannot install fnm using `su` or `sudo -u` in runcmd. -->
+<!-- Reference https://github.com/Schniz/fnm/issues/1315 -->
+
 ```shell
-curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+bash ~/init.sh # Setup fnm and PM2.
 source ~/.bashrc
-
-fnm install --lts # Installing Node v22.x.y
-fnm use <version> # Use the version logged above.
-
-corepack install --global pnpm
-
-pnpm setup
-source ~/.bashrc
-
-pnpm add pm2@latest --global
-pm2 install pm2-logrotate
 
 cloudflared tunnel login
 # Visit the provided URL in a web browser.
@@ -140,9 +132,7 @@ pnpm i --prod
 pnpm db:migrate:prod
 node --run start:pm2
 
-EDITOR=nano crontab -e
-# Add this line to start the PM2 applications on system startup:
-# @reboot source ~/.bashrc && cd ~/server && node --run start:pm2
+echo "@reboot source ~/.bashrc && cd ~/server && node --run start:pm2" | crontab -
 ```
 
 ## Maintenance

@@ -53,6 +53,13 @@ packages:
   - tailscale
   - yum-utils
 
+bootcmd:
+  - fallocate -l 2G /swapfile
+  - chmod 600 /swapfile
+  - mkswap /swapfile
+  - swapon /swapfile
+  - echo '/swapfile none swap sw 0 0' >> /etc/fstab
+
 write_files:
   - path: /etc/cloudflared/config.yml
     content: |
@@ -102,36 +109,50 @@ write_files:
         eval "$(fnm env --use-on-cd --corepack-enabled)"
       fi
 
-bootcmd:
-  - fallocate -l 2G /swapfile
-  - chmod 600 /swapfile
-  - mkswap /swapfile
-  - swapon /swapfile
-  - echo '/swapfile none swap sw 0 0' >> /etc/fstab
+  - path: /home/webadmin/init.sh
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+
+      curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+      source ~/.bashrc
+
+      fnm install --lts
+      corepack install --global pnpm
+
+      pnpm setup
+      source ~/.bashrc
+
+      pnpm add pm2@latest --global
+      pm2 install pm2-logrotate
+
+      rm -- "$0"
+
+  - path: /run/scripts/setup.sh
+    permissions: '0755'
+    content: |
+      mkdir -p /home/webadmin/server/static
+      chown -R webadmin:webadmin /home/webadmin
+      chmod 700 /home/webadmin
+
+      setfacl -m u:webadmin:rw- /etc/cloudflared/config.yml
+      setfacl -R -m u:webadmin:rwx /etc/nginx/conf.d
+      setfacl -d -m u:webadmin:rw- /etc/nginx/conf.d
+      setfacl -R -m u:webadmin:r-x /var/log/nginx
+      setfacl -d -m u:webadmin:r-- /var/log/nginx
+
+      setfacl -m u:nginx:r-x /home/webadmin
+      setfacl -m u:nginx:r-x /home/webadmin/server
+      setfacl -R -m u:nginx:r-x /home/webadmin/server/static
+      setfacl -d -m u:nginx:r-x /home/webadmin/server/static
+
+      setsebool -P httpd_can_network_connect 1
+      semanage port -a -t http_port_t -p tcp 8000 || semanage port -m -t http_port_t -p tcp 8000
+      semanage fcontext -a -t httpd_sys_content_t "/home/webadmin/server/static(/.*)?"
+      restorecon -Rv /home/webadmin/server/static
+
+      systemctl enable --now nginx
+      systemctl enable --now tailscaled
 
 runcmd:
-  - setfacl -m u:webadmin:rw- /etc/cloudflared/config.yml
-
-  - setfacl -R -m u:webadmin:rwx /etc/nginx/conf.d
-  - setfacl -d -m u:webadmin:rw- /etc/nginx/conf.d
-
-  - setfacl -R -m u:webadmin:r-x /var/log/nginx
-  - setfacl -d -m u:webadmin:r-- /var/log/nginx
-
-  - mkdir -p /home/webadmin/server/static
-  - chown -R webadmin:webadmin /home/webadmin
-  - chmod 700 /home/webadmin
-
-  - setfacl -m u:nginx:r-x /home/webadmin
-  - setfacl -m u:nginx:r-x /home/webadmin/server
-
-  - setfacl -R -m u:nginx:r-x /home/webadmin/server/static
-  - setfacl -d -m u:nginx:r-x /home/webadmin/server/static
-
-  - setsebool -P httpd_can_network_connect 1
-  - semanage port -a -t http_port_t -p tcp 8000 || semanage port -m -t http_port_t -p tcp 8000
-  - semanage fcontext -a -t httpd_sys_content_t "/home/webadmin/server/static(/.*)?"
-  - restorecon -Rv /home/webadmin/server/static
-
-  - systemctl enable --now nginx
-  - systemctl enable --now tailscaled
+  - [sh, '/run/scripts/setup.sh']
