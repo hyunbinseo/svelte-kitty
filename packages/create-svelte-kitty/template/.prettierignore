@@ -5,4 +5,6 @@ yarn.lock
 bun.lock
 bun.lockb
 
-/drizzle
+# Miscellaneous
+/drizzle/
+/static/
