@@ -1,7 +1,8 @@
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { ulid } from 'ulid';
 import { ip } from '../columns';
-import { sessionExpiresIn } from '../config';
+import { sessionExpiresInSeconds } from '../config';
+import { unixEpoch } from '../utilities';
 import { loginTable } from './login';
 import { userTable } from './user';
 
@@ -13,12 +14,10 @@ export const sessionTable = sqliteTable(
 			.notNull()
 			.references(() => userTable.id),
 		loginId: text().references(() => loginTable.id),
-		issuedAt: integer({ mode: 'timestamp' })
-			.notNull()
-			.$default(() => new Date()),
+		issuedAt: integer({ mode: 'timestamp' }).notNull().default(unixEpoch()),
 		expiresAt: integer({ mode: 'timestamp' })
 			.notNull()
-			.$default(() => new Date(Date.now() + sessionExpiresIn)),
+			.default(unixEpoch({ offset: sessionExpiresInSeconds })),
 		ip,
 	},
 	(t) => [index('idx_session_user_id').on(t.userId)],

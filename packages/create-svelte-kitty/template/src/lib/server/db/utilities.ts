@@ -1,4 +1,6 @@
-import { getTableColumns, type Table } from 'drizzle-orm';
+import { getTableColumns, sql, type Table } from 'drizzle-orm';
+
+export const unixEpoch = ({ offset } = { offset: 0 }) => sql`(unixepoch() + ${offset})`;
 
 export const pickTableColumns = <
 	T extends Table, //
