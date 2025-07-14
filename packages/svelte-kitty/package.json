@@ -12,11 +12,11 @@
 		"valibot": "^1.1.0"
 	},
 	"devDependencies": {
-		"@types/node": "^22.15.29",
+		"@types/node": "^24.0.15",
 		"prettier": "^3.5.3"
 	},
 	"engines": {
-		"node": ">=22.12.0"
+		"node": ">=24.3"
 	},
 	"author": "Hyunbin Seo",
 	"license": "MIT",
