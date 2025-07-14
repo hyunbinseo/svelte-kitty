@@ -141,16 +141,16 @@ Update PM2 Processes to Latest Node.js LTS
 
 ```shell
 pm2 info server
-# node.js version │ 22.14.0
+# node.js version │ 24.14.0
 
 fnm install --lts
-# Installing Node v22.15.1 (x64)
+# Installing Node v24.15.0 (x64)
 
-fnm default 22
-fnm use 22 # Using Node v22.15.1
+fnm default 24
+fnm use 24 # Using Node v24.15.0
 
 pm2 update
 
 pm2 info server
-# node.js version │ 22.15.1
+# node.js version │ 24.15.0
 ```

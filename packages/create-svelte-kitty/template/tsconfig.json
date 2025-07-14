@@ -9,7 +9,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		// Node.js 22 supports all ES2023 APIs.
+		// Node.js 24 supports all ES2023 APIs.
 		// Reference https://node.green/#ES2023
 		"lib": ["ES2023", "DOM", "DOM.Iterable"]
 	}
