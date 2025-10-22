@@ -12,7 +12,8 @@
 	const f = createFormHelper({
 		onAfterSubmit: ({ result, update }) =>
 			result.type === 'redirect'
-				? goto(page.url.searchParams.get('redirect') || result.location)
+				? // eslint-disable-next-line svelte/no-navigation-without-resolve
+					goto(page.url.searchParams.get('redirect') || result.location)
 				: update({ reset: false }),
 	});
 </script>
@@ -99,6 +100,7 @@
 		>
 			{t.continue}
 		</button>
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 		<a href="?" class="btn btn-secondary mt-2">{t['start-over']}</a>
 	{/if}
 </form>

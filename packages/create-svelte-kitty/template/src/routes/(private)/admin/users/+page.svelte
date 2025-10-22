@@ -15,8 +15,9 @@
 	<nav class="flex flex-wrap gap-3 overflow-x-auto whitespace-nowrap">
 		{#if !checkedUsers.length}
 			{@const showActive = !data.showDeactivated}
+			{@const href = showActive ? '?deactivated' : '?'}
 			<a
-				href={showActive ? '?deactivated' : '?'}
+				{href}
 				role="switch"
 				aria-checked={showActive}
 				class="btn btn-xs btn-secondary flex items-center gap-x-1.5"

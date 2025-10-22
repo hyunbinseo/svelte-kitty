@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { t } from './i18n.error';
 
@@ -22,6 +23,6 @@
 	</header>
 	<p class="mt-4">
 		{t['please-try-again']}
-		<a href="/" class="ua-anchor">{t['go-home']}</a>
+		<a href={resolve('/')} class="ua-anchor">{t['go-home']}</a>
 	</p>
 </main>
