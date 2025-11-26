@@ -27,7 +27,7 @@
 		"drizzle-orm": "^0.44.7",
 		"new-request": "^0.0.33",
 		"ulid": "^3.0.1",
-		"valibot": "^1.1.0"
+		"valibot": "^1.2.0"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.4.0",
