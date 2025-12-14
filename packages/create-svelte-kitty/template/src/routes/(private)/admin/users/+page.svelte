@@ -16,6 +16,7 @@
 		{#if !checkedUsers.length}
 			{@const showActive = !data.showDeactivated}
 			{@const href = showActive ? '?deactivated' : '?'}
+			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a
 				{href}
 				role="switch"
@@ -25,6 +26,7 @@
 				<span class="tw-checkbox" class:tw-checkbox-checked={showActive}></span>
 				{t['active-users']}
 			</a>
+			<!-- eslint-enable svelte/no-navigation-without-resolve -->
 		{:else}
 			<button type="reset" class="btn btn-xs btn-secondary">{t.reset}</button>
 			<!-- Even if the button is hidden, the form can be submitted using the enter key. -->

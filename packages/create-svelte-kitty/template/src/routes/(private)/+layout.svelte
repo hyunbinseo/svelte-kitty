@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidate } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { PUBLIC_ONBOARD_PATH, PUBLIC_PRIVATE_PATH } from '$env/static/public';
 	import Container from '$lib/components/Container.svelte';
@@ -96,13 +97,15 @@
 			<div class="hidden sm:contents">
 				{#each navLinks as [href, label] (href)}
 					{@const active = navLinkIsActive(href)}
+					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 					<a {href} class:active>{label}</a>
 				{/each}
 			</div>
 			<form method="post" use:enhance class="contents first:*:ml-auto">
 				{#if !isOnboarding && data.session.isAdmin}
-					{@const href = !isAdminPage ? '/admin' : PUBLIC_PRIVATE_PATH}
+					{@const href = !isAdminPage ? resolve('/admin') : PUBLIC_PRIVATE_PATH}
 					{@const text = !isAdminPage ? t.nav.admin : t.nav.home}
+					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 					<a {href}>{text}</a>
 				{/if}
 				<button formaction="/session/logout">{t.nav.logout}</button>
@@ -116,6 +119,7 @@
 		<nav class="bottom flex h-14 shadow-top *:flex-1">
 			{#each navLinks as [href, label] (href)}
 				{@const active = navLinkIsActive(href)}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 				<a {href} class:active>{label}</a>
 			{/each}
 		</nav>

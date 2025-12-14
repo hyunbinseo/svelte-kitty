@@ -24,13 +24,13 @@
 		"@hyunbinseo/tools": "^0.3.9",
 		"better-sqlite3": "^12.5.0",
 		"drizzle-kit": "^0.31.8",
-		"drizzle-orm": "^0.44.7",
-		"new-request": "^0.0.33",
+		"drizzle-orm": "^0.45.1",
+		"new-request": "^0.0.34",
 		"ulid": "^3.0.2",
 		"valibot": "^1.2.0"
 	},
 	"devDependencies": {
-		"@eslint/compat": "^1.4.1",
+		"@eslint/compat": "^2.0.0",
 		"@eslint/js": "^9.39.2",
 		"@sveltejs/adapter-node": "^5.4.0",
 		"@sveltejs/kit": "^2.49.2",

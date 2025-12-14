@@ -34,6 +34,7 @@
 		>
 			{#each navLinks as [href, label] (href)}
 				{@const active = navLinkIsActive(href)}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 				<a {href} class:active>{label}</a>
 			{/each}
 		</div>
@@ -44,6 +45,7 @@
 	<nav class="bottom flex h-14 shadow-top *:flex-1">
 		{#each navLinks as [href, label] (href)}
 			{@const active = navLinkIsActive(href)}
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 			<a {href} class:active>{label}</a>
 		{/each}
 	</nav>
