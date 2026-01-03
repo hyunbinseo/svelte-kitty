@@ -5,7 +5,6 @@ import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { ulid } from 'ulid';
 import { ip } from '../columns';
 import { loginExpiresInSeconds, loginOtpLength } from '../config';
-import { unixEpoch } from '../utilities';
 import { userTable } from './user';
 
 export const loginTable = sqliteTable(
@@ -21,7 +20,7 @@ export const loginTable = sqliteTable(
 			.$default(() => generatePINString(loginOtpLength)),
 		expiresAt: integer({ mode: 'timestamp' })
 			.notNull()
-			.default(unixEpoch({ offset: loginExpiresInSeconds })),
+			.$default(() => new Date(Date.now() + loginExpiresInSeconds * 1_000)),
 		expiredAt: integer({ mode: 'timestamp' }),
 		ip,
 	},
