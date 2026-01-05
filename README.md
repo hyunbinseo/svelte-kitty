@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This project is superseded by [svelte-kit-template](https://github.com/hyunbinseo/svelte-kit-template) and is no longer maintained.
+
 # Svelte Kitty 🐈
 
 A SvelteKit starter template built for self-hosting:

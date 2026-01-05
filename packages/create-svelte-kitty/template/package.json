@@ -4,8 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "svelte-kitty build",
-		"build:send": "svelte-kitty build --send",
+		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"start": "node build/start",
@@ -53,7 +52,6 @@
 		"svelte-check": "^4.3.4",
 		"svelte-form-enhanced": "^0.2.1",
 		"svelte-html-modal": "^3.2.0",
-		"svelte-kitty": "workspace:^",
 		"tailwindcss": "^3.4.19",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.49.0",

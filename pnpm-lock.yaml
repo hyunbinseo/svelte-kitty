@@ -160,9 +160,6 @@ importers:
       svelte-html-modal:
         specifier: ^3.2.0
         version: 3.2.0(svelte@5.46.0)
-      svelte-kitty:
-        specifier: workspace:^
-        version: link:../../svelte-kitty
       tailwindcss:
         specifier: ^3.4.19
         version: 3.4.19(yaml@2.8.1)
