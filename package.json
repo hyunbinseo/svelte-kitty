@@ -5,19 +5,19 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@changesets/cli": "^2.29.7",
-		"@eslint/compat": "^1.4.0",
-		"@eslint/js": "^9.38.0",
+		"@changesets/cli": "^2.29.8",
+		"@eslint/compat": "^1.4.1",
+		"@eslint/js": "^9.39.2",
 		"@types/eslint-config-prettier": "^6.11.3",
-		"@types/node": "^24.9.2",
-		"eslint": "^9.38.0",
+		"@types/node": "^24.10.9",
+		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
-		"globals": "^16.4.0",
-		"prettier": "^3.6.2",
-		"prettier-plugin-svelte": "^3.4.0",
-		"prettier-plugin-tailwindcss": "^0.7.1",
+		"globals": "^17.0.0",
+		"prettier": "^3.8.1",
+		"prettier-plugin-svelte": "^3.4.1",
+		"prettier-plugin-tailwindcss": "^0.7.2",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.46.2"
+		"typescript-eslint": "^8.53.1"
 	},
-	"packageManager": "pnpm@10.25.0+sha512.5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501"
+	"packageManager": "pnpm@10.28.1+sha512.7d7dbbca9e99447b7c3bf7a73286afaaf6be99251eb9498baefa7d406892f67b879adb3a1d7e687fc4ccc1a388c7175fbaae567a26ab44d1067b54fcb0d6a316"
 }
