@@ -11,8 +11,9 @@
 		"strict": true,
 		// Node.js 24 supports all ES2023 APIs.
 		// Reference https://node.green/#ES2023
-		"lib": ["ES2023", "DOM", "DOM.Iterable"]
-	}
+		"lib": ["ES2023", "DOM", "DOM.Iterable"],
+		"allowImportingTsExtensions": true,
+	},
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
 	// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files
 	//

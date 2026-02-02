@@ -1,9 +1,9 @@
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { ulid } from 'ulid';
-import { ip } from '../columns';
-import { sessionExpiresInSeconds } from '../config';
-import { loginTable } from './login';
-import { userTable } from './user';
+import { ip } from '../columns.ts';
+import { sessionExpiresInSeconds } from '../config.ts';
+import { loginTable } from './login.ts';
+import { userTable } from './user.ts';
 
 export const sessionTable = sqliteTable(
 	'session',
