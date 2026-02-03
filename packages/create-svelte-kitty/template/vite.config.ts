@@ -1,8 +1,8 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { globSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
-import { env } from 'node:process';
+import { join, resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import { BUILD_ID } from './shared.js';
 
 export default defineConfig({
 	build: { target: 'es2023' },
@@ -11,10 +11,7 @@ export default defineConfig({
 		{
 			name: 'delete-static',
 			closeBundle: () => {
-				const { BUILD_ID } = env;
-				if (!BUILD_ID) return;
-
-				const outDir = join(import.meta.dirname, './build', BUILD_ID);
+				const outDir = resolve(import.meta.dirname, `./build/${BUILD_ID}`);
 
 				const paths = globSync('./client/*', {
 					exclude: ['./client/_app'],

@@ -1,11 +1,11 @@
 import adapter from '@sveltejs/adapter-node';
-import { env } from 'node:process';
+import { BUILD_ID } from './shared.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
 		adapter: adapter({
-			out: env.BUILD_ID ? `build/${env.BUILD_ID}` : undefined,
+			out: `build/${BUILD_ID}`,
 		}),
 		appDir: '_app', // do not change
 	},
