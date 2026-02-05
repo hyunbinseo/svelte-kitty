@@ -8,8 +8,8 @@ import { and, eq, gt, isNull, lt, ne, sql } from 'drizzle-orm';
 import { union } from 'drizzle-orm/sqlite-core';
 import { decodeJwt, jwtVerify, SignJWT, type JWTPayload } from 'jose';
 import type { JOSEError } from 'jose/errors';
-import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config';
 import { db } from './db';
+import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config';
 import { roleTable, sessionBanTable, sessionTable, userTable, type Role } from './db/schema';
 import { pickTableColumns } from './db/utilities';
 
@@ -37,8 +37,8 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 
 	// The RETURNING clause can only return data to the application.
 	// It is not currently possible to divert the RETURNING output into another table or query.
-	// Reference https://sqlite.org/lang_returning.html#limitations_and_caveats
-	// Reference https://sqlite.org/forum/info/b412619373cdd1b5
+	// See https://sqlite.org/lang_returning.html#limitations_and_caveats
+	// See https://sqlite.org/forum/info/b412619373cdd1b5
 
 	const [session] = await db
 		.insert(sessionTable)

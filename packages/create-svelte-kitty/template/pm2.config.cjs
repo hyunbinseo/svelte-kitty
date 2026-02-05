@@ -1,4 +1,4 @@
-// Reference https://pm2.keymetrics.io/docs/usage/application-declaration/
+// See https://pm2.keymetrics.io/docs/usage/application-declaration/
 
 module.exports = {
 	/** @type {import('pm2-ecosystem').StartOptions[]} */

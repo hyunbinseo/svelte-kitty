@@ -53,12 +53,12 @@ Websites
 
 ```shell
 # Use the web console and the generated root account.
-# Reference https://docs.vultr.com/vultr-web-console-faq
+# See https://docs.vultr.com/vultr-web-console-faq
 
 root # Login after the initial boot and setup are complete.
 Password: # The password is shown alongside the IP address.
 
-tailscale up --ssh # Reference https://tailscale.com/kb/1080/cli#ssh
+tailscale up --ssh # See https://tailscale.com/kb/1080/cli#ssh
 ```
 
 4. In the Tailscale admin console, disable the server's [key expiry].
@@ -93,7 +93,7 @@ ssh webadmin@<vultr-instance-identifier>
 [cloudflared]: https://github.com/cloudflare/cloudflared#readme
 
 <!-- Cannot install fnm using `su` or `sudo -u` in runcmd. -->
-<!-- Reference https://github.com/Schniz/fnm/issues/1315 -->
+<!-- See https://github.com/Schniz/fnm/issues/1315 -->
 
 ```shell
 bash ~/init.sh # Setup fnm and PM2.

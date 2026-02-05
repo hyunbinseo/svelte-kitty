@@ -26,5 +26,5 @@ const ko: typeof en = {
 
 // Vite env variables are statically replaced at build time.
 // Unused translations are tree-shaken and not bundled.
-// Reference https://vitejs.dev/guide/env-and-mode
+// See https://vitejs.dev/guide/env-and-mode
 export const t = PUBLIC_LOCALE === 'ko' ? ko : en;

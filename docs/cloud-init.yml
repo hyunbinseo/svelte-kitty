@@ -16,7 +16,7 @@ users:
 
 yum_repos:
   cloudflared-stable:
-    # Reference https://pkg.cloudflare.com/index.html
+    # See https://pkg.cloudflare.com/index.html
     name: cloudflared-stable
     baseurl: https://pkg.cloudflare.com/cloudflared/rpm
     enabled: true
@@ -25,7 +25,7 @@ yum_repos:
     gpgkey: https://pkg.cloudflare.com/cloudflare-ascii-pubkey.gpg
 
   nginx-stable:
-    # Reference http://nginx.org/en/linux_packages.html#RHEL
+    # See http://nginx.org/en/linux_packages.html#RHEL
     name: nginx stable repo
     baseurl: http://nginx.org/packages/centos/$releasever/$basearch/
     enabled: true
@@ -34,7 +34,7 @@ yum_repos:
     module_hotfixes: true
 
   tailscale-stable:
-    # Reference https://tailscale.com/kb/1198/install-rhel-9
+    # See https://tailscale.com/kb/1198/install-rhel-9
     name: Tailscale stable
     baseurl: https://pkgs.tailscale.com/stable/rhel/9/$basearch
     enabled: true

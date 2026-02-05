@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<!-- Reference src/routes/+layout.svelte -->
+	<!-- See src/routes/+layout.svelte -->
 	<script>
 		{
 			var isSupported =

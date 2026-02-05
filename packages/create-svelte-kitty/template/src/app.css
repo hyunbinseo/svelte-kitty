@@ -17,8 +17,8 @@
 
 @layer utilities {
 	/* `dvh` has less browser support than `:has()`. */
-	/* Reference https://caniuse.com/mdn-api_css_dvh_static */
-	/* Reference https://github.com/tailwindlabs/tailwindcss/pull/11317#issuecomment-1821960839 */
+	/* See https://caniuse.com/mdn-api_css_dvh_static */
+	/* See https://github.com/tailwindlabs/tailwindcss/pull/11317#issuecomment-1821960839 */
 	.min-h-screen {
 		min-height: 100vh;
 		min-height: 100dvh;

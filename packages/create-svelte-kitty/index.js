@@ -80,11 +80,11 @@ ${
 		? '# Loaded in `vite dev`' //
 		: '# Loaded in `vite preview`\n# Also loaded in the `build/start.js` file.'
 }
-# Reference https://vite.dev/guide/env-and-mode
+# See https://vite.dev/guide/env-and-mode
 
 # By importing these secrets using the \`$env/dynamic/private\` module,
 # the environment variable can be updated without rebuilding the app.
-# Reference https://svelte.dev/docs/kit/$env-dynamic-private
+# See https://svelte.dev/docs/kit/$env-dynamic-private
 
 ROOT_ADMIN_CONTACT="${project.rootAdminContact}"
 
@@ -95,7 +95,7 @@ JWT_SECRET_CURRENT="${randomBytes(32).toString('base64')}"
 JWT_SECRET_EXPIRED=""
 `;
 
-// Reference https://github.com/bombshell-dev/clack/issues/172
+// See https://github.com/bombshell-dev/clack/issues/172
 const execAsync = promisify(exec);
 
 await p.tasks([
@@ -120,7 +120,7 @@ SERVER_DIRECTORY="server"
 			);
 			if (project.packageManager === 'pnpm') {
 				// Requires `pnpm@10.5+` but the pnpm version is not checked.
-				// Reference https://github.com/pnpm/pnpm/releases/tag/v10.5.0
+				// See https://github.com/pnpm/pnpm/releases/tag/v10.5.0
 				writeFileSync(
 					'pnpm-workspace.yaml',
 					`onlyBuiltDependencies:
@@ -175,4 +175,4 @@ node --run dev
 p.note(nextSteps, 'Next steps:');
 
 p.log.success(`You're all set!`);
-p.outro(`Reference ${styleText(['underline', 'cyan'], pkg.homepage)}`);
+p.outro(`See ${styleText(['underline', 'cyan'], pkg.homepage)}`);

@@ -7,7 +7,7 @@ form.stacked {
 			}
 			+ select,
 			+ textarea,
-			/* Reference https://tailwindcss-forms.vercel.app/kitchen-sink.html */
+			/* See https://tailwindcss-forms.vercel.app/kitchen-sink.html */
 			+ input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file']) {
 				@apply mt-1 block w-full;
 			}
@@ -28,6 +28,6 @@ form.underline {
 		@apply mt-0 border-0 border-b-2 border-gray-200 px-0 user-invalid:border-red-200;
 	}
 	select {
-		@apply pr-10; /* Reference https://github.com/tailwindlabs/tailwindcss-forms/pull/168 */
+		@apply pr-10; /* See https://github.com/tailwindlabs/tailwindcss-forms/pull/168 */
 	}
 }

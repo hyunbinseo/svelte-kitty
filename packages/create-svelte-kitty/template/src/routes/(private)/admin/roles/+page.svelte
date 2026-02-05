@@ -171,7 +171,7 @@
 			@apply tw-checkbox block aria-checked:tw-checkbox-checked;
 		}
 		/* The `:global()` modifier is used to preserve the CSS. */
-		/* Reference https://github.com/sveltejs/svelte/issues/1594 */
+		/* See https://github.com/sveltejs/svelte/issues/1594 */
 		&:global([aria-busy='true']) {
 			@apply btn-spinner;
 		}

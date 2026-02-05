@@ -5,8 +5,8 @@ import * as schema from './schema';
 
 // The `DATABASE_URL` variable differs in `dev`, `build`, and `preview`,
 // because Vite imports different `.env` files according to the mode.
-// Reference https://vitejs.dev/guide/env-and-mode#env-files
-// Reference https://vitejs.dev/guide/env-and-mode#modes
+// See https://vitejs.dev/guide/env-and-mode#env-files
+// See https://vitejs.dev/guide/env-and-mode#modes
 
 export const db = drizzle({
 	connection: { source: DATABASE_URL, fileMustExist: true },
@@ -15,19 +15,19 @@ export const db = drizzle({
 });
 
 // It's recommended to turn on WAL mode to greatly increase overall performance.
-// Reference https://github.com/WiseLibs/better-sqlite3/blob/master/docs/performance.md
+// See https://github.com/WiseLibs/better-sqlite3/blob/master/docs/performance.md
 
 if (!dev) db.$client.pragma('journal_mode = WAL');
 
 // Handle cases where `process` or `process.on` is unavailable in edge runtimes.
-// Reference https://developers.cloudflare.com/workers/runtime-apis/nodejs/process
-// Reference https://vercel.com/docs/functions/runtimes/edge-runtime
+// See https://developers.cloudflare.com/workers/runtime-apis/nodejs/process
+// See https://vercel.com/docs/functions/runtimes/edge-runtime
 
 if (
 	typeof process !== 'undefined' && //
 	typeof process.on === 'function'
 ) {
-	// Reference https://svelte.dev/docs/kit/adapter-node#graceful-shutdown
+	// See https://svelte.dev/docs/kit/adapter-node#graceful-shutdown
 	process.on('sveltekit:shutdown', async () => {
 		await db.$client.close();
 	});

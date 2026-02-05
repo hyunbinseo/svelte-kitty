@@ -2,8 +2,8 @@ import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
 import { authenticate } from '$lib/server/authentication';
-import { loginOtpLength } from '$lib/server/db/config';
 import { db } from '$lib/server/db';
+import { loginOtpLength } from '$lib/server/db/config';
 import { loginTable, roleTable, userTable } from '$lib/server/db/schema';
 import { pickTableColumns } from '$lib/server/db/utilities';
 import { parseOrErrorPage } from '$lib/utilities';
@@ -16,7 +16,7 @@ import type { PageServerLoad } from './$types';
 import { t } from './i18n';
 
 // Cannot prerender pages with actions. Magic link will result in a 500 server error.
-// Reference https://svelte.dev/docs/kit/page-options#prerender-when-not-to-prerender
+// See https://svelte.dev/docs/kit/page-options#prerender-when-not-to-prerender
 export const prerender = false;
 
 export const load = (async ({ locals, url }) => {

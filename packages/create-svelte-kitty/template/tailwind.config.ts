@@ -96,7 +96,7 @@ export default {
 					'line-height': '1.375rem', // 22px
 				},
 			});
-			// Reference https://github.com/tailwindlabs/tailwindcss/pull/12370
+			// See https://github.com/tailwindlabs/tailwindcss/pull/12370
 			addVariant('user-valid', '&:user-valid');
 			addVariant('user-invalid', '&:user-invalid');
 		}),
