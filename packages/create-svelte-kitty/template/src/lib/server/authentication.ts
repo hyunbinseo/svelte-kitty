@@ -7,11 +7,16 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { and, eq, gt, isNull, lt, ne, sql } from 'drizzle-orm';
 import { union } from 'drizzle-orm/sqlite-core';
 import { decodeJwt, jwtVerify, SignJWT, type JWTPayload } from 'jose';
-import type { JOSEError } from 'jose/errors';
+import { minLength, optional, parse, pipe, string, transform } from 'valibot';
 import { db } from './db';
 import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config';
 import { roleTable, sessionBanTable, sessionTable, userTable, type Role } from './db/schema';
 import { pickTableColumns } from './db/utilities';
+
+const SecretSchema = pipe(string(), minLength(1), transform(base64ToUint8Array));
+
+const SECRET_NEW = parse(SecretSchema, env.JWT_SECRET_CURRENT);
+const SECRET_OLD = parse(optional(SecretSchema), env.JWT_SECRET_EXPIRED);
 
 type Payload = {
 	profile?: null;
@@ -54,7 +59,7 @@ export const authenticate = async (e: RequestEvent, userId: string, loginId: str
 		.setProtectedHeader({ alg: 'HS256' })
 		.setIssuedAt(session.issuedAt)
 		.setExpirationTime(session.expiresAt)
-		.sign(base64ToUint8Array(env.JWT_SECRET_CURRENT));
+		.sign(SECRET_NEW);
 
 	e.cookies.set(SESSION_COOKIE_NAME, jwt, {
 		path: '/',
@@ -81,11 +86,14 @@ export const payloadToSession = (payload: Payload): NonNullable<App.Locals['sess
 };
 
 export const verifyJwt = async (jwt: string) => {
-	const result = await jwtVerify<Payload>(jwt, base64ToUint8Array(env.JWT_SECRET_CURRENT)) //
-		.catch((e: JOSEError) => {
-			if (!env.JWT_SECRET_EXPIRED) throw e;
-			return jwtVerify<Payload>(jwt, base64ToUint8Array(env.JWT_SECRET_EXPIRED));
-		});
+	const result = await (async () => {
+		if (!SECRET_OLD) return jwtVerify<Payload>(jwt, SECRET_NEW);
+		try {
+			return await jwtVerify<Payload>(jwt, SECRET_NEW);
+		} catch {
+			return await jwtVerify<Payload>(jwt, SECRET_OLD);
+		}
+	})();
 
 	const sessionBan = await db.query.sessionBanTable.findFirst({
 		columns: { sessionId: true },
