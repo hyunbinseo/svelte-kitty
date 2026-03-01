@@ -20,7 +20,7 @@
 		"noUncheckedIndexedAccess": true,
 		"exactOptionalPropertyTypes": true,
 		"allowUnreachableCode": false,
-		"allowUnusedLabels": false
+		"allowUnusedLabels": false,
 	},
-	"exclude": ["packages/create-svelte-kitty/template/"]
+	"exclude": ["packages/create-svelte-kitty/template/"],
 }
