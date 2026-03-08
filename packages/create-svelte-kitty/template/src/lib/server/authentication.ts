@@ -7,6 +7,7 @@ import { error, type RequestEvent } from '@sveltejs/kit';
 import { and, eq, gt, isNull, lt, ne, sql } from 'drizzle-orm';
 import { union } from 'drizzle-orm/sqlite-core';
 import { decodeJwt, jwtVerify, SignJWT, type JWTPayload } from 'jose';
+import { JWSSignatureVerificationFailed } from 'jose/errors';
 import { minLength, optional, parse, pipe, string, transform } from 'valibot';
 import { db } from './db';
 import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config';
@@ -87,11 +88,13 @@ export const payloadToSession = (payload: Payload): NonNullable<App.Locals['sess
 
 export const verifyJwt = async (jwt: string) => {
 	const result = await (async () => {
-		if (!SECRET_OLD) return jwtVerify<Payload>(jwt, SECRET_NEW);
 		try {
 			return await jwtVerify<Payload>(jwt, SECRET_NEW);
-		} catch {
-			return await jwtVerify<Payload>(jwt, SECRET_OLD);
+		} catch (e) {
+			if (e instanceof JWSSignatureVerificationFailed && SECRET_OLD) {
+				return await jwtVerify<Payload>(jwt, SECRET_OLD);
+			}
+			throw e;
 		}
 	})();
 
