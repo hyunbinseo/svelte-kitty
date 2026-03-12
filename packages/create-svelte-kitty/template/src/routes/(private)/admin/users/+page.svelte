@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { resolve } from '$app/paths';
 	import { createFormHelper } from 'svelte-form-enhanced';
 	import { decodeTime } from 'ulid';
 	import { t } from './i18n';
@@ -15,10 +16,8 @@
 	<nav class="flex flex-wrap gap-3 overflow-x-auto whitespace-nowrap">
 		{#if !checkedUsers.length}
 			{@const showActive = !data.showDeactivated}
-			{@const href = showActive ? '?deactivated' : '?'}
-			<!-- eslint-disable svelte/no-navigation-without-resolve -->
 			<a
-				{href}
+				href={resolve(showActive ? '/admin/users?deactivated' : '/admin/users?')}
 				role="switch"
 				aria-checked={showActive}
 				class="btn btn-xs btn-secondary flex items-center gap-x-1.5"
@@ -26,7 +25,6 @@
 				<span class="tw-checkbox" class:tw-checkbox-checked={showActive}></span>
 				{t['active-users']}
 			</a>
-			<!-- eslint-enable svelte/no-navigation-without-resolve -->
 		{:else}
 			<button type="reset" class="btn btn-xs btn-secondary">{t.reset}</button>
 			<!-- Even if the button is hidden, the form can be submitted using the enter key. -->

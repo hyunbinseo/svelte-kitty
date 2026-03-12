@@ -1,6 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import formStyles from '$lib/styles/form.module.css';
 	import { createFormHelper } from 'svelte-form-enhanced';
@@ -100,8 +101,7 @@
 		>
 			{t.continue}
 		</button>
-		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-		<a href="?" class="btn btn-secondary mt-2">{t['start-over']}</a>
+		<a href={resolve('/login?')} class="btn btn-secondary mt-2">{t['start-over']}</a>
 	{/if}
 </form>
 
