@@ -30,9 +30,7 @@ export default defineConfig(
 	{ ignores: ['.svelte-kit/', 'build/', 'dist/', 'drizzle/'] },
 	{
 		rules: {
-			'@typescript-eslint/no-restricted-imports': ['error', 'assert', 'node:assert'],
 			'no-console': ['error', { allow: ['warn', 'error'] }],
-			'no-restricted-imports': 'off',
 		},
 	},
 );

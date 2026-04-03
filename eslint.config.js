@@ -18,11 +18,7 @@ export default tseslint.config(
 	},
 	{
 		rules: {
-			'@typescript-eslint/no-restricted-imports': ['error', 'assert', 'node:assert'],
-			'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 			'no-console': ['error', { allow: ['warn', 'error'] }],
-			'no-restricted-imports': 'off',
-			'no-unused-vars': 'off',
 		},
 	},
 );
