@@ -11,6 +11,7 @@
 		"resolveJsonModule": true,
 
 		// Type Checking
+		"types": ["node"],
 		"strict": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
