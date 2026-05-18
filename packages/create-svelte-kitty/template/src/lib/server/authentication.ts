@@ -8,16 +8,16 @@ import { and, eq, gt, isNull, lt, ne, sql } from 'drizzle-orm';
 import { union } from 'drizzle-orm/sqlite-core';
 import { decodeJwt, jwtVerify, SignJWT, type JWTPayload } from 'jose';
 import { JWSSignatureVerificationFailed } from 'jose/errors';
-import { minLength, optional, parse, pipe, string, transform } from 'valibot';
+import { nonEmpty, optional, parse, pipe, string, transform } from 'valibot';
 import { db } from './db';
 import { sessionBanDelay, sessionBanDelayInSeconds } from './db/config';
 import { roleTable, sessionBanTable, sessionTable, userTable, type Role } from './db/schema';
 import { pickTableColumns } from './db/utilities';
 
-const SecretSchema = pipe(string(), minLength(1), transform(base64ToUint8Array));
+const SecretSchema = pipe(string(), nonEmpty(), transform(base64ToUint8Array));
 
-const SECRET_NEW = parse(SecretSchema, env.JWT_SECRET_CURRENT);
-const SECRET_OLD = parse(optional(SecretSchema), env.JWT_SECRET_EXPIRED);
+const SECRET_NEW = parse(SecretSchema, env.JWT_SECRET_NEW);
+const SECRET_OLD = parse(optional(SecretSchema), env.JWT_SECRET_OLD);
 
 type Payload = {
 	profile?: null;
