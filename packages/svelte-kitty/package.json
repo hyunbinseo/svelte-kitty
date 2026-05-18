@@ -9,7 +9,7 @@
 		"vite": "^7.1.5"
 	},
 	"dependencies": {
-		"prettier-plugin-tailwindcss": "^0.7.4",
+		"prettier-plugin-tailwindcss": "^0.8.0",
 		"valibot": "^1.4.0"
 	},
 	"devDependencies": {
