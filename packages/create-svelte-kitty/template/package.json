@@ -34,7 +34,7 @@
 		"@eslint/js": "^10.0.1",
 		"@sveltejs/adapter-node": "^5.5.4",
 		"@sveltejs/kit": "^2.60.1",
-		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"@sveltejs/vite-plugin-svelte": "^6.2.4",
 		"@tailwindcss/forms": "^0.5.11",
 		"@types/better-sqlite3": "^7.6.13",
 		"@types/node": "^24.12.4",
@@ -56,7 +56,7 @@
 		"tailwindcss": "^3.4.19",
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.59.3",
-		"vite": "^8.0.13"
+		"vite": "^7.3.3"
 	},
 	"engines": {
 		"node": ">=24.11"
