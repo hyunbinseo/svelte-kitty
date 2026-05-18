@@ -9,12 +9,12 @@
 		"vite": "^7.1.5"
 	},
 	"dependencies": {
-		"prettier-plugin-tailwindcss": "^0.7.2",
-		"valibot": "^1.3.1"
+		"prettier-plugin-tailwindcss": "^0.7.4",
+		"valibot": "^1.4.0"
 	},
 	"devDependencies": {
-		"@types/node": "^24.12.2",
-		"prettier": "^3.8.1"
+		"@types/node": "^24.12.4",
+		"prettier": "^3.8.3"
 	},
 	"engines": {
 		"node": ">=24.3"
