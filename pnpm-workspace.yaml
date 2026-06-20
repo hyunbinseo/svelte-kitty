@@ -4,4 +4,11 @@ packages:
 
 allowBuilds:
   better-sqlite3: true
-  esbuild: true
+  esbuild: false
+
+updateConfig:
+  ignoreDependencies:
+    - svelte-form-enhanced # deprecated
+    - '@sveltejs/vite-plugin-svelte' # 6
+    - tailwindcss # 3
+    - vite # 7
