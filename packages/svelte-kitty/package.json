@@ -10,7 +10,7 @@
 	},
 	"dependencies": {
 		"prettier-plugin-tailwindcss": "^0.8.0",
-		"valibot": "^1.4.1"
+		"valibot": "^1.4.2"
 	},
 	"devDependencies": {
 		"@types/node": "^24.13.2",
