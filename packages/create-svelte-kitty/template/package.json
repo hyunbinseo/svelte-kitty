@@ -44,7 +44,7 @@
 		"globals": "^17.6.0",
 		"jose": "^6.2.3",
 		"pm2-ecosystem": "^7.0.1",
-		"postcss": "^8.5.15",
+		"postcss": "^8.5.18",
 		"prettier": "^3.8.4",
 		"prettier-plugin-svelte": "^3.5.2",
 		"prettier-plugin-tailwindcss": "^0.8.0",
