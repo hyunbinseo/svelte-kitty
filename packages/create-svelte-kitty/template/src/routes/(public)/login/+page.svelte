@@ -10,11 +10,16 @@
 
 	let { data, form } = $props();
 
+	const redirectQuery = $derived.by(() => {
+		const param = page.url.searchParams.get('redirect');
+		return param ? `&redirect=${encodeURIComponent(param)}` : '';
+	});
+
 	const f = createFormHelper({
 		onAfterSubmit: ({ result, update }) =>
 			result.type === 'redirect'
 				? // eslint-disable-next-line svelte/no-navigation-without-resolve
-					goto(page.url.searchParams.get('redirect') || result.location)
+					goto(result.location)
 				: update({ reset: false }),
 	});
 </script>
@@ -82,7 +87,7 @@
 			</label>
 			<input type="hidden" name="id" value={form.loginId} />
 			<button
-				formaction="?/otp"
+				formaction={`?/otp${redirectQuery}`}
 				disabled={f.state === 'submitting'}
 				class="btn btn-primary mt-4 disabled:btn-spinner"
 			>
@@ -95,7 +100,7 @@
 		<input type="hidden" name="id" value={data.magicLinkLogin.id} />
 		<input type="hidden" name="code" value={data.magicLinkLogin.code} />
 		<button
-			formaction="?/magic"
+			formaction={`?/magic${redirectQuery}`}
 			disabled={f.state === 'submitting'}
 			class="btn btn-primary mt-4 disabled:btn-spinner"
 		>

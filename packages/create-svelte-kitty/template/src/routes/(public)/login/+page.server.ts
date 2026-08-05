@@ -1,6 +1,7 @@
 import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 import { PUBLIC_PRIVATE_PATH } from '$env/static/public';
+import { getRedirectUrl } from '$lib/server/auth/redirect.ts';
 import { authenticate } from '$lib/server/authentication';
 import { db } from '$lib/server/db';
 import { loginOtpLength } from '$lib/server/db/config';
@@ -175,7 +176,7 @@ export const actions = {
 			return fail(400, { error: 'LOGIN_EXPIRED' as const });
 
 		await authenticate(e, magicLinkLogin.userId, magicLinkLogin.id);
-		redirect(303, PUBLIC_PRIVATE_PATH);
+		redirect(303, getRedirectUrl(e.url) ?? PUBLIC_PRIVATE_PATH);
 	},
 	otp: async (e) => {
 		if (e.locals.session) redirect(303, PUBLIC_PRIVATE_PATH);
@@ -208,6 +209,6 @@ export const actions = {
 		if (otpLogin.expiresAt < new Date()) return fail(400, { error: 'LOGIN_EXPIRED' as const });
 
 		await authenticate(e, otpLogin.userId, otpLogin.id);
-		redirect(303, PUBLIC_PRIVATE_PATH);
+		redirect(303, getRedirectUrl(e.url) ?? PUBLIC_PRIVATE_PATH);
 	},
 };
