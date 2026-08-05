@@ -11,6 +11,12 @@ export default defineConfig({
 		sveltekit({
 			adapter: adapter({ out: env.SVELTE_KIT_NODE_ADAPTER_OUT }),
 			appDir: '_app', // do not change
+			compilerOptions: {
+				runes: ({ filename }) =>
+					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
+				experimental: { async: true },
+			},
+			experimental: { remoteFunctions: true },
 		}),
 		{
 			name: 'delete-static',

@@ -10,48 +10,19 @@
 - Use `type` over `interface`
 - Use arrow syntax over function expressions and declarations
 - Blank `//` comments can be used to force multiline formatting
-- Don't use `!` non-null assertions (except in Drizzle insert `.returning()`)
-
-```json
-{
-  "noUncheckedIndexedAccess": true,
-  "exactOptionalPropertyTypes": true
-}
-```
+- Don't use `!` non-null assertions
 
 ## Drizzle ORM
 
-- `src/lib/server/database/client.ts`
-- `src/lib/database/schema.ts`
-- `src/lib/database/relations.ts`
+- `src/lib/server/db/index.ts` — client
+- `src/lib/server/db/schema.ts` — barrel
+- `src/lib/server/db/schema/*.ts` — per-table schema, relations
 
 Retrieve only necessary columns:
 
 ```ts
 const users = await db.query.userTable.findMany({
   columns: { contact: true }, // never use false to exclude
-});
-```
-
-For `db.select`, use the sync API:
-
-```diff
-- await db.select().from(userTable);
-+ db.select().from(userTable).all(); // returns User[]
-+ db.select().from(userTable).get(); // returns User | undefined
-```
-
-For `db.query` API, use Relational Queries v2:
-
-```ts
-const users = await db.query.userTable.findMany({
-  // Sort keys in this order: orderBy, offset, where, columns, extras, with
-  orderBy: { id: 'asc' },
-  where: {
-    contact: '010', // same as `eq`
-    deactivatedAt: { isNull: true },
-    activeRoles: { role: 'admin' }, // filter by relations (uses subquery)
-  },
 });
 ```
 
@@ -63,7 +34,7 @@ uniqueIndex('active_user_role_user_id_role_idx')
   .where(isNull(table.revokedAt));
 ```
 
-- Don't hard `DELETE` — soft-delete via `deactivatedAt`/`revokedAt`
+- Don't hard `DELETE` — soft-delete (e.g. `deactivatedAt`, `revokedAt`)
 - Use `TRIGGER`s for cascades (e.g. deactivating a user should revoke all active roles)
 
 ```shell
@@ -87,17 +58,9 @@ SQLite has no async transactions — leave a comment instead:
 
 ## SvelteKit
 
-Call `getRequestEvent()` directly in utility functions instead of passing `event`
+### Forms
 
-### Environment Variables
-
-Define them in `src/env.ts` and import from `$app/env`:
-
-```ts
-import { browser } from '$app/env'; // SvelteKit provided
-import { SENTRY_DSN } from '$app/env/public';
-import { DATABASE_URL } from '$app/env/private';
-```
+`+page.server.ts` `actions` with `svelte-form-enhanced` can be used, but prefer remote `form`.
 
 ### Remote Functions
 
@@ -106,7 +69,7 @@ import { DATABASE_URL } from '$app/env/private';
 - Requests must be public or authenticated and authorized
 
 ```ts
-import { requireNoSession, requireSession } from '#lib/server/auth/session.ts';
+import { requireNoSession, requireSession } from '$lib/server/auth/session.ts';
 import { form, query } from '$app/server';
 
 export const getPublicPosts = query(async () => {
@@ -124,8 +87,6 @@ export const sendLoginCode = form(PublicSendCodeSchema, async (data, issue) => {
 
 #### `form`
 
-See `src/routes/login/` for conventions
-
 ```ts
 // src/lib/remotes/create-post.ts
 import { nonEmpty, object, pipe, string } from 'valibot';
@@ -138,7 +99,7 @@ export const CreatePostSchema = object({
 
 ```ts
 // src/lib/remotes/create-post.remote.ts
-import { db } from '#lib/server/database.ts';
+import { db } from '$lib/server/db';
 import { form } from '$app/server';
 import { invalid } from '@sveltejs/kit';
 import { CreatePostSchema } from './create-post.ts';
@@ -147,8 +108,7 @@ export const createPost = form(CreatePostSchema, async (data, issue) => {
   // Form data has already passed schema validation
   if (businessLogicFails) invalid(issue.title('ERROR_MESSAGE'));
 
-  // When inserting a single row, use [0]! to assert that a row is returned
-  const newPost = (await db.insert(postTable).values(data).returning())[0]!;
+  const [newPost] = await db.insert(postTable).values(data).returning();
 
   return newPost; // populates `createPost.result` in Svelte
 });
@@ -225,7 +185,7 @@ Check for browser API support at the client:
 
 ```svelte
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
 </script>
 
 <!-- Does not trigger a hydration mismatch -->
@@ -298,8 +258,8 @@ Derived values can be reassigned (e.g. optimistic UI); they revert when dependen
 Accepts async functions; cannot return a cleanup function:
 
 ```ts
-import { onMount, onDestroy } from 'svelte';
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
+import { onDestroy, onMount } from 'svelte';
 
 let mounted = true;
 
@@ -340,29 +300,26 @@ Svelte MCP provides Svelte 5 and SvelteKit docs:
 
 ## Tailwind CSS
 
-- Create utility components for shared styles in `src/routes/+layout.css`
-- Don't style individual form controls — use `StyledLabels.svelte` instead:
+- This project uses Tailwind CSS v3 (`tailwind.config.ts`), not v4
+- Define shared utility components as a plugin in `tailwind.config.ts`
+- Don't style individual form controls — use `$lib/styles/form.module.css` instead:
 
 ```svelte
 <script lang="ts">
-  import StyledLabels from '#lib/components/StyledLabels.svelte';
+  import formStyles from '$lib/styles/form.module.css';
 </script>
 
-<StyledLabels>
-  <form>
-    <label>
-      <span>이메일</span>
-      <input {...remoteForm.fields.contact.as('email')} />
-    </label>
-    <button
-      // utility components
-      class="btn btn-primary disabled:btn-busy"
-      disabled={!!remoteForm.pending}
-    >
-      인증번호 전송
-    </button>
-  </form>
-</StyledLabels>
+<form class={[formStyles.stacked, formStyles.underline]}>
+  <label>
+    <span>이메일</span>
+    <input name="contact" type="email" required />
+  </label>
+  <button
+    // utility components
+    class="btn btn-primary disabled:btn-spinner"
+    disabled={pending}>인증번호 전송</button
+  >
+</form>
 ```
 
 Use child selectors to avoid duplicate class names:
