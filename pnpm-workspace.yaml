@@ -3,7 +3,7 @@ packages:
   - packages/create-svelte-kitty/template
 
 allowBuilds:
-  better-sqlite3: true
+  better-sqlite3: false
   esbuild: false
 
 updateConfig:
