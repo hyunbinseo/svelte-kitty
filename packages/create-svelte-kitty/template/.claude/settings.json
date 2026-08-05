@@ -1,0 +1,15 @@
+{
+	"hooks": {
+		"PostToolUse": [
+			{
+				"matcher": "Edit|Write",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "node -e \"require('child_process').execSync('node node_modules/prettier/bin/prettier.cjs --write '+JSON.stringify(JSON.parse(require('fs').readFileSync(0,'utf8')).tool_input.file_path))\""
+					}
+				]
+			}
+		]
+	}
+}
