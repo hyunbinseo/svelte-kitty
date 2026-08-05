@@ -1,3 +1,4 @@
+import adapter from '@sveltejs/adapter-node';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { globSync, rmSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -7,7 +8,10 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	build: { target: 'es2023' },
 	plugins: [
-		sveltekit(),
+		sveltekit({
+			adapter: adapter({ out: env.SVELTE_KIT_NODE_ADAPTER_OUT }),
+			appDir: '_app', // do not change
+		}),
 		{
 			name: 'delete-static',
 			closeBundle: () => {
