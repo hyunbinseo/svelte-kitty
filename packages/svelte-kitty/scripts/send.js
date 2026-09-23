@@ -67,7 +67,6 @@ export const send = async ({ buildId, isDryRun }) => {
 + /static/***
 + /.env.production
 + /.env.production.local
-+ /.node-version
 + /drizzle.production.ts
 + /package.json
 + /pm2.config.cjs

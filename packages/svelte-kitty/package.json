@@ -10,14 +10,11 @@
 	},
 	"dependencies": {
 		"prettier-plugin-tailwindcss": "^0.8.1",
-		"valibot": "^1.4.2"
+		"valibot": "^1.5.0"
 	},
 	"devDependencies": {
-		"@types/node": "^24.13.3",
-		"prettier": "^3.9.6"
-	},
-	"engines": {
-		"node": ">=24.3"
+		"@types/node": "^24.13.6",
+		"prettier": "^3.9.8"
 	},
 	"author": "Hyunbin Seo",
 	"license": "MIT",
