@@ -1,11 +1,9 @@
 {
 	"scripts": {
-		"ci:release": "changeset publish",
 		"check": "tsc --noEmit"
 	},
 	"type": "module",
 	"devDependencies": {
-		"@changesets/cli": "^2.31.1",
 		"@eslint/js": "^10.0.1",
 		"@types/node": "^24.13.6",
 		"eslint": "^10.11.0",

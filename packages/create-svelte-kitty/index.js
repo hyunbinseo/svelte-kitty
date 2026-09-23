@@ -11,10 +11,6 @@ import { promisify, styleText } from 'node:util';
 import { email, pipe, safeParse, string } from 'valibot';
 import pkg from './package.json' with { type: 'json' };
 
-// NOTE The template's package.json only includes a "name" field because:
-// - @changesets/cli requires package.json files to include a "name" field.
-// - @changesets/cli ignores package.json files without a "version" field.
-
 // eslint-disable-next-line no-console
 console.clear();
 
