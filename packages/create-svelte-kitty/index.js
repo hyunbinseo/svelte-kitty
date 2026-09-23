@@ -114,16 +114,6 @@ SERVER_USERNAME="webadmin"
 SERVER_DIRECTORY="server"
 `,
 			);
-			if (project.packageManager === 'pnpm') {
-				// Requires `pnpm@10.5+` but the pnpm version is not checked.
-				// See https://github.com/pnpm/pnpm/releases/tag/v10.5.0
-				writeFileSync(
-					'pnpm-workspace.yaml',
-					`onlyBuiltDependencies:
-  - better-sqlite3
-  - esbuild\n`,
-				);
-			}
 			await timer;
 			return 'Successfully copied template';
 		},
