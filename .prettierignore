@@ -1,0 +1,5 @@
+# Package Managers
+pnpm-lock.yaml
+
+# Linted separately
+/packages/create-svelte-kitty/template/
